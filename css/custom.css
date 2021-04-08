@@ -1,0 +1,32 @@
+@font-face{
+  font-family:'Candyhome' ;  /* 字体名自定义即可 */
+  src:url('/fonts/candy.ttf'); /* 字体文件路径 */
+  font-display : swap;
+}
+
+h1#site-title {
+  font-family:'Candyhome', sans-serif;
+}
+
+.site-page span {
+  font-family:'Candyhome', sans-serif;
+}
+
+.site-page {
+  font-size: 18px !important;
+}
+
+.copyright {
+  font-family:'Candyhome', sans-serif;
+  font-size: 18px;
+}
+
+div#runtime {
+  margin-bottom: 10px !important;
+  color: #28bbbb;
+  animation: flashlight 1s linear infinite alternate;
+}
+
+h1.post-title {
+  font-family:'Candyhome', sans-serif;
+}
