@@ -39,13 +39,13 @@
   </entry>
   
   <entry>
-    <title>Update Diary</title>
+    <title>test1</title>
     <link href="https://linzeliang.top/2021/02/24/%E5%88%86%E7%B1%BB1/"/>
     <id>https://linzeliang.top/2021/02/24/%E5%88%86%E7%B1%BB1/</id>
     <published>2021-02-24T07:55:44.000Z</published>
     <updated>2021-02-24T09:29:23.000Z</updated>
     
-    <content type="html"><![CDATA[<p>本项目为糖果屋魔改教程的测试Demo，目前已经测试通过的魔改内容有：</p><ol><li>添加看板娘<ul><li><a href="https://akilar.top/posts/5b8f515f/">Live2d Widget</a></li></ul></li><li>Valine 评论添加 [博主，小伙伴，访客] 标签<ul><li><a href="https://akilar.top/posts/d2222705/">Valine Visitor Tag Beautify</a></li></ul></li><li>留言板动态弹出信封样式<ul><li><a href="https://akilar.top/posts/e2d3c450/">Envelope Style Comments Bar</a></li></ul></li><li>页脚电子钟计时 (原生)<ul><li><a href="https://akilar.top/posts/b941af/">Native JS Timer</a></li></ul></li><li>添加Github徽标<ul><li><a href="https://akilar.top/posts/e87ad7f8/">Add Github Badge</a></li></ul></li><li>修改加载动画内容<ul><li><a href="https://akilar.top/posts/3d221bf2/">Loading Animation</a></li></ul></li><li>添加外挂标签<ul><li><a href="https://akilar.top/posts/615e2dec/">Tag Plugins</a></li></ul></li><li>动画效果<ul><li><a href="https://akilar.top/posts/abab51cf/">Blog Animation — Wowjs</a></li></ul></li><li>友链魔改<ul><li><a href="https://akilar.top/posts/57291286/">Friend Link Card Beautify</a></li></ul></li><li>生肖时间轴<ul><li><a href="https://akilar.top/posts/22257072/">Archive Beautify</a></li></ul></li><li>版权美化<ul><li><a href="https://www.nesxc.com/post/hexocc.html">Nesxc-Butterfly版权美化</a></li></ul></li><li>首页分类磁贴<ul><li><a href="https://akilar.top/posts/a9131002/">Categories Magnet</a></li></ul></li><li>首页github提交日历<ul><li><a href="https://akilar.top/posts/1f9c68c9/">Gitcalendar</a></li></ul></li><li>基于 Butterfly 的侧边栏 Artitalk<ul><li><a href="https://akilar.top/posts/f1004b1d/">Sidebar Artitalk</a></li></ul></li><li>基于 swiper 的首页置顶轮播图<ul><li><a href="https://akilar.top/posts/8e1264d1/">Slider Bar</a></li></ul></li><li>基于Butterfly主题的侧边栏电子钟<ul><li><a href="https://akilar.top/posts/4e39cf4a/">Sidebar Card Clock</a></li></ul></li></ol>]]></content>
+    <content type="html"><![CDATA[<h1 id="test1"><a href="#test1" class="headerlink" title="test1"></a>test1</h1>]]></content>
     
     
     <summary type="html">更新记录</summary>
@@ -55,66 +55,16 @@
     <category term="分类1" scheme="https://linzeliang.top/categories/%E5%88%86%E7%B1%BB1/"/>
     
     
-    <category term="📁Hexo" scheme="https://linzeliang.top/tags/%F0%9F%93%81Hexo/"/>
-    
-    <category term="🦋Butterfly" scheme="https://linzeliang.top/tags/%F0%9F%A6%8BButterfly/"/>
-    
   </entry>
   
   <entry>
-    <title>Update Diary</title>
-    <link href="https://linzeliang.top/2021/02/24/%E5%88%86%E7%B1%BB2/"/>
-    <id>https://linzeliang.top/2021/02/24/%E5%88%86%E7%B1%BB2/</id>
-    <published>2021-02-24T07:55:44.000Z</published>
-    <updated>2021-02-24T09:29:23.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>本项目为糖果屋魔改教程的测试Demo，目前已经测试通过的魔改内容有：</p><ol><li>添加看板娘<ul><li><a href="https://akilar.top/posts/5b8f515f/">Live2d Widget</a></li></ul></li><li>Valine 评论添加 [博主，小伙伴，访客] 标签<ul><li><a href="https://akilar.top/posts/d2222705/">Valine Visitor Tag Beautify</a></li></ul></li><li>留言板动态弹出信封样式<ul><li><a href="https://akilar.top/posts/e2d3c450/">Envelope Style Comments Bar</a></li></ul></li><li>页脚电子钟计时 (原生)<ul><li><a href="https://akilar.top/posts/b941af/">Native JS Timer</a></li></ul></li><li>添加Github徽标<ul><li><a href="https://akilar.top/posts/e87ad7f8/">Add Github Badge</a></li></ul></li><li>修改加载动画内容<ul><li><a href="https://akilar.top/posts/3d221bf2/">Loading Animation</a></li></ul></li><li>添加外挂标签<ul><li><a href="https://akilar.top/posts/615e2dec/">Tag Plugins</a></li></ul></li><li>动画效果<ul><li><a href="https://akilar.top/posts/abab51cf/">Blog Animation — Wowjs</a></li></ul></li><li>友链魔改<ul><li><a href="https://akilar.top/posts/57291286/">Friend Link Card Beautify</a></li></ul></li><li>生肖时间轴<ul><li><a href="https://akilar.top/posts/22257072/">Archive Beautify</a></li></ul></li><li>版权美化<ul><li><a href="https://www.nesxc.com/post/hexocc.html">Nesxc-Butterfly版权美化</a></li></ul></li><li>首页分类磁贴<ul><li><a href="https://akilar.top/posts/a9131002/">Categories Magnet</a></li></ul></li><li>首页github提交日历<ul><li><a href="https://akilar.top/posts/1f9c68c9/">Gitcalendar</a></li></ul></li><li>基于 Butterfly 的侧边栏 Artitalk<ul><li><a href="https://akilar.top/posts/f1004b1d/">Sidebar Artitalk</a></li></ul></li><li>基于 swiper 的首页置顶轮播图<ul><li><a href="https://akilar.top/posts/8e1264d1/">Slider Bar</a></li></ul></li><li>基于Butterfly主题的侧边栏电子钟<ul><li><a href="https://akilar.top/posts/4e39cf4a/">Sidebar Card Clock</a></li></ul></li></ol>]]></content>
-    
-    
-    <summary type="html">更新记录</summary>
-    
-    
-    
-    <category term="分类2" scheme="https://linzeliang.top/categories/%E5%88%86%E7%B1%BB2/"/>
-    
-    
-    <category term="📁Hexo" scheme="https://linzeliang.top/tags/%F0%9F%93%81Hexo/"/>
-    
-    <category term="🦋Butterfly" scheme="https://linzeliang.top/tags/%F0%9F%A6%8BButterfly/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Update Diary</title>
-    <link href="https://linzeliang.top/2021/02/24/Update-Diary/"/>
-    <id>https://linzeliang.top/2021/02/24/Update-Diary/</id>
-    <published>2021-02-24T07:55:44.000Z</published>
-    <updated>2021-02-24T09:29:23.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>本项目为糖果屋魔改教程的测试Demo，目前已经测试通过的魔改内容有：</p><ol><li>添加看板娘<ul><li><a href="https://akilar.top/posts/5b8f515f/">Live2d Widget</a></li></ul></li><li>Valine 评论添加 [博主，小伙伴，访客] 标签<ul><li><a href="https://akilar.top/posts/d2222705/">Valine Visitor Tag Beautify</a></li></ul></li><li>留言板动态弹出信封样式<ul><li><a href="https://akilar.top/posts/e2d3c450/">Envelope Style Comments Bar</a></li></ul></li><li>页脚电子钟计时 (原生)<ul><li><a href="https://akilar.top/posts/b941af/">Native JS Timer</a></li></ul></li><li>添加Github徽标<ul><li><a href="https://akilar.top/posts/e87ad7f8/">Add Github Badge</a></li></ul></li><li>修改加载动画内容<ul><li><a href="https://akilar.top/posts/3d221bf2/">Loading Animation</a></li></ul></li><li>添加外挂标签<ul><li><a href="https://akilar.top/posts/615e2dec/">Tag Plugins</a></li></ul></li><li>动画效果<ul><li><a href="https://akilar.top/posts/abab51cf/">Blog Animation — Wowjs</a></li></ul></li><li>友链魔改<ul><li><a href="https://akilar.top/posts/57291286/">Friend Link Card Beautify</a></li></ul></li><li>生肖时间轴<ul><li><a href="https://akilar.top/posts/22257072/">Archive Beautify</a></li></ul></li><li>版权美化<ul><li><a href="https://www.nesxc.com/post/hexocc.html">Nesxc-Butterfly版权美化</a></li></ul></li><li>首页分类磁贴<ul><li><a href="https://akilar.top/posts/a9131002/">Categories Magnet</a></li></ul></li><li>首页github提交日历<ul><li><a href="https://akilar.top/posts/1f9c68c9/">Gitcalendar</a></li></ul></li><li>基于 Butterfly 的侧边栏 Artitalk<ul><li><a href="https://akilar.top/posts/f1004b1d/">Sidebar Artitalk</a></li></ul></li><li>基于 swiper 的首页置顶轮播图<ul><li><a href="https://akilar.top/posts/8e1264d1/">Slider Bar</a></li></ul></li><li>基于Butterfly主题的侧边栏电子钟<ul><li><a href="https://akilar.top/posts/4e39cf4a/">Sidebar Card Clock</a></li></ul></li></ol>]]></content>
-    
-    
-    <summary type="html">更新记录</summary>
-    
-    
-    
-    <category term="🍡Akilarの糖葫芦" scheme="https://linzeliang.top/categories/%F0%9F%8D%A1Akilar%E3%81%AE%E7%B3%96%E8%91%AB%E8%8A%A6/"/>
-    
-    
-    <category term="📁Hexo" scheme="https://linzeliang.top/tags/%F0%9F%93%81Hexo/"/>
-    
-    <category term="🦋Butterfly" scheme="https://linzeliang.top/tags/%F0%9F%A6%8BButterfly/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Update Diary</title>
+    <title>test3</title>
     <link href="https://linzeliang.top/2021/02/24/%E5%88%86%E7%B1%BB3/"/>
     <id>https://linzeliang.top/2021/02/24/%E5%88%86%E7%B1%BB3/</id>
     <published>2021-02-24T07:55:44.000Z</published>
     <updated>2021-02-24T09:29:23.000Z</updated>
     
-    <content type="html"><![CDATA[<p>本项目为糖果屋魔改教程的测试Demo，目前已经测试通过的魔改内容有：</p><ol><li>添加看板娘<ul><li><a href="https://akilar.top/posts/5b8f515f/">Live2d Widget</a></li></ul></li><li>Valine 评论添加 [博主，小伙伴，访客] 标签<ul><li><a href="https://akilar.top/posts/d2222705/">Valine Visitor Tag Beautify</a></li></ul></li><li>留言板动态弹出信封样式<ul><li><a href="https://akilar.top/posts/e2d3c450/">Envelope Style Comments Bar</a></li></ul></li><li>页脚电子钟计时 (原生)<ul><li><a href="https://akilar.top/posts/b941af/">Native JS Timer</a></li></ul></li><li>添加Github徽标<ul><li><a href="https://akilar.top/posts/e87ad7f8/">Add Github Badge</a></li></ul></li><li>修改加载动画内容<ul><li><a href="https://akilar.top/posts/3d221bf2/">Loading Animation</a></li></ul></li><li>添加外挂标签<ul><li><a href="https://akilar.top/posts/615e2dec/">Tag Plugins</a></li></ul></li><li>动画效果<ul><li><a href="https://akilar.top/posts/abab51cf/">Blog Animation — Wowjs</a></li></ul></li><li>友链魔改<ul><li><a href="https://akilar.top/posts/57291286/">Friend Link Card Beautify</a></li></ul></li><li>生肖时间轴<ul><li><a href="https://akilar.top/posts/22257072/">Archive Beautify</a></li></ul></li><li>版权美化<ul><li><a href="https://www.nesxc.com/post/hexocc.html">Nesxc-Butterfly版权美化</a></li></ul></li><li>首页分类磁贴<ul><li><a href="https://akilar.top/posts/a9131002/">Categories Magnet</a></li></ul></li><li>首页github提交日历<ul><li><a href="https://akilar.top/posts/1f9c68c9/">Gitcalendar</a></li></ul></li><li>基于 Butterfly 的侧边栏 Artitalk<ul><li><a href="https://akilar.top/posts/f1004b1d/">Sidebar Artitalk</a></li></ul></li><li>基于 swiper 的首页置顶轮播图<ul><li><a href="https://akilar.top/posts/8e1264d1/">Slider Bar</a></li></ul></li><li>基于Butterfly主题的侧边栏电子钟<ul><li><a href="https://akilar.top/posts/4e39cf4a/">Sidebar Card Clock</a></li></ul></li></ol>]]></content>
+    <content type="html"><![CDATA[<h1 id="test3"><a href="#test3" class="headerlink" title="test3"></a>test3</h1>]]></content>
     
     
     <summary type="html">更新记录</summary>
@@ -122,6 +72,29 @@
     
     
     <category term="分类3" scheme="https://linzeliang.top/categories/%E5%88%86%E7%B1%BB3/"/>
+    
+    
+    <category term="📁Hexo" scheme="https://linzeliang.top/tags/%F0%9F%93%81Hexo/"/>
+    
+    <category term="🦋Butterfly" scheme="https://linzeliang.top/tags/%F0%9F%A6%8BButterfly/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>test2</title>
+    <link href="https://linzeliang.top/2021/02/24/%E5%88%86%E7%B1%BB2/"/>
+    <id>https://linzeliang.top/2021/02/24/%E5%88%86%E7%B1%BB2/</id>
+    <published>2021-02-24T07:55:44.000Z</published>
+    <updated>2021-02-24T09:29:23.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="test2"><a href="#test2" class="headerlink" title="test2"></a>test2</h1>]]></content>
+    
+    
+    <summary type="html">更新记录</summary>
+    
+    
+    
+    <category term="分类2" scheme="https://linzeliang.top/categories/%E5%88%86%E7%B1%BB2/"/>
     
     
     <category term="📁Hexo" scheme="https://linzeliang.top/tags/%F0%9F%93%81Hexo/"/>
