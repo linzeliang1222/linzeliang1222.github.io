@@ -4,7 +4,7 @@
  document.addEventListener('visibilitychange', function () {
      if (document.hidden) {
          $('[rel="icon"]').attr('href', "/joke.ico");
-         document.title = '！！这里这里 ◕ ں ◕ ';
+         document.title = '这里这里 ◕ ں ◕ ';
          clearTimeout(titleTime);
      }
      else {

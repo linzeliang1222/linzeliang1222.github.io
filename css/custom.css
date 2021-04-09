@@ -101,3 +101,8 @@ svg.icon {
 a, a:hover {
   cursor: url('/cursor/Hand.cur'),pointer !important;
 }
+
+div#rightside-config-show button, div#rightside-config-hide button {
+  opacity: 0.7 !important;
+  border-radius: 8px !important;
+}
