@@ -106,3 +106,15 @@ div#rightside-config-show button, div#rightside-config-hide button, a {
   opacity: 0.7 !important;
   border-radius: 8px !important;
 }
+
+div.social-share a.icon-facebook, div.social-share a.icon-twitter {
+  display: none;
+}
+
+div.vpower.txt-right {
+  display: none;
+}
+
+div.vwrap {
+  border: 2px solid #675a5a !important;
+}
