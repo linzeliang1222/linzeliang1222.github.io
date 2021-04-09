@@ -102,7 +102,7 @@ a, a:hover {
   cursor: url('/cursor/Hand.cur'),pointer !important;
 }
 
-div#rightside-config-show button, div#rightside-config-hide button, div#rightside-config-show a {
+div#rightside-config-show button, div#rightside-config-hide button, div#rightside-config-show a i {
   opacity: 0.7 !important;
   border-radius: 10px !important;
 }
