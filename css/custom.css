@@ -1,4 +1,4 @@
-@import url("//at.alicdn.com/t/font_2477090_y6tx2dhydno.css"); /*阿里巴巴图标*/
+@import url("//at.alicdn.com/t/font_2477090_5ucnw547xqx.css"); /*阿里巴巴图标*/
 
 @font-face{
   font-family:'Candyhome' ;  /* 字体名自定义即可 */
@@ -120,4 +120,8 @@ div.vpower.txt-right {
 
 div.vwrap {
   border: 2px solid #675a5a !important;
+}
+
+a.magnet_link_more {
+  font-family:'Candyhome', sans-serif;
 }
