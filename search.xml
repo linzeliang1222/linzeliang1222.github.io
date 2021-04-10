@@ -52,7 +52,7 @@
       <link href="2021/04/09/%E5%88%86%E7%B1%BB1/"/>
       <url>2021/04/09/%E5%88%86%E7%B1%BB1/</url>
       
-        <content type="html"><![CDATA[<h1 id="test1"><a href="#test1" class="headerlink" title="test1"></a>test1</h1>]]></content>
+        <content type="html"><![CDATA[<h1 id="test1"><a href="#test1" class="headerlink" title="test1"></a>test1</h1>        <div id="aplayer-lrWFBEti" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">            <pre class="aplayer-lrc-content"></pre>        </div>        <script>          var ap = new APlayer({            element: document.getElementById("aplayer-lrWFBEti"),            narrow: false,            autoplay: false,            showlrc: false,            music: {              title: "China-Y",              author: "徐梦圆",              url: "https://www.ytmp3.cn/down/59298.mp3",              pic: "",              lrc: ""            }          });          window.aplayers || (window.aplayers = []);          window.aplayers.push(ap);        </script>]]></content>
       
       
       <categories>
@@ -80,33 +80,6 @@
           
       </categories>
       
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>test3</title>
-      <link href="2021/02/24/%E5%88%86%E7%B1%BB3/"/>
-      <url>2021/02/24/%E5%88%86%E7%B1%BB3/</url>
-      
-        <content type="html"><![CDATA[<h1 id="test3"><a href="#test3" class="headerlink" title="test3"></a>test3</h1>]]></content>
-      
-      
-      <categories>
-          
-          <category> 分类3 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 📁Hexo </tag>
-            
-            <tag> 🦋Butterfly </tag>
-            
-        </tags>
       
     </entry>
     
