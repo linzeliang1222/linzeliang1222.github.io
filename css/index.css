@@ -8895,7 +8895,6 @@ div#post li,
   left: 0px !important;
 }
 body,
-span,
 html {
   cursor: url("/cursor/arrow.cur"), auto !important;
 }
@@ -8906,7 +8905,7 @@ a:hover {
   cursor: url("/cursor/hand.cur"), auto;
 }
 input:hover {
-  cursor: url("/cursor/input.cur"), auto;
+  cursor: url("/cursor/arrow.cur"), auto;
 }
 button:hover {
   cursor: url("/cursor/hand.cur"), auto;
