@@ -8902,13 +8902,13 @@ img {
   cursor: url("/cursor/Arrow.cur"), auto !important;
 }
 a:hover {
-  cursor: url("/cursor/hand.cur"), auto;
+  cursor: url("/cursor/Hand.cur"), auto;
 }
 input:hover {
   cursor: url("/cursor/Arrow.cur"), auto;
 }
 button:hover {
-  cursor: url("/cursor/hand.cur"), auto;
+  cursor: url("/cursor/Hand.cur"), auto;
 }
 i:hover {
   cursor: url("/cursor/Arrow.cur"), auto;
@@ -8917,10 +8917,10 @@ i:hover {
   cursor: url("/cursor/Arrow.cur"), auto;
 }
 #pagination .page-number:hover {
-  cursor: url("/cursor/hand.cur"), auto;
+  cursor: url("/cursor/Hand.cur"), auto;
 }
 #nav .site-page:hover {
-  cursor: url("/cursor/hand.cur"), auto;
+  cursor: url("/cursor/Hand.cur"), auto;
 }
 ::-webkit-scrollbar {
   width: 8px;
