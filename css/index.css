@@ -8896,25 +8896,25 @@ div#post li,
 }
 body,
 html {
-  cursor: url("/cursor/point.cur"), auto !important;
+  cursor: url("/cursor/Arrow.cur"), auto !important;
 }
 img {
-  cursor: url("/cursor/point.cur"), auto !important;
+  cursor: url("/cursor/Arrow.cur"), auto !important;
 }
 a:hover {
   cursor: url("/cursor/hand.cur"), auto;
 }
 input:hover {
-  cursor: url("/cursor/point.cur"), auto;
+  cursor: url("/cursor/Arrow.cur"), auto;
 }
 button:hover {
   cursor: url("/cursor/hand.cur"), auto;
 }
 i:hover {
-  cursor: url("/cursor/point.cur"), auto;
+  cursor: url("/cursor/Arrow.cur"), auto;
 }
 #footer-wrap a:hover {
-  cursor: url("/cursor/point.cur"), auto;
+  cursor: url("/cursor/Arrow.cur"), auto;
 }
 #pagination .page-number:hover {
   cursor: url("/cursor/hand.cur"), auto;
