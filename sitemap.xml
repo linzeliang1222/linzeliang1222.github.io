@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://linzeliang.top/2021/04/27/springmvc-note-1/</loc>
+    
+    <lastmod>2021-04-29</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://linzeliang.top/2021/04/29/springmvc-note-2/</loc>
+    
+    <lastmod>2021-04-29</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://linzeliang.top/2021/04/29/springmvc-note-3/</loc>
+    
+    <lastmod>2021-04-29</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://linzeliang.top/2021/04/29/springmvc-note-4/</loc>
+    
+    <lastmod>2021-04-29</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://linzeliang.top/2021/04/12/mybatis-note-4/</loc>
     
     <lastmod>2021-04-24</lastmod>
@@ -130,7 +158,7 @@
 
   <url>
     <loc>https://linzeliang.top/</loc>
-    <lastmod>2021-04-24</lastmod>
+    <lastmod>2021-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -138,14 +166,21 @@
   
   <url>
     <loc>https://linzeliang.top/tags/MyBatis/</loc>
-    <lastmod>2021-04-24</lastmod>
+    <lastmod>2021-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://linzeliang.top/tags/Spring/</loc>
-    <lastmod>2021-04-24</lastmod>
+    <lastmod>2021-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://linzeliang.top/tags/SpringMVC/</loc>
+    <lastmod>2021-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -154,7 +189,7 @@
   
   <url>
     <loc>https://linzeliang.top/categories/%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2021-04-24</lastmod>
+    <lastmod>2021-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
