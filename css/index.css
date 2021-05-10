@@ -8764,6 +8764,9 @@ li.categoryBar-list-item:nth-child(10) {
 li.categoryBar-list-item:nth-child(1)>span::after {
   content: '框架学习与应用' !important;
 }
+li.categoryBar-list-item:nth-child(2)>span::after {
+  content: '力扣刷题' !important;
+}
 li.categoryBar-list-item {
   width: 32.3% !important;
 }
