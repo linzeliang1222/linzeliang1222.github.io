@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://linzeliang.top/2021/05/12/mysql-57-80-install/</loc>
+    <lastmod>2021-05-11</lastmod>
+  </url>
+  <url>
     <loc>https://linzeliang.top/2021/05/10/leetcode-add-to-array-form-of-integer/</loc>
     <lastmod>2021-05-10</lastmod>
   </url>
