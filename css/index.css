@@ -8767,6 +8767,9 @@ li.categoryBar-list-item:nth-child(1)>span::after {
 li.categoryBar-list-item:nth-child(2)>span::after {
   content: '力扣刷题' !important;
 }
+li.categoryBar-list-item:nth-child(3)>span::after {
+  content: '数据库学习' !important;
+}
 li.categoryBar-list-item {
   width: 32.3% !important;
 }
@@ -8778,7 +8781,7 @@ li.categoryBar-list-item {
   }
 }
 .categoryBar-list {
-  max-height: 190px;
+  max-height: 380px;
   overflow: auto;
 }
 .categoryBar-list::-webkit-scrollbar {
@@ -8786,7 +8789,7 @@ li.categoryBar-list-item {
 }
 @media screen and (max-width: 650px) {
   .categoryBar-list {
-    max-height: 160px;
+    max-height: 320px;
   }
 }
 a > img,
