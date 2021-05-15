@@ -4,19 +4,6 @@
   
     
     <entry>
-      <title></title>
-      <link href="2021/05/16/%E6%96%B0%E5%BB%BA%20md/"/>
-      <url>2021/05/16/%E6%96%B0%E5%BB%BA%20md/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>力扣 - 232. 用栈实现队列</title>
       <link href="2021/05/14/leetcode-implement-queue-using-stacks/"/>
       <url>2021/05/14/leetcode-implement-queue-using-stacks/</url>
@@ -184,6 +171,31 @@
         <tags>
             
             <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>浅谈单调栈</title>
+      <link href="2021/05/11/%E6%96%B0%E5%BB%BA%20md/"/>
+      <url>2021/05/11/%E6%96%B0%E5%BB%BA%20md/</url>
+      
+        <content type="html"><![CDATA[<p><strong>什么是单调栈？</strong></p><ul><li>单调栈实际上就是栈，只是限制要比普通的栈更严格而已了。要求是每次入栈的元素必须要有序（如果新元素入栈不符合要求，则将之前的元素出栈，直到符合要求再入栈），使之形成<strong>单调递增/单调递</strong>减的一个栈。</li></ul><p>比如我们有一个数组：</p><p><img src= "/img/loading.gif" data-lazy-src="https://gitee.com/linzeliang1222/picture/raw/master/2067154-20201108091900872-437468476.png" alt=""></p><ul><li><p><strong>单调递增栈：</strong>只有比他小的才直接入栈，如果大于就先出栈再入栈（<strong>在出栈的时候可以进行一些操作计算</strong>，如求温度那一题就是在出栈时候计算第一个大于该值他们之间的距离）。适用于求解第一个大于该位置元素的数</p></li><li><p><strong>单调递减栈：</strong>只有比他大的才入栈，如果小于的话，也是先出栈再入栈。适用于求第一个小于该位置元素的数</p></li><li>如何判断是 单调<strong>递增/递减</strong>栈 是按照出栈的顺序决定的，比如栈为 {1, 2, 6}，出栈后，为{6, 2, 1}，这是递减顺序的，所以就是单调递减栈了</li></ul><p>单调栈适合的题目是求解 <strong>第一个大于 xxx</strong> 或者 <strong>第一个小于 xxx</strong> 这种题目。当出现类似题目时候应该优先想到使用单调栈来解题。</p><hr><p>我们来举一个单调递减栈的例子：</p><ul><li><strong>比如我们要将数组 {1, 3, 4, 5, 2, 9, 6} 压入栈：</strong></li></ul><ol><li>首先1入栈，此时栈为：{1}</li><li>接下来是3，由于 3 &gt; 1 ，直接入栈，此时栈为：{1, 3}</li><li>接下来是4，由于 4 &gt; 3 ，直接入栈，此时栈为：{1, 3, 4}</li><li>接下来是5，由于 4 &gt; 3 ，直接入栈，此时栈为：{1, 3, 4, 5}</li><li><strong>接下来</strong>是2，因为 2 &lt; 5，不满足条件，所以我们将5出栈，此时栈为：{1, 3, 4}</li><li>然后再将2与4比较，因为 2 &lt; 4 ，还是不满足条件，所以再将4出栈，此时栈为：{1, 3}</li><li>然后再将2与3比较，因为 2 &lt; 3 ，还是不满足条件，所以再将3出栈，此时栈为：{1}</li><li>然后将2与1比较，因为 2 &gt; 1 ，满足条件，将2入栈，此时栈为：{1, 2}</li><li>接下来是9，由于 9 &gt; 2 ，直接入栈，此时栈为：{1, 2, 9}</li><li><strong>接下来</strong>是6，因为 6 &lt; 9 ，不满足条件，将9出栈，此时栈为：{1, 2}</li><li>然后6与2比较，6 &gt; 2 ，满足条件，6入栈，此时栈为{1, 2, 6}</li><li>最后，目标数组都遍历完了，我们就得到了该结果</li></ol><hr><p>现在有这样一个题目：</p><ul><li>给你一个数组，返回一个等长的数组，对应索引存储着下一个更大的元素，如果没有更大的元素，就存-1。这个要怎么解呢？<ul><li>如果输入的是{2, 1, 2, 4, 3}，那么我们会得到结果{4, 2, 4, -1, -1}</li><li>这个结果是怎么得来的捏？向右扫描，比2大的第一个数是4，比1大的第一个数是2，没有比4大的数(4 &gt; 3)，也没有比3大的数(3 == 3)，所以这两个为-1</li></ul></li></ul><p>可以尝试一下做下这一题：<a href="https://leetcode-cn.com/problems/daily-temperatures/">739. 每日温度</a></p><p>经过多次做题总结，不难发现，其实是有<strong>套路模板</strong>的，以后做题只需要修改一些即可：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] monotonousStack(<span class="keyword">int</span>[] T) &#123;</span><br><span class="line">        LinkedList&lt;Integer&gt; stack = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        <span class="comment">// 用来存放第一个大于该位置元素的距离</span></span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[T.length];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; T.length; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!stack.isEmpty() &amp;&amp; T[i] &gt; T[stack.peek()]) &#123;</span><br><span class="line">                <span class="keyword">int</span> peek = stack.pop();</span><br><span class="line">                <span class="comment">// i - peek 是求解在peek的右边中，第一个大于T[peek]的元素</span></span><br><span class="line">                res[peek] = i - peek;</span><br><span class="line">            &#125;</span><br><span class="line">            stack.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>「复杂度分析」</strong></p><ul><li>时间复杂度：由于数组的元素最多只会入栈，出栈一次，因此时间复杂度仍然是$O(N)$ ，其中 N 为数组长度</li><li>空间复杂度：由于使用了栈， 并且栈的长度最大是和数组长度一致，因此空间复杂度是 $O(N)$，其中 N 为数组长度</li></ul><p>对于有些时候，如果会用到数组的<strong>全部元素</strong>，即栈中的元素最后都要出栈，那么很可能因为没有考虑边界而无法通过。所以我们可以使用 <strong>哨兵法</strong> ，在 {1, 3, 4, 5, 2, 9, 6} 末尾添加一个 -1 作为哨兵，变成了 {1, 3, 4, 5, 2, 9, 6, -1} ，这种技巧可以简化代码逻辑。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法知识 </tag>
             
         </tags>
       
