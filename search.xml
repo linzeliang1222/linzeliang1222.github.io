@@ -79,31 +79,6 @@
     
     
     <entry>
-      <title>xxx</title>
-      <link href="2021/05/12/leetcode-max-chunks-to-make-sorted-ii/"/>
-      <url>2021/05/12/leetcode-max-chunks-to-make-sorted-ii/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      <categories>
-          
-          <category> 算法 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 算法知识 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>力扣 - 1381. 设计一个支持增量操作的栈</title>
       <link href="2021/05/12/leetcode-design-a-stack-with-increment-operation/"/>
       <url>2021/05/12/leetcode-design-a-stack-with-increment-operation/</url>
@@ -121,6 +96,31 @@
         <tags>
             
             <tag> LeetCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>xxx</title>
+      <link href="2021/05/12/leetcode-max-chunks-to-make-sorted-ii/"/>
+      <url>2021/05/12/leetcode-max-chunks-to-make-sorted-ii/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法知识 </tag>
             
         </tags>
       
