@@ -8768,7 +8768,7 @@ li.categoryBar-list-item:nth-child(2)>span::after {
   content: '框架学习与应用' !important;
 }
 li.categoryBar-list-item:nth-child(3)>span::after {
-  content: '力扣刷题' !important;
+  content: '数据结构与算法' !important;
 }
 li.categoryBar-list-item {
   width: 32.3% !important;
