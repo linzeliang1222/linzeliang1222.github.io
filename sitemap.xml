@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://linzeliang.top/2021/05/16/qian-tan-dan-diao-zhan/</loc>
+    <loc>https://linzeliang.top/2021/05/12/qian-tan-dan-diao-zhan/</loc>
     
     <lastmod>2021-05-15</lastmod>
     
@@ -256,6 +256,13 @@
   </url>
   
   <url>
+    <loc>https://linzeliang.top/tags/%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86/</loc>
+    <lastmod>2021-05-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://linzeliang.top/tags/MySQL/</loc>
     <lastmod>2021-05-15</lastmod>
     <changefreq>daily</changefreq>
@@ -264,13 +271,6 @@
   
   <url>
     <loc>https://linzeliang.top/tags/Spring/</loc>
-    <lastmod>2021-05-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://linzeliang.top/tags/%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86/</loc>
     <lastmod>2021-05-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
