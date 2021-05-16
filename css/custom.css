@@ -1,25 +1,10 @@
 @import url("//at.alicdn.com/t/font_2477090_tjwu0q5hmj.css"); /*阿里巴巴图标*/
 
-@font-face{
-  font-family:'Candyhome' ;  /* 字体名自定义即可 */
-  src:url('/fonts/candy.ttf'); /* 字体文件路径 */
-  font-display : swap;
-}
-
-h1#site-title {
-  font-family:'Candyhome', sans-serif;
-}
-
-.site-page span {
-  font-family:'Candyhome', sans-serif;
-}
-
 .site-page {
   font-size: 16px !important;
 }
 
 .copyright {
-  font-family:'Candyhome', sans-serif;
   font-size: 18px;
 }
 
