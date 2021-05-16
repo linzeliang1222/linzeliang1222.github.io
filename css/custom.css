@@ -86,18 +86,10 @@ button#chat_btn {
   border-radius: 10px !important;
 }
 
-div.social-share a.icon-facebook, div.social-share a.icon-twitter {
-  display: none;
-}
-
 div.vpower.txt-right {
   display: none;
 }
 
 div.vwrap {
   border: 2px solid #675a5a !important;
-}
-
-a.magnet_link_more {
-  font-family:'Candyhome', sans-serif;
 }
