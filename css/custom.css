@@ -14,14 +14,6 @@ div#runtime {
   animation: flashlight 1s linear infinite alternate;
 }
 
-h1.post-title {
-  font-family:'Candyhome', sans-serif;
-}
-
-div#aside-content {
-  font-family:'Candyhome', sans-serif;
-}
-
 div.post-copyright-m-info div {
 	margin-right: 20px;
 }
