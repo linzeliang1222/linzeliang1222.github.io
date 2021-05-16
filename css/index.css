@@ -8876,7 +8876,7 @@ a > img,
 @import url("https://fonts.googleapis.com/css2?family=Langar&display=swap:lighter");
 @font-face {
   font-family: 'Candyhome';
-  src: url("https://cdn.jsdelivr.net/gh/Akilarlxh/akilarlxh.github.io/fonts/Candyhome.ttf");
+  src: url("/assets/fonts/Candyhome.ttf");
   font-display: swap;
   font-weight: lighter;
 }
