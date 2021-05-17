@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://linzeliang.top/2021/05/17/leetcode-swap-nodes-in-pairs/</loc>
+    
+    <lastmod>2021-05-17</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://linzeliang.top/2021/05/10/leetcode-summary/</loc>
     
     <lastmod>2021-05-17</lastmod>
@@ -270,14 +277,14 @@
   </url>
   
   <url>
-    <loc>https://linzeliang.top/tags/%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86/</loc>
+    <loc>https://linzeliang.top/tags/MySQL/</loc>
     <lastmod>2021-05-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://linzeliang.top/tags/MySQL/</loc>
+    <loc>https://linzeliang.top/tags/%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86/</loc>
     <lastmod>2021-05-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
