@@ -110,6 +110,153 @@
       </tags>
   </entry>
   <entry>
+    <title>Srping笔记（四）</title>
+    <url>/2021/03/26/spring-note-4/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="一、JdbcTemplate概念及使用"><a href="#一、JdbcTemplate概念及使用" class="headerlink" title="一、JdbcTemplate概念及使用"></a>一、JdbcTemplate概念及使用</h2><h3 id="1-什么是JdbcTemplate："><a href="#1-什么是JdbcTemplate：" class="headerlink" title="1. 什么是JdbcTemplate："></a>1. 什么是JdbcTemplate：</h3><ul>
+<li>Spring框架对JDBC进行封装，使用JdbcTemplate方便实现对数据库的操作</li>
+</ul>
+<h3 id="2-使用步骤："><a href="#2-使用步骤：" class="headerlink" title="2. 使用步骤："></a>2. 使用步骤：</h3><ol>
+<li><p>引入相关jar包</p>
+</li>
+<li><p>在spring配置文件中配置数据库连接池</p>
+<p><strong>jdbc.properties</strong></p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">jdbc.driverClass</span>=<span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="meta">jdbc.url</span>=<span class="string">jdbc:mysql://localhost:3306/spring</span></span><br><span class="line"><span class="meta">jdbc.username</span>=<span class="string">root</span></span><br><span class="line"><span class="meta">jdbc.password</span>=<span class="string">root</span></span><br></pre></td></tr></table></figure>
+<p><strong>bean1.xml</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 数据库连接池 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.alibaba.druid.pool.DruidDataSource&quot;</span> <span class="attr">destroy-method</span>=<span class="string">&quot;close&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driverClassName&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.driverClass&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.url&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.username&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.password&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置JdbcTemplate对象，注入DataSource</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 创建JdbcTemplate对象 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;jdbcTemplate&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.jdbc.core.JdbcTemplate&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 注入DataSource --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;dataSource&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建service类、dao类，在dao中注入JdbcTemplate、在service中注入dao</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 组件扫描 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;com.atguigu&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//注入 dao</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> BookDao bookDao;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookDaoImpl</span> <span class="keyword">implements</span> <span class="title">BookDao</span> </span>&#123;</span><br><span class="line">    <span class="comment">//注入 JdbcTemplate</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JdbcTemplate jdbcTemplate;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="二、JdbcTemplate操作数据库"><a href="#二、JdbcTemplate操作数据库" class="headerlink" title="二、JdbcTemplate操作数据库"></a>二、JdbcTemplate操作数据库</h2><h3 id="1-添加"><a href="#1-添加" class="headerlink" title="1. 添加"></a>1. 添加</h3><ol>
+<li><p>对应数据库创建实体类</p>
+</li>
+<li><p>编写service和dao</p>
+<ol>
+<li><p>在dao中进行数据库的添加操作</p>
+</li>
+<li><p>调用JdbcTemplate对象里面的update方法实现添加操作</p>
+<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326114648349.png" alt=""></p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookDaoImpl</span> <span class="keyword">implements</span> <span class="title">BookDao</span> </span>&#123;</span><br><span class="line">    <span class="comment">//注入 JdbcTemplate</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JdbcTemplate jdbcTemplate;</span><br><span class="line">    <span class="comment">//添加的方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Book book)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//1 创建 sql 语句</span></span><br><span class="line">        String sql = <span class="string">&quot;insert into t_book values(?, ?, ?)&quot;</span>;</span><br><span class="line">        <span class="comment">//2 调用方法实现</span></span><br><span class="line">        Object[] args = &#123;book.getUserId(), book.getUsername(),book.getUstatus()&#125;;</span><br><span class="line">        <span class="keyword">int</span> update = jdbcTemplate.update(sql,args);</span><br><span class="line">        System.out.println(update);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="2-修改和删除"><a href="#2-修改和删除" class="headerlink" title="2. 修改和删除"></a>2. 修改和删除</h3><ul>
+<li><p>使用JdbcTemplate 模板所实现的<code>增删改</code>都是调用了同一个 <code>update</code>方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1、修改</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateBook</span><span class="params">(Book book)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;update t_book set username=?, ustatus=? where user_id=?&quot;</span>;</span><br><span class="line">    Object[] args = &#123;book.getUsername(), book.getUstatus(),book.getUserId()&#125;;</span><br><span class="line">    <span class="keyword">int</span> update = jdbcTemplate.update(sql, args);</span><br><span class="line">    System.out.println(update);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、删除</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;delete from t_book where user_id=?&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span> update = jdbcTemplate.update(sql, id);</span><br><span class="line">    System.out.println(update);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="3-查询返回某个值"><a href="#3-查询返回某个值" class="headerlink" title="3. 查询返回某个值"></a>3. 查询返回某个值</h3><ul>
+<li><p>查询表里又多少条记录，返回的是一个值</p>
+</li>
+<li><p>使用JdbcTemplate实现查询返回某个值</p>
+<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326115344780.png" alt=""></p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//查询表记录数</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">selectCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;select count(*) from t_book&quot;</span>;</span><br><span class="line">    <span class="comment">//queryForObject方法中：第一个参数代表--sql语句；第二个参数代表--返回类型class  </span></span><br><span class="line">    Integer count = jdbcTemplate.queryForObject(sql, Integer.class);</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-查询返回对象"><a href="#4-查询返回对象" class="headerlink" title="4. 查询返回对象"></a>4. 查询返回对象</h3><ul>
+<li><p>使用JdbcTemplate实现查询返回对象</p>
+<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326115622624.png" alt=""></p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//查询返回对象</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Book <span class="title">findBookInfo</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;select * from t_book where user_id=?&quot;</span>;</span><br><span class="line">    <span class="comment">//调用方法</span></span><br><span class="line">    Book book = jdbcTemplate.queryForObject(sql, <span class="keyword">new</span> BeanPropertyRowMapper&lt;Book&gt;(Book.class), id);</span><br><span class="line">    <span class="keyword">return</span> book;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="5-查询返回集合"><a href="#5-查询返回集合" class="headerlink" title="5. 查询返回集合"></a>5. 查询返回集合</h3><ul>
+<li><p>使用JdbcTemplate实现查询返回集合</p>
+<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326115831077.png" alt=""></p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//所用场景：查询图书列表分页、、</span></span><br><span class="line"><span class="comment">//查询返回集合</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Book&gt; <span class="title">findAllBook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;select * from t_book&quot;</span>;</span><br><span class="line">    <span class="comment">//调用方法</span></span><br><span class="line">    List&lt;Book&gt; bookList = jdbcTemplate.query(sql, <span class="keyword">new</span> BeanPropertyRowMapper&lt;Book&gt;(Book.class));</span><br><span class="line">    <span class="keyword">return</span> bookList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="6-批量操作"><a href="#6-批量操作" class="headerlink" title="6. 批量操作"></a>6. 批量操作</h3><ul>
+<li>概念：操作表里多条记录</li>
+<li>JdbcTemplate实现批量操作</li>
+</ul>
+<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326120053965.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//批量添加</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchAddBook</span><span class="params">(List&lt;Object[]&gt; batchArgs)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;insert into t_book values(?,?,?)&quot;</span>;</span><br><span class="line">    <span class="comment">//batchUpdate方法 第一个参数：sql语句		第二个参数：List集合，添加多条记录数据</span></span><br><span class="line">    <span class="keyword">int</span>[] ints = jdbcTemplate.batchUpdate(sql, batchArgs);</span><br><span class="line">    System.out.println(Arrays.toString(ints));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//批量添加测试</span></span><br><span class="line">List&lt;Object[]&gt; batchArgs = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">Object[] o1 = &#123;<span class="string">&quot;3&quot;</span>,<span class="string">&quot;java&quot;</span>,<span class="string">&quot;a&quot;</span>&#125;;</span><br><span class="line">Object[] o2 = &#123;<span class="string">&quot;4&quot;</span>,<span class="string">&quot;c++&quot;</span>,<span class="string">&quot;b&quot;</span>&#125;;</span><br><span class="line">Object[] o3 = &#123;<span class="string">&quot;5&quot;</span>,<span class="string">&quot;MySQL&quot;</span>,<span class="string">&quot;c&quot;</span>&#125;;</span><br><span class="line">batchArgs.add(o1);</span><br><span class="line">batchArgs.add(o2);</span><br><span class="line">batchArgs.add(o3);</span><br><span class="line"><span class="comment">//调用批量添加</span></span><br><span class="line">bookService.batchAdd(batchArgs);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>批量修改操作</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//批量修改(同批量添加一样，调用同一个方法)</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchUpdateBook</span><span class="params">(List&lt;Object[]&gt; batchArgs)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;update t_book set username=?,ustatus=? where user_id=?&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span>[] ints = jdbcTemplate.batchUpdate(sql, batchArgs);</span><br><span class="line">    System.out.println(Arrays.toString(ints));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>框架学习</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringMVC笔记（一）</title>
+    <url>/2021/04/25/springmvc-note-1/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-MVC回顾"><a href="#1-MVC回顾" class="headerlink" title="1. MVC回顾"></a>1. MVC回顾</h2><h3 id="1-1-什么是MVC？"><a href="#1-1-什么是MVC？" class="headerlink" title="1.1 什么是MVC？"></a>1.1 什么是MVC？</h3><ul>
+<li>MVC是模型（Model）、视图（View）、控制器（Controller）的简写，是一种软件设计规范</li>
+<li>是将业务逻辑、数据、显示分离的方法来组织代码</li>
+<li>MVC主要作用是<strong>降低了视图与业务逻辑的双向耦合</strong></li>
+<li>MVC不是一种设计模式，MVC是一种架构模式</li>
+</ul>
+<h3 id="1-2-MVC框架要做哪些事情"><a href="#1-2-MVC框架要做哪些事情" class="headerlink" title="1.2 MVC框架要做哪些事情"></a>1.2 MVC框架要做哪些事情</h3><ol>
+<li>将url映射到Java类或Java类的方法</li>
+<li>封装用户提交的数据</li>
+<li>处理请求 -&gt; 调用相关的业务处理 -&gt; 封装响应数据</li>
+<li>将响应的数据进行渲染（.jsp/.html）等表示层数据</li>
+</ol>
+<h3 id="1-3-常见的MVC框架"><a href="#1-3-常见的MVC框架" class="headerlink" title="1.3 常见的MVC框架"></a>1.3 常见的MVC框架</h3><ul>
+<li>服务器端MVC框架有：Struts、SpringMVC、ASP.NET、Zend Framework、JSF</li>
+<li>前端MVC框架有：vue、angularjs、react、backbone</li>
+<li>由MVC演化出了另外一些模式：MVP、MVVM等</li>
+</ul>
+<h2 id="2-什么是SpringMVC"><a href="#2-什么是SpringMVC" class="headerlink" title="2. 什么是SpringMVC"></a>2. 什么是SpringMVC</h2><h3 id="2-1-SpringMVC概述"><a href="#2-1-SpringMVC概述" class="headerlink" title="2.1 SpringMVC概述"></a>2.1 SpringMVC概述</h3><ul>
+<li>SpringMVC是SpringFramework的一部分，是基于Java实现MVC的轻量级Web框架</li>
+</ul>
+<h3 id="2-2-SpringMVC的特点"><a href="#2-2-SpringMVC的特点" class="headerlink" title="2.2 SpringMVC的特点"></a>2.2 SpringMVC的特点</h3><ul>
+<li>轻量级，简单易学</li>
+<li>高校，基于请求响应的MVC框架</li>
+<li>与Spring兼容性好，无缝缝合</li>
+<li>约定优于配置</li>
+<li>功能强大：RESTful、数据验证、格式化、主题等</li>
+<li>简洁灵活</li>
+</ul>
+<p>Spring的Web框架围绕DispatcherServlet[调度Servlet]设计</p>
+<p>DispatcherServlet的作用是将请求分发到不同的处理器。从Spring2.5开始，使用Java5及以上版本的用户可以采用基于注解形式进行开发</p>
+<h2 id="3-SpringMVC"><a href="#3-SpringMVC" class="headerlink" title="3. SpringMVC"></a>3. SpringMVC</h2><h3 id="3-1-中心控制器"><a href="#3-1-中心控制器" class="headerlink" title="3.1 中心控制器"></a>3.1 中心控制器</h3><p>Spring的Web框架围绕DispatcherServlet设计。DispatcherServlet的作用是将请求分发到不同的处理器。从Spring2.5开始，Java5版本以上的用户可以使用基于注解的Controller声明方式</p>
+<p>Spring MVC框架像许多其他MVC框架一样，<strong>以请求为驱动，围绕一个中心Servlet分派请求及提供其他功能，DispatcherServlet是一个实际的Servlet（继承HttpServlet类）</strong></p>
+<p>SpringMVC的原理如下图所示：</p>
+<ul>
+<li><p>当发起请求时被前置控制器拦截到请求，根据参数生成代理请求，找到请求对应的实际控制器，控制器处理请求，创建数据模型，访问数据库，将模型响应返回给中心控制器，控制器使用模型与视图渲染结果，将结果返回给中心控制器，再将结果返回给请求者</p>
+<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/1619488855.png" alt=""></p>
+</li>
+</ul>
+<h3 id="3-2-SpringMVC执行原理"><a href="#3-2-SpringMVC执行原理" class="headerlink" title="3.2 SpringMVC执行原理"></a>3.2 SpringMVC执行原理</h3><p>图为中实线表示S平日那个MVC框架提供的技术（不需要开发者实现），虚线表示需要开发者实现</p>
+<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/1619489755.png" alt=""></p>
+<p><strong>分析执行流程：</strong></p>
+<ol>
+<li>DispatcherServlet表示前置控制器，是整个SpringMVC的控制中心。用户发出请求，DispatcherServlet接收请求并拦截请求</li>
+<li>HandlerMapping为处理器映射。DispatcherServlet调用HandlerMapping，HandlerMapping根据请求url查找Handler</li>
+<li>HandlerExecution表示具体的Handler，其主要作用是根据url查找控制器</li>
+<li>HandlerExecution将解析后的信息传递给DispatcherServlet</li>
+<li>handlerAdapter表示处理器适配器，其按照特定的规则去执行Handler</li>
+<li>Handler让具体的Controller执行</li>
+<li>Controller将具体的执行信息（ModelAndView）返回给HandlerAdapter</li>
+<li>HandlerAdapter将试图逻辑名或模型传递给DispatcherServlet</li>
+<li>DispatcherServlet效用视图解析器（ViewResolver）来解析HandlerAdapter传递的逻辑视图名</li>
+<li>视图解析器将解析的逻辑视图名传递给DispatcherServlet</li>
+<li>DispatcherServlet根据视图解析器解析的视图结果，调用具体的视图</li>
+<li>最终视图呈现给用户</li>
+</ol>
+]]></content>
+      <categories>
+        <category>框架学习</category>
+      </categories>
+      <tags>
+        <tag>SpringMVC</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Srping笔记（五）</title>
     <url>/2021/03/27/spring-note-5/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="一、事务（概念）"><a href="#一、事务（概念）" class="headerlink" title="一、事务（概念）"></a>一、事务（概念）</h2><h3 id="1-什么是事务"><a href="#1-什么是事务" class="headerlink" title="1. 什么是事务"></a>1. 什么是事务</h3><ol>
@@ -283,72 +430,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringMVC笔记（一）</title>
-    <url>/2021/04/25/springmvc-note-1/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-MVC回顾"><a href="#1-MVC回顾" class="headerlink" title="1. MVC回顾"></a>1. MVC回顾</h2><h3 id="1-1-什么是MVC？"><a href="#1-1-什么是MVC？" class="headerlink" title="1.1 什么是MVC？"></a>1.1 什么是MVC？</h3><ul>
-<li>MVC是模型（Model）、视图（View）、控制器（Controller）的简写，是一种软件设计规范</li>
-<li>是将业务逻辑、数据、显示分离的方法来组织代码</li>
-<li>MVC主要作用是<strong>降低了视图与业务逻辑的双向耦合</strong></li>
-<li>MVC不是一种设计模式，MVC是一种架构模式</li>
-</ul>
-<h3 id="1-2-MVC框架要做哪些事情"><a href="#1-2-MVC框架要做哪些事情" class="headerlink" title="1.2 MVC框架要做哪些事情"></a>1.2 MVC框架要做哪些事情</h3><ol>
-<li>将url映射到Java类或Java类的方法</li>
-<li>封装用户提交的数据</li>
-<li>处理请求 -&gt; 调用相关的业务处理 -&gt; 封装响应数据</li>
-<li>将响应的数据进行渲染（.jsp/.html）等表示层数据</li>
-</ol>
-<h3 id="1-3-常见的MVC框架"><a href="#1-3-常见的MVC框架" class="headerlink" title="1.3 常见的MVC框架"></a>1.3 常见的MVC框架</h3><ul>
-<li>服务器端MVC框架有：Struts、SpringMVC、ASP.NET、Zend Framework、JSF</li>
-<li>前端MVC框架有：vue、angularjs、react、backbone</li>
-<li>由MVC演化出了另外一些模式：MVP、MVVM等</li>
-</ul>
-<h2 id="2-什么是SpringMVC"><a href="#2-什么是SpringMVC" class="headerlink" title="2. 什么是SpringMVC"></a>2. 什么是SpringMVC</h2><h3 id="2-1-SpringMVC概述"><a href="#2-1-SpringMVC概述" class="headerlink" title="2.1 SpringMVC概述"></a>2.1 SpringMVC概述</h3><ul>
-<li>SpringMVC是SpringFramework的一部分，是基于Java实现MVC的轻量级Web框架</li>
-</ul>
-<h3 id="2-2-SpringMVC的特点"><a href="#2-2-SpringMVC的特点" class="headerlink" title="2.2 SpringMVC的特点"></a>2.2 SpringMVC的特点</h3><ul>
-<li>轻量级，简单易学</li>
-<li>高校，基于请求响应的MVC框架</li>
-<li>与Spring兼容性好，无缝缝合</li>
-<li>约定优于配置</li>
-<li>功能强大：RESTful、数据验证、格式化、主题等</li>
-<li>简洁灵活</li>
-</ul>
-<p>Spring的Web框架围绕DispatcherServlet[调度Servlet]设计</p>
-<p>DispatcherServlet的作用是将请求分发到不同的处理器。从Spring2.5开始，使用Java5及以上版本的用户可以采用基于注解形式进行开发</p>
-<h2 id="3-SpringMVC"><a href="#3-SpringMVC" class="headerlink" title="3. SpringMVC"></a>3. SpringMVC</h2><h3 id="3-1-中心控制器"><a href="#3-1-中心控制器" class="headerlink" title="3.1 中心控制器"></a>3.1 中心控制器</h3><p>Spring的Web框架围绕DispatcherServlet设计。DispatcherServlet的作用是将请求分发到不同的处理器。从Spring2.5开始，Java5版本以上的用户可以使用基于注解的Controller声明方式</p>
-<p>Spring MVC框架像许多其他MVC框架一样，<strong>以请求为驱动，围绕一个中心Servlet分派请求及提供其他功能，DispatcherServlet是一个实际的Servlet（继承HttpServlet类）</strong></p>
-<p>SpringMVC的原理如下图所示：</p>
-<ul>
-<li><p>当发起请求时被前置控制器拦截到请求，根据参数生成代理请求，找到请求对应的实际控制器，控制器处理请求，创建数据模型，访问数据库，将模型响应返回给中心控制器，控制器使用模型与视图渲染结果，将结果返回给中心控制器，再将结果返回给请求者</p>
-<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/1619488855.png" alt=""></p>
-</li>
-</ul>
-<h3 id="3-2-SpringMVC执行原理"><a href="#3-2-SpringMVC执行原理" class="headerlink" title="3.2 SpringMVC执行原理"></a>3.2 SpringMVC执行原理</h3><p>图为中实线表示S平日那个MVC框架提供的技术（不需要开发者实现），虚线表示需要开发者实现</p>
-<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/1619489755.png" alt=""></p>
-<p><strong>分析执行流程：</strong></p>
-<ol>
-<li>DispatcherServlet表示前置控制器，是整个SpringMVC的控制中心。用户发出请求，DispatcherServlet接收请求并拦截请求</li>
-<li>HandlerMapping为处理器映射。DispatcherServlet调用HandlerMapping，HandlerMapping根据请求url查找Handler</li>
-<li>HandlerExecution表示具体的Handler，其主要作用是根据url查找控制器</li>
-<li>HandlerExecution将解析后的信息传递给DispatcherServlet</li>
-<li>handlerAdapter表示处理器适配器，其按照特定的规则去执行Handler</li>
-<li>Handler让具体的Controller执行</li>
-<li>Controller将具体的执行信息（ModelAndView）返回给HandlerAdapter</li>
-<li>HandlerAdapter将试图逻辑名或模型传递给DispatcherServlet</li>
-<li>DispatcherServlet效用视图解析器（ViewResolver）来解析HandlerAdapter传递的逻辑视图名</li>
-<li>视图解析器将解析的逻辑视图名传递给DispatcherServlet</li>
-<li>DispatcherServlet根据视图解析器解析的视图结果，调用具体的视图</li>
-<li>最终视图呈现给用户</li>
-</ol>
-]]></content>
-      <categories>
-        <category>框架学习</category>
-      </categories>
-      <tags>
-        <tag>SpringMVC</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringMVC笔记（五）</title>
     <url>/2021/04/30/springmvc-note-5/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-拦截器"><a href="#1-拦截器" class="headerlink" title="1. 拦截器"></a>1. 拦截器</h2><h3 id="1-1-拦截器和过滤器"><a href="#1-1-拦截器和过滤器" class="headerlink" title="1.1 拦截器和过滤器"></a>1.1 拦截器和过滤器</h3><p>SpringMVC的处理器拦截器类似于Servlet开发过程中的过滤器Filter，用于对处理器进行预处理和后处理。我们可以自定义一些拦截器来实现特定的功能</p>
@@ -412,87 +493,6 @@
       </categories>
       <tags>
         <tag>SpringMVC</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Srping笔记（四）</title>
-    <url>/2021/03/26/spring-note-4/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="一、JdbcTemplate概念及使用"><a href="#一、JdbcTemplate概念及使用" class="headerlink" title="一、JdbcTemplate概念及使用"></a>一、JdbcTemplate概念及使用</h2><h3 id="1-什么是JdbcTemplate："><a href="#1-什么是JdbcTemplate：" class="headerlink" title="1. 什么是JdbcTemplate："></a>1. 什么是JdbcTemplate：</h3><ul>
-<li>Spring框架对JDBC进行封装，使用JdbcTemplate方便实现对数据库的操作</li>
-</ul>
-<h3 id="2-使用步骤："><a href="#2-使用步骤：" class="headerlink" title="2. 使用步骤："></a>2. 使用步骤：</h3><ol>
-<li><p>引入相关jar包</p>
-</li>
-<li><p>在spring配置文件中配置数据库连接池</p>
-<p><strong>jdbc.properties</strong></p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">jdbc.driverClass</span>=<span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="meta">jdbc.url</span>=<span class="string">jdbc:mysql://localhost:3306/spring</span></span><br><span class="line"><span class="meta">jdbc.username</span>=<span class="string">root</span></span><br><span class="line"><span class="meta">jdbc.password</span>=<span class="string">root</span></span><br></pre></td></tr></table></figure>
-<p><strong>bean1.xml</strong></p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 数据库连接池 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.alibaba.druid.pool.DruidDataSource&quot;</span> <span class="attr">destroy-method</span>=<span class="string">&quot;close&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driverClassName&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.driverClass&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.url&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.username&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.password&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置JdbcTemplate对象，注入DataSource</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 创建JdbcTemplate对象 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;jdbcTemplate&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.jdbc.core.JdbcTemplate&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 注入DataSource --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;dataSource&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建service类、dao类，在dao中注入JdbcTemplate、在service中注入dao</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 组件扫描 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;com.atguigu&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//注入 dao</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> BookDao bookDao;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookDaoImpl</span> <span class="keyword">implements</span> <span class="title">BookDao</span> </span>&#123;</span><br><span class="line">    <span class="comment">//注入 JdbcTemplate</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JdbcTemplate jdbcTemplate;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="二、JdbcTemplate操作数据库"><a href="#二、JdbcTemplate操作数据库" class="headerlink" title="二、JdbcTemplate操作数据库"></a>二、JdbcTemplate操作数据库</h2><h3 id="1-添加"><a href="#1-添加" class="headerlink" title="1. 添加"></a>1. 添加</h3><ol>
-<li><p>对应数据库创建实体类</p>
-</li>
-<li><p>编写service和dao</p>
-<ol>
-<li><p>在dao中进行数据库的添加操作</p>
-</li>
-<li><p>调用JdbcTemplate对象里面的update方法实现添加操作</p>
-<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326114648349.png" alt=""></p>
-</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookDaoImpl</span> <span class="keyword">implements</span> <span class="title">BookDao</span> </span>&#123;</span><br><span class="line">    <span class="comment">//注入 JdbcTemplate</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JdbcTemplate jdbcTemplate;</span><br><span class="line">    <span class="comment">//添加的方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Book book)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//1 创建 sql 语句</span></span><br><span class="line">        String sql = <span class="string">&quot;insert into t_book values(?, ?, ?)&quot;</span>;</span><br><span class="line">        <span class="comment">//2 调用方法实现</span></span><br><span class="line">        Object[] args = &#123;book.getUserId(), book.getUsername(),book.getUstatus()&#125;;</span><br><span class="line">        <span class="keyword">int</span> update = jdbcTemplate.update(sql,args);</span><br><span class="line">        System.out.println(update);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="2-修改和删除"><a href="#2-修改和删除" class="headerlink" title="2. 修改和删除"></a>2. 修改和删除</h3><ul>
-<li><p>使用JdbcTemplate 模板所实现的<code>增删改</code>都是调用了同一个 <code>update</code>方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1、修改</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateBook</span><span class="params">(Book book)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;update t_book set username=?, ustatus=? where user_id=?&quot;</span>;</span><br><span class="line">    Object[] args = &#123;book.getUsername(), book.getUstatus(),book.getUserId()&#125;;</span><br><span class="line">    <span class="keyword">int</span> update = jdbcTemplate.update(sql, args);</span><br><span class="line">    System.out.println(update);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、删除</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;delete from t_book where user_id=?&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span> update = jdbcTemplate.update(sql, id);</span><br><span class="line">    System.out.println(update);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="3-查询返回某个值"><a href="#3-查询返回某个值" class="headerlink" title="3. 查询返回某个值"></a>3. 查询返回某个值</h3><ul>
-<li><p>查询表里又多少条记录，返回的是一个值</p>
-</li>
-<li><p>使用JdbcTemplate实现查询返回某个值</p>
-<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326115344780.png" alt=""></p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//查询表记录数</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">selectCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;select count(*) from t_book&quot;</span>;</span><br><span class="line">    <span class="comment">//queryForObject方法中：第一个参数代表--sql语句；第二个参数代表--返回类型class  </span></span><br><span class="line">    Integer count = jdbcTemplate.queryForObject(sql, Integer.class);</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-查询返回对象"><a href="#4-查询返回对象" class="headerlink" title="4. 查询返回对象"></a>4. 查询返回对象</h3><ul>
-<li><p>使用JdbcTemplate实现查询返回对象</p>
-<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326115622624.png" alt=""></p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//查询返回对象</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Book <span class="title">findBookInfo</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;select * from t_book where user_id=?&quot;</span>;</span><br><span class="line">    <span class="comment">//调用方法</span></span><br><span class="line">    Book book = jdbcTemplate.queryForObject(sql, <span class="keyword">new</span> BeanPropertyRowMapper&lt;Book&gt;(Book.class), id);</span><br><span class="line">    <span class="keyword">return</span> book;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="5-查询返回集合"><a href="#5-查询返回集合" class="headerlink" title="5. 查询返回集合"></a>5. 查询返回集合</h3><ul>
-<li><p>使用JdbcTemplate实现查询返回集合</p>
-<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326115831077.png" alt=""></p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//所用场景：查询图书列表分页、、</span></span><br><span class="line"><span class="comment">//查询返回集合</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Book&gt; <span class="title">findAllBook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;select * from t_book&quot;</span>;</span><br><span class="line">    <span class="comment">//调用方法</span></span><br><span class="line">    List&lt;Book&gt; bookList = jdbcTemplate.query(sql, <span class="keyword">new</span> BeanPropertyRowMapper&lt;Book&gt;(Book.class));</span><br><span class="line">    <span class="keyword">return</span> bookList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="6-批量操作"><a href="#6-批量操作" class="headerlink" title="6. 批量操作"></a>6. 批量操作</h3><ul>
-<li>概念：操作表里多条记录</li>
-<li>JdbcTemplate实现批量操作</li>
-</ul>
-<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326120053965.png" alt=""></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//批量添加</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchAddBook</span><span class="params">(List&lt;Object[]&gt; batchArgs)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;insert into t_book values(?,?,?)&quot;</span>;</span><br><span class="line">    <span class="comment">//batchUpdate方法 第一个参数：sql语句		第二个参数：List集合，添加多条记录数据</span></span><br><span class="line">    <span class="keyword">int</span>[] ints = jdbcTemplate.batchUpdate(sql, batchArgs);</span><br><span class="line">    System.out.println(Arrays.toString(ints));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//批量添加测试</span></span><br><span class="line">List&lt;Object[]&gt; batchArgs = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">Object[] o1 = &#123;<span class="string">&quot;3&quot;</span>,<span class="string">&quot;java&quot;</span>,<span class="string">&quot;a&quot;</span>&#125;;</span><br><span class="line">Object[] o2 = &#123;<span class="string">&quot;4&quot;</span>,<span class="string">&quot;c++&quot;</span>,<span class="string">&quot;b&quot;</span>&#125;;</span><br><span class="line">Object[] o3 = &#123;<span class="string">&quot;5&quot;</span>,<span class="string">&quot;MySQL&quot;</span>,<span class="string">&quot;c&quot;</span>&#125;;</span><br><span class="line">batchArgs.add(o1);</span><br><span class="line">batchArgs.add(o2);</span><br><span class="line">batchArgs.add(o3);</span><br><span class="line"><span class="comment">//调用批量添加</span></span><br><span class="line">bookService.batchAdd(batchArgs);</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>批量修改操作</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//批量修改(同批量添加一样，调用同一个方法)</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchUpdateBook</span><span class="params">(List&lt;Object[]&gt; batchArgs)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;update t_book set username=?,ustatus=? where user_id=?&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span>[] ints = jdbcTemplate.batchUpdate(sql, batchArgs);</span><br><span class="line">    System.out.println(Arrays.toString(ints));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>框架学习</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
       </tags>
   </entry>
 </search>
