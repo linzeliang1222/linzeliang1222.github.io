@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://linzeliang.top/about/index.html</loc>
+    
+    <lastmod>2021-11-12</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://linzeliang.top/link/index.html</loc>
+    
+    <lastmod>2021-11-12</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://linzeliang.top/categories/index.html</loc>
+    
+    <lastmod>2021-11-12</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://linzeliang.top/tags/index.html</loc>
+    
+    <lastmod>2021-11-12</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://linzeliang.top/gallery/photo/index.html</loc>
     
     <lastmod>2021-11-12</lastmod>
@@ -12,20 +40,6 @@
     <loc>https://linzeliang.top/gallery/index.html</loc>
     
     <lastmod>2021-11-12</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://linzeliang.top/about/index.html</loc>
-    
-    <lastmod>2021-11-12</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://linzeliang.top/link/index.html</loc>
-    
-    <lastmod>2021-11-11</lastmod>
     
   </url>
   
@@ -278,20 +292,6 @@
     <loc>https://linzeliang.top/2021/04/10/mybatis-note-1/</loc>
     
     <lastmod>2021-04-11</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://linzeliang.top/tags/index.html</loc>
-    
-    <lastmod>2021-04-09</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://linzeliang.top/categories/index.html</loc>
-    
-    <lastmod>2021-04-09</lastmod>
     
   </url>
   
