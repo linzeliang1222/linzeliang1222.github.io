@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>力扣 - 989. 数组形式的整数加法</title>
+    <url>/2021/05/10/leetcode-add-to-array-form-of-integer/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/add-to-array-form-of-integer/">989. 数组形式的整数加法</a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
+<li>从最低位开始加，满10用carry进1，最后还要判断最终有没有进1位</li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">addToArrayForm</span><span class="params">(<span class="keyword">int</span>[] num, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;Integer&gt; res = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">int</span> n = num.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> carry = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (n &gt;= <span class="number">0</span> || k != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> a = n &lt; <span class="number">0</span> ? <span class="number">0</span> : num[n];</span><br><span class="line">            <span class="keyword">int</span> b = k % <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> temp = (a + b + carry) % <span class="number">10</span>;</span><br><span class="line">            carry = (a+ b + carry) / <span class="number">10</span>;</span><br><span class="line">            res.add(temp);</span><br><span class="line">            n--;</span><br><span class="line">            k /= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (carry == <span class="number">1</span>) &#123;</span><br><span class="line">            res.add(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Collections.reverse(res);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
+<li>时间复杂度：$O(N)$</li>
+<li>空间复杂度：$O(N)$</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>HashMap源码剖析</title>
     <url>/2021/09/24/hashmap-source-code-analysis/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="1-HashMap继承结构"><a href="#1-HashMap继承结构" class="headerlink" title="1. HashMap继承结构"></a>1. HashMap继承结构</h3><p><img src="https://gitee.com/linzeliang1222/picture/raw/master/1632487670.png" alt="image-20210924204750139"></p>
@@ -110,26 +130,6 @@
       </tags>
   </entry>
   <entry>
-    <title>力扣 - 989. 数组形式的整数加法</title>
-    <url>/2021/05/10/leetcode-add-to-array-form-of-integer/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/add-to-array-form-of-integer/">989. 数组形式的整数加法</a></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
-<li>从最低位开始加，满10用carry进1，最后还要判断最终有没有进1位</li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">addToArrayForm</span><span class="params">(<span class="keyword">int</span>[] num, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;Integer&gt; res = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">int</span> n = num.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> carry = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (n &gt;= <span class="number">0</span> || k != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> a = n &lt; <span class="number">0</span> ? <span class="number">0</span> : num[n];</span><br><span class="line">            <span class="keyword">int</span> b = k % <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> temp = (a + b + carry) % <span class="number">10</span>;</span><br><span class="line">            carry = (a+ b + carry) / <span class="number">10</span>;</span><br><span class="line">            res.add(temp);</span><br><span class="line">            n--;</span><br><span class="line">            k /= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (carry == <span class="number">1</span>) &#123;</span><br><span class="line">            res.add(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Collections.reverse(res);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
-<li>时间复杂度：$O(N)$</li>
-<li>空间复杂度：$O(N)$</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>力扣 - 144. 二叉树的前序遍历</title>
     <url>/2021/05/31/leetcode-binary-tree-preorder-traversal/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/binary-tree-preorder-traversal/">144. 二叉树的前序遍历</a></p>
@@ -236,28 +236,6 @@
 <h3 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
 <li>时间复杂度：$O(N)$</li>
 <li>空间复杂度：$O(N)$</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>力扣 - 394. 字符串解码</title>
-    <url>/2021/05/13/leetcode-decode-string/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/decode-string/">394. 字符串解码</a></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
-<li>创建两个栈进行解题，一个用来存放数字，另一个用来临时存放子字符串</li>
-<li>由于可能会在<code>[]</code>中还包含其他的<code>[]</code>，所以我们只要遇到<code>[</code>就先将其前面的字符串暂时入栈，稍后再进行计算</li>
-<li>如果遇到<code>]</code> ，则将存放数字的栈和存放子字符串的栈分别出栈一个，然后进行字符串的拼接，然后再将该字符串作为答案的一部分进行下一轮迭代计算</li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">decodeString</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        Deque&lt;Integer&gt; times = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">        Deque&lt;String&gt; stringStack = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">        StringBuilder res = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Character c : s.toCharArray()) &#123;</span><br><span class="line">            <span class="comment">// 如果为数字，则记录数字，数字有可能有十位或者百位</span></span><br><span class="line">            <span class="keyword">if</span> (isNum(c)) &#123;</span><br><span class="line">                count = count * <span class="number">10</span> + Integer.parseInt(<span class="string">&quot;&quot;</span> + c);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c == <span class="string">&#x27;[&#x27;</span>) &#123; <span class="comment">// 如果为左中括号，则将数字和当前的res进栈</span></span><br><span class="line">                times.push(count);</span><br><span class="line">                stringStack.push(res.toString());</span><br><span class="line">                <span class="comment">// 注意还要将res置空，因为要开始下一轮的字符串统计，上一轮的字符串已经先暂存到栈中去了</span></span><br><span class="line">                res = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">                <span class="comment">// 次数也要置为0</span></span><br><span class="line">                count = <span class="number">0</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c == <span class="string">&#x27;]&#x27;</span>) &#123; <span class="comment">// 如果为右中括号，则要开始计算本次统计的res，添加到上一个字符串的末尾</span></span><br><span class="line">                <span class="comment">// 获取次数</span></span><br><span class="line">                count = times.pop();</span><br><span class="line">                StringBuilder curString = <span class="keyword">new</span> StringBuilder(stringStack.pop());</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">                    curString.append(res);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 将拼接好后的字符串作为结果进行下一轮迭代</span></span><br><span class="line">                res = curString;</span><br><span class="line">                count = <span class="number">0</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 如果都是字母的话仅进行平解字符串即可</span></span><br><span class="line">                res.append(c);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isNum</span><span class="params">(<span class="keyword">char</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 判断字符是否为数字</span></span><br><span class="line">        <span class="keyword">if</span> (c &lt;= <span class="string">&#x27;9&#x27;</span> &amp;&amp; c &gt;= <span class="string">&#x27;0&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
-<li>时间复杂度：$O(N)$，N为字符串的长度</li>
-<li>空间复杂度：$O(N)$，N为字符串的长度</li>
 </ul>
 ]]></content>
       <categories>
@@ -387,66 +365,18 @@
       </tags>
   </entry>
   <entry>
-    <title>力扣 - 142. 环形链表 II</title>
-    <url>/2021/05/20/leetcode-linked-list-cycle-ii/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/linked-list-cycle-ii/">142. 环形链表 II</a></p>
-<h2 id="思路1（哈希表）"><a href="#思路1（哈希表）" class="headerlink" title="思路1（哈希表）"></a>思路1（哈希表）</h2><ul>
-<li>利用哈希表HashSet，保存访问过的路径，如果未访问过，就add添加且返回true，如果已存在再添加的话就会返回该结点，而且该结点就是他们重合的结点，否则返回null</li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">detectCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//利用哈希表不重复元素的特性来存储结点判断是否存在环</span></span><br><span class="line">        HashSet&lt;ListNode&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//只要没到头且还没重合就一直循环</span></span><br><span class="line">        <span class="keyword">while</span> (head != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!set.add(head)) &#123;</span><br><span class="line">                <span class="keyword">return</span> head;</span><br><span class="line">            &#125;</span><br><span class="line">            head = head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//到末尾还是没有重合的话就是返回null</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
-<li>时间复杂度：$O(N)$</li>
-<li>空间复杂度：$O(N)$</li>
-</ul>
-<h2 id="思路2（双指针）"><a href="#思路2（双指针）" class="headerlink" title="思路2（双指针）"></a>思路2（双指针）</h2><ul>
-<li><p>我们可以利用快慢指针，慢指针每次移动一个，快指针每次移动两个，如果确实存在环的话，最终一定会重合的</p>
-</li>
-<li><p>如果快指针最后为<code>null</code>，肯定是到末尾了，就没有环</p>
-</li>
-<li><p>我们假设头结点到重合的结点这段长度为a，重合的结点到相遇的结点为<code>b</code>，环的剩下部分为<code>c</code></p>
-<ul>
-<li>由于再相同的时间内，<code>fast</code>的速度是<code>low</code>的两倍，而<code>low</code>走的路程为<code>a+b</code>，<code>fast</code>为<code>low</code>的两倍那么路程应该是`2(a+b)``</li>
-<li>由题分析可得，fast走过的长度为<code>a+b+c+b</code></li>
-<li>可得等式：<code>a+b+c+b = 2(a+b)</code> ，得到<code>c = a</code></li>
-<li>所以，我们可以等到相遇的时候再创建一个指向<code>head</code>的指针，同时以相同的速度向前移动，等到相遇的时候就是我们要的环重合的结点</li>
-</ul>
-<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/142_fig1.png" alt=""></p>
-</li>
-</ul>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">detectCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//定义快慢指针</span></span><br><span class="line">        ListNode slow = head;</span><br><span class="line">        ListNode fast = head;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//若为空或者只有一个元素时候就是无环的</span></span><br><span class="line">        <span class="keyword">while</span> (fast != <span class="keyword">null</span> &amp;&amp; fast.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">            fast = fast.next.next;</span><br><span class="line">            <span class="comment">//如果快慢指针重合就代表存在环，然后开始寻找重合点</span></span><br><span class="line">            <span class="keyword">if</span> (fast == slow) &#123;</span><br><span class="line">                <span class="comment">//定义一个pre指针指向head，让pre和low同时移动，等到重合时就是指向重合的点</span></span><br><span class="line">                ListNode pre = head;</span><br><span class="line">                <span class="keyword">while</span> (pre != slow) &#123;</span><br><span class="line">                    pre = pre.next;</span><br><span class="line">                    slow = slow.next;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> pre;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂的分析"><a href="#复杂的分析" class="headerlink" title="复杂的分析"></a>复杂的分析</h3><ul>
-<li>时间复杂度：$O(N)$</li>
-<li>空间复杂度：$O(1)$</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>768. 最多能完成排序的块 II</title>
-    <url>/2021/05/15/leetcode-max-chunks-to-make-sorted-ii/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/max-chunks-to-make-sorted-ii/">768. 最多能完成排序的块 II</a></p>
+    <title>力扣 - 394. 字符串解码</title>
+    <url>/2021/05/13/leetcode-decode-string/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/decode-string/">394. 字符串解码</a></p>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
-<li>利用<strong>单调递减栈</strong>来解题<ul>
-<li>遍历数组，将元素存入栈中，再利用max记录当前栈顶的最大值</li>
-<li>如果遇到比当前栈元素大的值，那么可以<strong>直接入栈</strong>，因为可以单独分一块；但是如果遇到比当前栈顶元素小的值，那么应该将之前的元素<strong>依次出栈</strong>，直到遇到<strong>小于等于</strong>该值的元素停止出栈，然后将max再push入栈（push的这个max就代表了这一个块）<ul>
-<li>例如：有该数组 {1, 1, 3, 4, 5, 2, 6, 7}，此时栈为{1, 1, 3, 4, 5}</li>
-<li>接下来遍历到2了，2比max即5小，所以开始出栈，顺序是：5、4、3，由于1小于2，所以停止出栈，接下来将max(5)入栈，此时栈为：{1, 1, 5}</li>
+<li>创建两个栈进行解题，一个用来存放数字，另一个用来临时存放子字符串</li>
+<li>由于可能会在<code>[]</code>中还包含其他的<code>[]</code>，所以我们只要遇到<code>[</code>就先将其前面的字符串暂时入栈，稍后再进行计算</li>
+<li>如果遇到<code>]</code> ，则将存放数字的栈和存放子字符串的栈分别出栈一个，然后进行字符串的拼接，然后再将该字符串作为答案的一部分进行下一轮迭代计算</li>
 </ul>
-</li>
-<li>不断遍历，直到数组遍历结束，此时栈中有多少个元素就代表有多少个块了</li>
-</ul>
-</li>
-<li>分块规则：<strong>后一块元素的最小值大于等于前一块元素的最大值</strong></li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxChunksToSorted</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        Deque&lt;Integer&gt; stack = <span class="keyword">new</span>  LinkedList&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">int</span> max = -<span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (!stack.isEmpty() &amp;&amp; arr[i] &lt; arr[max]) &#123;</span><br><span class="line">                <span class="keyword">while</span> (!stack.isEmpty() &amp;&amp; arr[i] &lt; arr[stack.peek()]) &#123;</span><br><span class="line">                    stack.pop() ;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 此处不能stack.push(i)，push的必须是这一组的最大值</span></span><br><span class="line">                stack.push(max);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                stack.push(i);</span><br><span class="line">                max = stack.peek();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> stack.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">decodeString</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        Deque&lt;Integer&gt; times = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">        Deque&lt;String&gt; stringStack = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">        StringBuilder res = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Character c : s.toCharArray()) &#123;</span><br><span class="line">            <span class="comment">// 如果为数字，则记录数字，数字有可能有十位或者百位</span></span><br><span class="line">            <span class="keyword">if</span> (isNum(c)) &#123;</span><br><span class="line">                count = count * <span class="number">10</span> + Integer.parseInt(<span class="string">&quot;&quot;</span> + c);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c == <span class="string">&#x27;[&#x27;</span>) &#123; <span class="comment">// 如果为左中括号，则将数字和当前的res进栈</span></span><br><span class="line">                times.push(count);</span><br><span class="line">                stringStack.push(res.toString());</span><br><span class="line">                <span class="comment">// 注意还要将res置空，因为要开始下一轮的字符串统计，上一轮的字符串已经先暂存到栈中去了</span></span><br><span class="line">                res = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">                <span class="comment">// 次数也要置为0</span></span><br><span class="line">                count = <span class="number">0</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c == <span class="string">&#x27;]&#x27;</span>) &#123; <span class="comment">// 如果为右中括号，则要开始计算本次统计的res，添加到上一个字符串的末尾</span></span><br><span class="line">                <span class="comment">// 获取次数</span></span><br><span class="line">                count = times.pop();</span><br><span class="line">                StringBuilder curString = <span class="keyword">new</span> StringBuilder(stringStack.pop());</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">                    curString.append(res);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 将拼接好后的字符串作为结果进行下一轮迭代</span></span><br><span class="line">                res = curString;</span><br><span class="line">                count = <span class="number">0</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 如果都是字母的话仅进行平解字符串即可</span></span><br><span class="line">                res.append(c);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isNum</span><span class="params">(<span class="keyword">char</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 判断字符是否为数字</span></span><br><span class="line">        <span class="keyword">if</span> (c &lt;= <span class="string">&#x27;9&#x27;</span> &amp;&amp; c &gt;= <span class="string">&#x27;0&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
-<li>时间复杂度：$O(N)$， N 为数组长度</li>
-<li>空间复杂度：$O(N)$，N为栈的大小</li>
+<li>时间复杂度：$O(N)$，N为字符串的长度</li>
+<li>空间复杂度：$O(N)$，N为字符串的长度</li>
 </ul>
 ]]></content>
       <categories>
@@ -490,6 +420,46 @@
       </tags>
   </entry>
   <entry>
+    <title>力扣 - 142. 环形链表 II</title>
+    <url>/2021/05/20/leetcode-linked-list-cycle-ii/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/linked-list-cycle-ii/">142. 环形链表 II</a></p>
+<h2 id="思路1（哈希表）"><a href="#思路1（哈希表）" class="headerlink" title="思路1（哈希表）"></a>思路1（哈希表）</h2><ul>
+<li>利用哈希表HashSet，保存访问过的路径，如果未访问过，就add添加且返回true，如果已存在再添加的话就会返回该结点，而且该结点就是他们重合的结点，否则返回null</li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">detectCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//利用哈希表不重复元素的特性来存储结点判断是否存在环</span></span><br><span class="line">        HashSet&lt;ListNode&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//只要没到头且还没重合就一直循环</span></span><br><span class="line">        <span class="keyword">while</span> (head != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!set.add(head)) &#123;</span><br><span class="line">                <span class="keyword">return</span> head;</span><br><span class="line">            &#125;</span><br><span class="line">            head = head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//到末尾还是没有重合的话就是返回null</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
+<li>时间复杂度：$O(N)$</li>
+<li>空间复杂度：$O(N)$</li>
+</ul>
+<h2 id="思路2（双指针）"><a href="#思路2（双指针）" class="headerlink" title="思路2（双指针）"></a>思路2（双指针）</h2><ul>
+<li><p>我们可以利用快慢指针，慢指针每次移动一个，快指针每次移动两个，如果确实存在环的话，最终一定会重合的</p>
+</li>
+<li><p>如果快指针最后为<code>null</code>，肯定是到末尾了，就没有环</p>
+</li>
+<li><p>我们假设头结点到重合的结点这段长度为a，重合的结点到相遇的结点为<code>b</code>，环的剩下部分为<code>c</code></p>
+<ul>
+<li>由于再相同的时间内，<code>fast</code>的速度是<code>low</code>的两倍，而<code>low</code>走的路程为<code>a+b</code>，<code>fast</code>为<code>low</code>的两倍那么路程应该是`2(a+b)``</li>
+<li>由题分析可得，fast走过的长度为<code>a+b+c+b</code></li>
+<li>可得等式：<code>a+b+c+b = 2(a+b)</code> ，得到<code>c = a</code></li>
+<li>所以，我们可以等到相遇的时候再创建一个指向<code>head</code>的指针，同时以相同的速度向前移动，等到相遇的时候就是我们要的环重合的结点</li>
+</ul>
+<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/142_fig1.png" alt=""></p>
+</li>
+</ul>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">detectCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//定义快慢指针</span></span><br><span class="line">        ListNode slow = head;</span><br><span class="line">        ListNode fast = head;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//若为空或者只有一个元素时候就是无环的</span></span><br><span class="line">        <span class="keyword">while</span> (fast != <span class="keyword">null</span> &amp;&amp; fast.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">            fast = fast.next.next;</span><br><span class="line">            <span class="comment">//如果快慢指针重合就代表存在环，然后开始寻找重合点</span></span><br><span class="line">            <span class="keyword">if</span> (fast == slow) &#123;</span><br><span class="line">                <span class="comment">//定义一个pre指针指向head，让pre和low同时移动，等到重合时就是指向重合的点</span></span><br><span class="line">                ListNode pre = head;</span><br><span class="line">                <span class="keyword">while</span> (pre != slow) &#123;</span><br><span class="line">                    pre = pre.next;</span><br><span class="line">                    slow = slow.next;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> pre;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂的分析"><a href="#复杂的分析" class="headerlink" title="复杂的分析"></a>复杂的分析</h3><ul>
+<li>时间复杂度：$O(N)$</li>
+<li>空间复杂度：$O(1)$</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>力扣 - 61. 旋转链表</title>
     <url>/2021/05/16/leetcode-rotate-list/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/rotate-list/">61. 旋转链表</a></p>
@@ -519,34 +489,26 @@
       </tags>
   </entry>
   <entry>
-    <title>力扣 - 821. 字符的最短距离</title>
-    <url>/2021/05/11/leetcode-shortest-distance-to-a-character/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/shortest-distance-to-a-character/">821. 字符的最短距离</a></p>
-<h2 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h2><ul>
-<li><p>使用一个res数组，而且要初始化为Integer.MAX_VALUE</p>
-</li>
-<li><p>从左到右遍历字符串，直到遇到我们的目标字符时候停下来</p>
-</li>
-<li><p>以目标字符为中心，pre和next双指针向两边移动，并且给数组赋值，从1开始递增</p>
-</li>
-<li><p>如果指针再移动过程中遇到当前的值大于等于左边/右边的值，那么就结束该指针的移动</p>
-<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/2067154-20201102004404706-1773904769.png" alt=""></p>
-</li>
+    <title>768. 最多能完成排序的块 II</title>
+    <url>/2021/05/15/leetcode-max-chunks-to-make-sorted-ii/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/max-chunks-to-make-sorted-ii/">768. 最多能完成排序的块 II</a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
+<li>利用<strong>单调递减栈</strong>来解题<ul>
+<li>遍历数组，将元素存入栈中，再利用max记录当前栈顶的最大值</li>
+<li>如果遇到比当前栈元素大的值，那么可以<strong>直接入栈</strong>，因为可以单独分一块；但是如果遇到比当前栈顶元素小的值，那么应该将之前的元素<strong>依次出栈</strong>，直到遇到<strong>小于等于</strong>该值的元素停止出栈，然后将max再push入栈（push的这个max就代表了这一个块）<ul>
+<li>例如：有该数组 {1, 1, 3, 4, 5, 2, 6, 7}，此时栈为{1, 1, 3, 4, 5}</li>
+<li>接下来遍历到2了，2比max即5小，所以开始出栈，顺序是：5、4、3，由于1小于2，所以停止出栈，接下来将max(5)入栈，此时栈为：{1, 1, 5}</li>
 </ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] shortestToChar(String S, <span class="keyword">char</span> C) &#123;</span><br><span class="line">        <span class="keyword">int</span> len = S.length();</span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">        <span class="comment">// 填充最大值</span></span><br><span class="line">        Arrays.fill(res, Integer.MAX_VALUE);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="comment">//每次遇到e时候，就进行pre和next的移动</span></span><br><span class="line">            <span class="keyword">if</span> (S.charAt(i) == C) &#123;</span><br><span class="line">                res[i] = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">int</span> pre = i-<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">int</span> next = i+<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">int</span> t = <span class="number">1</span>;</span><br><span class="line">                <span class="comment">// 赋值的条件是t要小于等于前一个/后一个元素的值</span></span><br><span class="line">                <span class="comment">// 进行左移动赋值</span></span><br><span class="line">                <span class="keyword">while</span> (pre &gt;= <span class="number">0</span> &amp;&amp; t &lt; res[pre]) &#123;</span><br><span class="line">                    res[pre--] = t++;</span><br><span class="line">                &#125;</span><br><span class="line">                t = <span class="number">1</span>;</span><br><span class="line">                <span class="comment">// 进行右移动赋值</span></span><br><span class="line">                <span class="keyword">while</span> (next &lt; len &amp;&amp; t &lt; res[next]) &#123;</span><br><span class="line">                    res[next++] = t++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 得到结果</span></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
-<li>时间复杂度：$O(N^2)$，其中 N 为字符串长度。</li>
-<li>空间复杂度：$O(N)$，其中 N 为res数组长度</li>
+</li>
+<li>不断遍历，直到数组遍历结束，此时栈中有多少个元素就代表有多少个块了</li>
 </ul>
-<h2 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h2><ul>
-<li>正向遍历一次，反向遍历一次</li>
-<li>用<code>pre</code>标记出现目标字符的位置，利用<code>i</code>的自增，同时给数组赋值</li>
-<li>正向遍历是给目标字符之后到下一个目标字符之前进行赋值，反向遍历则相反</li>
+</li>
+<li>分块规则：<strong>后一块元素的最小值大于等于前一块元素的最大值</strong></li>
 </ul>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] shortestToChar(String s, <span class="keyword">char</span> c) &#123;</span><br><span class="line">        <span class="keyword">int</span> len = s.length();</span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">        <span class="comment">// 必须要除以2，因为Integer.MIN_VALUE已经是最小值了，又因为i&gt;=0，所以 i-pre 会超过整型最大值</span></span><br><span class="line">        <span class="keyword">int</span> pre = Integer.MIN_VALUE / <span class="number">2</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 正向遍历</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s.charAt(i) == c) &#123;</span><br><span class="line">                pre = i;</span><br><span class="line">            &#125;</span><br><span class="line">            res[i] = i - pre;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 反向遍历</span></span><br><span class="line">        pre = Integer.MAX_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = len - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s.charAt(i) == c) &#123;</span><br><span class="line">                pre = i;</span><br><span class="line">            &#125;</span><br><span class="line">            res[i] = Math.min(res[i], pre - i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
-<li>时间复杂度：$O(N)$，其中 N 为字符串长度。</li>
-<li>空间复杂度：$O(N)$，其中 N 为res数组长度</li>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxChunksToSorted</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        Deque&lt;Integer&gt; stack = <span class="keyword">new</span>  LinkedList&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">int</span> max = -<span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (!stack.isEmpty() &amp;&amp; arr[i] &lt; arr[max]) &#123;</span><br><span class="line">                <span class="keyword">while</span> (!stack.isEmpty() &amp;&amp; arr[i] &lt; arr[stack.peek()]) &#123;</span><br><span class="line">                    stack.pop() ;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 此处不能stack.push(i)，push的必须是这一组的最大值</span></span><br><span class="line">                stack.push(max);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                stack.push(i);</span><br><span class="line">                max = stack.peek();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> stack.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
+<li>时间复杂度：$O(N)$， N 为数组长度</li>
+<li>空间复杂度：$O(N)$，N为栈的大小</li>
 </ul>
 ]]></content>
       <categories>
@@ -615,6 +577,44 @@
 <h3 id="hard-0-2"><a href="#hard-0-2" class="headerlink" title="hard - 0"></a>hard - 0</h3><ol>
 <li></li>
 </ol>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>力扣 - 821. 字符的最短距离</title>
+    <url>/2021/05/11/leetcode-shortest-distance-to-a-character/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/shortest-distance-to-a-character/">821. 字符的最短距离</a></p>
+<h2 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h2><ul>
+<li><p>使用一个res数组，而且要初始化为Integer.MAX_VALUE</p>
+</li>
+<li><p>从左到右遍历字符串，直到遇到我们的目标字符时候停下来</p>
+</li>
+<li><p>以目标字符为中心，pre和next双指针向两边移动，并且给数组赋值，从1开始递增</p>
+</li>
+<li><p>如果指针再移动过程中遇到当前的值大于等于左边/右边的值，那么就结束该指针的移动</p>
+<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/2067154-20201102004404706-1773904769.png" alt=""></p>
+</li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] shortestToChar(String S, <span class="keyword">char</span> C) &#123;</span><br><span class="line">        <span class="keyword">int</span> len = S.length();</span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">        <span class="comment">// 填充最大值</span></span><br><span class="line">        Arrays.fill(res, Integer.MAX_VALUE);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="comment">//每次遇到e时候，就进行pre和next的移动</span></span><br><span class="line">            <span class="keyword">if</span> (S.charAt(i) == C) &#123;</span><br><span class="line">                res[i] = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">int</span> pre = i-<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">int</span> next = i+<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">int</span> t = <span class="number">1</span>;</span><br><span class="line">                <span class="comment">// 赋值的条件是t要小于等于前一个/后一个元素的值</span></span><br><span class="line">                <span class="comment">// 进行左移动赋值</span></span><br><span class="line">                <span class="keyword">while</span> (pre &gt;= <span class="number">0</span> &amp;&amp; t &lt; res[pre]) &#123;</span><br><span class="line">                    res[pre--] = t++;</span><br><span class="line">                &#125;</span><br><span class="line">                t = <span class="number">1</span>;</span><br><span class="line">                <span class="comment">// 进行右移动赋值</span></span><br><span class="line">                <span class="keyword">while</span> (next &lt; len &amp;&amp; t &lt; res[next]) &#123;</span><br><span class="line">                    res[next++] = t++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 得到结果</span></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
+<li>时间复杂度：$O(N^2)$，其中 N 为字符串长度。</li>
+<li>空间复杂度：$O(N)$，其中 N 为res数组长度</li>
+</ul>
+<h2 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h2><ul>
+<li>正向遍历一次，反向遍历一次</li>
+<li>用<code>pre</code>标记出现目标字符的位置，利用<code>i</code>的自增，同时给数组赋值</li>
+<li>正向遍历是给目标字符之后到下一个目标字符之前进行赋值，反向遍历则相反</li>
+</ul>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] shortestToChar(String s, <span class="keyword">char</span> c) &#123;</span><br><span class="line">        <span class="keyword">int</span> len = s.length();</span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">        <span class="comment">// 必须要除以2，因为Integer.MIN_VALUE已经是最小值了，又因为i&gt;=0，所以 i-pre 会超过整型最大值</span></span><br><span class="line">        <span class="keyword">int</span> pre = Integer.MIN_VALUE / <span class="number">2</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 正向遍历</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s.charAt(i) == c) &#123;</span><br><span class="line">                pre = i;</span><br><span class="line">            &#125;</span><br><span class="line">            res[i] = i - pre;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 反向遍历</span></span><br><span class="line">        pre = Integer.MAX_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = len - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s.charAt(i) == c) &#123;</span><br><span class="line">                pre = i;</span><br><span class="line">            &#125;</span><br><span class="line">            res[i] = Math.min(res[i], pre - i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
+<li>时间复杂度：$O(N)$，其中 N 为字符串长度。</li>
+<li>空间复杂度：$O(N)$，其中 N 为res数组长度</li>
+</ul>
 ]]></content>
       <categories>
         <category>算法</category>
@@ -1481,122 +1481,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MyBatis笔记（七）</title>
-    <url>/2021/04/17/mybatis-note-7/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h3><ol>
-<li>什么是缓存？<ul>
-<li>存在内存中的临时数据</li>
-<li>将用户经常查询的数据存放在缓存（内存）中，用户取查询就不用从磁盘上（关系型数据库数据文件）查询，从缓存中查询，从而提高查询效率，解决了高并发系统的性能问题</li>
-</ul>
-</li>
-<li>为什么使用缓存？<ul>
-<li>减少和数据库交互的次数</li>
-</ul>
-</li>
-<li>什么样的数据能使用缓存？<ul>
-<li>经常查询并且不经常改变的数据</li>
-</ul>
-</li>
-</ol>
-<h3 id="2-MyBatis缓存"><a href="#2-MyBatis缓存" class="headerlink" title="2. MyBatis缓存"></a>2. MyBatis缓存</h3><ul>
-<li>MyBatis包含一个非常强大的查询缓存特性，它可以非常方便地定制和配置缓存，缓存可以极大地提升查询效率</li>
-<li>MyBatis系统中默认定义了两级缓存：<strong>一级缓存</strong>和<strong>二级缓存</strong><ul>
-<li>默认情况下，只有一级缓存开启（SqlSession级别地缓存，也称为本地缓存）</li>
-<li>二级缓存需要手动开启和配置，它是基于namespace级别的缓存</li>
-<li>为了提高扩展性，MyBatis定义了缓存接口Cache，我们可以通过实现Cache接口来自定义二级缓存</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-一级缓存"><a href="#3-一级缓存" class="headerlink" title="3. 一级缓存"></a>3. 一级缓存</h3><ul>
-<li><p><strong>一级缓存是默认开启的</strong></p>
-</li>
-<li><p>一级缓存也叫本地缓存：</p>
-<ul>
-<li>与数据库同一次会话期间查到的数据会放在本地缓存中</li>
-<li>以后如果要获取相同的数据，直接从缓存中拿，不用再去查询数据库了</li>
-</ul>
-</li>
-<li><p>一级缓存是SqlSession级别的缓存，是一直开启的，我们关闭不了它</p>
-</li>
-<li><p>一级缓存失效结果：查询相同的数据仍需再次发起一次查询请求</p>
-</li>
-<li><p><strong>一级缓存失效的四种情况：</strong></p>
-<ol>
-<li><p>sqlSession不同：每个sqlSession中的缓存相互独立</p>
-</li>
-<li><p>sqlSession相同，查询条件不同</p>
-</li>
-<li><p>sqlSession相同，两次查询之间执行了增删改操作</p>
-</li>
-<li><p>sqlSession相同，手动清楚一级缓存（使用谢列语句可以清除缓存）</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">session.clearCache();</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li><p>一级缓存就是一个map</p>
-</li>
-</ul>
-<h3 id="4-二级缓存"><a href="#4-二级缓存" class="headerlink" title="4. 二级缓存"></a>4. 二级缓存</h3><ul>
-<li><p>二级缓存也叫全局缓存，一级缓存作用域太低了，所以产生了二级缓存</p>
-</li>
-<li><p>基于<code>namespace</code>级别的缓存，一个名称空间对应一个二级缓存</p>
-</li>
-<li><p>工作机制：</p>
-<ul>
-<li>一个会话查询一个数据，这个数据就会被放在当前会话的一级缓存中。如果当前会话关闭了，这个会话对应的一级缓存就没了。但是我们想要的是会话关闭了，一级缓存中的数据被保存到二级缓存中，新的会话查询信息，就可以从二级缓存中获取内容，不同mapper查出的数据会藏在自己对应的缓存（map）中</li>
-</ul>
-</li>
-<li><p>开启二级缓存步骤：</p>
-<ol>
-<li><p>开启全局缓存<code>mybatis-config.xml</code></p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">&quot;cacheEnabled&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>去每个mapper.xml中配置使用二级缓存</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache</span>/&gt;</span></span><br><span class="line"> </span><br><span class="line">官方示例=====&gt;查看官方文档</span><br><span class="line"><span class="tag">&lt;<span class="name">cache</span></span></span><br><span class="line"><span class="tag">  <span class="attr">eviction</span>=<span class="string">&quot;FIFO&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">flushInterval</span>=<span class="string">&quot;60000&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">size</span>=<span class="string">&quot;512&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">readOnly</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 这个更高级的配置创建了一个 FIFO 缓存，每隔 60 秒刷新，最多可以存储结果对象或列表的 512 个引用，而且返回的对象被认为是只读的，因此对它们进行修改可能会在不同线程中的调用者产生冲突。 --&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li><p>总结：</p>
-<ul>
-<li>只要开启了二级缓存，我们在同一个mapper中的查询，可以在二级缓存中拿到数据</li>
-<li>查出的数据都会默认先放在一级缓存中</li>
-<li>只有会话提交或者关闭以后，一级缓存中的数据才会转到二级缓存中</li>
-</ul>
-</li>
-</ul>
-<h3 id="5-缓存原理"><a href="#5-缓存原理" class="headerlink" title="5. 缓存原理"></a>5. 缓存原理</h3><ul>
-<li><p>缓存原理图</p>
-<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210417000738269.png" alt="image-20210417000738269"></p>
-</li>
-</ul>
-<h3 id="6-EhCache"><a href="#6-EhCache" class="headerlink" title="6. EhCache"></a>6. EhCache</h3><ul>
-<li><p>第三方缓存的实现 —— EhCache</p>
-</li>
-<li><p>EhCache是一种广泛使用的Java分故事缓存，用于通用缓存</p>
-</li>
-<li><p>在应用程序中使用EhCache</p>
-<ul>
-<li><p>引入依赖jar包</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.mybatis.caches/mybatis-ehcache --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.caches<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-ehcache<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在mapper配置文件中使用对应的缓存即可</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span> = <span class="string">“org.acme.FooMapper”</span> &gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">cache</span> <span class="attr">type</span> = <span class="string">“org.mybatis.caches.ehcache.EhcacheCache”</span> /&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编写ehcache.xml文件，如果在加载时未找到<code>/ehcache.xml</code>资源或者出现问题，则将使用默认配置</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ehcache</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:noNamespaceSchemaLocation</span>=<span class="string">&quot;http://ehcache.org/ehcache.xsd&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">updateCheck</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">       diskStore：为缓存路径，ehcache分为内存和磁盘两级，此属性定义磁盘的缓存位置。参数解释如下：</span></span><br><span class="line"><span class="comment">       user.home – 用户主目录</span></span><br><span class="line"><span class="comment">       user.dir  – 用户当前工作目录</span></span><br><span class="line"><span class="comment">       java.io.tmpdir – 默认临时文件路径</span></span><br><span class="line"><span class="comment">     --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">diskStore</span> <span class="attr">path</span>=<span class="string">&quot;./tmpdir/Tmp_EhCache&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">defaultCache</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">eternal</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">maxElementsInMemory</span>=<span class="string">&quot;10000&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">overflowToDisk</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">diskPersistent</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">timeToIdleSeconds</span>=<span class="string">&quot;1800&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">timeToLiveSeconds</span>=<span class="string">&quot;259200&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">memoryStoreEvictionPolicy</span>=<span class="string">&quot;LRU&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">cache</span></span></span><br><span class="line"><span class="tag">           <span class="attr">name</span>=<span class="string">&quot;cloud_user&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">eternal</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">maxElementsInMemory</span>=<span class="string">&quot;5000&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">overflowToDisk</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">diskPersistent</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">timeToIdleSeconds</span>=<span class="string">&quot;1800&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">timeToLiveSeconds</span>=<span class="string">&quot;1800&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">memoryStoreEvictionPolicy</span>=<span class="string">&quot;LRU&quot;</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">       defaultCache：默认缓存策略，当ehcache找不到定义的缓存时，则使用这个缓存策略。只能定义一个。</span></span><br><span class="line"><span class="comment">     --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">      name:缓存名称。</span></span><br><span class="line"><span class="comment">      maxElementsInMemory:缓存最大数目</span></span><br><span class="line"><span class="comment">      maxElementsOnDisk：硬盘最大缓存个数。</span></span><br><span class="line"><span class="comment">      eternal:对象是否永久有效，一但设置了，timeout将不起作用。</span></span><br><span class="line"><span class="comment">      overflowToDisk:是否保存到磁盘，当系统当机时</span></span><br><span class="line"><span class="comment">      timeToIdleSeconds:设置对象在失效前的允许闲置时间（单位：秒）。仅当eternal=false对象不是永久有效时使用，可选属性，默认值是0，也就是可闲置时间无穷大。</span></span><br><span class="line"><span class="comment">      timeToLiveSeconds:设置对象在失效前允许存活时间（单位：秒）。最大时间介于创建时间和失效时间之间。仅当eternal=false对象不是永久有效时使用，默认是0.，也就是对象存活时间无穷大。</span></span><br><span class="line"><span class="comment">      diskPersistent：是否缓存虚拟机重启期数据 Whether the disk store persists between restarts of the Virtual Machine. The default value is false.</span></span><br><span class="line"><span class="comment">      diskSpoolBufferSizeMB：这个参数设置DiskStore（磁盘缓存）的缓存区大小。默认是30MB。每个Cache都应该有自己的一个缓冲区。</span></span><br><span class="line"><span class="comment">      diskExpiryThreadIntervalSeconds：磁盘失效线程运行时间间隔，默认是120秒。</span></span><br><span class="line"><span class="comment">      memoryStoreEvictionPolicy：当达到maxElementsInMemory限制时，Ehcache将会根据指定的策略去清理内存。默认策略是LRU（最近最少使用）。你可以设置为FIFO（先进先出）或是LFU（较少使用）。</span></span><br><span class="line"><span class="comment">      clearOnFlush：内存数量最大时是否清除。</span></span><br><span class="line"><span class="comment">      memoryStoreEvictionPolicy:可选策略有：LRU（最近最少使用，默认策略）、FIFO（先进先出）、LFU（最少访问次数）。</span></span><br><span class="line"><span class="comment">      FIFO，first in first out，这个是大家最熟的，先进先出。</span></span><br><span class="line"><span class="comment">      LFU， Less Frequently Used，就是上面例子中使用的策略，直白一点就是讲一直以来最少被使用的。如上面所讲，缓存的元素有一个hit属性，hit值最小的将会被清出缓存。</span></span><br><span class="line"><span class="comment">      LRU，Least Recently Used，最近最少使用的，缓存的元素有一个时间戳，当缓存容量满了，而又需要腾出地方来缓存新的元素的时候，那么现有缓存元素中时间戳离当前时间最远的元素将被清出缓存。</span></span><br><span class="line"><span class="comment">   --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">ehcache</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>框架学习</category>
-      </categories>
-      <tags>
-        <tag>MyBatis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Win10安装MySQL5和MySQL8</title>
     <url>/2021/05/12/mysql-57-80-install/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-下载数据库，配置环境变量"><a href="#1-下载数据库，配置环境变量" class="headerlink" title="1. 下载数据库，配置环境变量"></a>1. 下载数据库，配置环境变量</h2><p><strong>因为是安装两个MySQL数据库，端口号要不一样，MySQL默认端口号是3306，建议先配置非默认端口号，以免出现问题</strong></p>
@@ -1954,81 +1838,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Srping笔记（二）</title>
-    <url>/2021/03/24/spring-note-2/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="三、-IoC容器-Bean管理（基于注解方式）"><a href="#三、-IoC容器-Bean管理（基于注解方式）" class="headerlink" title="三、 IoC容器 - Bean管理（基于注解方式）"></a>三、 IoC容器 - Bean管理（基于注解方式）</h2><h3 id="1-什么是注解"><a href="#1-什么是注解" class="headerlink" title="1. 什么是注解"></a>1. 什么是注解</h3><ul>
-<li>注解是代码的特殊标记，格式：@注解名称(属性名称=属性值, 属性名称=属性值)</li>
-<li>使用注解，注解作用在类的上面、方法上面、属性上面</li>
-<li>使用注解的目的：简化XMl配置</li>
-</ul>
-<h3 id="2-Spring针对Bean管理中创建对象提供注解"><a href="#2-Spring针对Bean管理中创建对象提供注解" class="headerlink" title="2. Spring针对Bean管理中创建对象提供注解"></a>2. Spring针对Bean管理中创建对象提供注解</h3><ul>
-<li><p>@Component</p>
-</li>
-<li><p>@Service</p>
-</li>
-<li><p>@Controller</p>
-</li>
-<li><p>@Repository</p>
-<p>这些注解都是一样的，都可以用来创建bean实例的</p>
-</li>
-</ul>
-<h3 id="3-基于注解方式实现对象创建"><a href="#3-基于注解方式实现对象创建" class="headerlink" title="3. 基于注解方式实现对象创建"></a>3. 基于注解方式实现对象创建</h3><ol>
-<li><p>引入依赖：spring-aop的jar包</p>
-</li>
-<li><p>开启组件扫描：</p>
-<ol>
-<li>如果扫描多个包，那么多个包用逗号隔开</li>
-<li>扫描包上层目录</li>
-</ol>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;com.atguigu&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建类，在类的上面添加创建对象注解</p>
-<ul>
-<li>在注解里面，value属性值可以省略不写，则就是默认</li>
-<li>默认值是类名称，且首字母小写</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 注解等同于XML配置文件：&lt;bean id=&quot;userService&quot; class=&quot;..&quot;/&gt;</span></span><br><span class="line"><span class="comment">// UserService -- userService</span></span><br><span class="line"><span class="meta">@Component(value = &quot;userService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;service add......&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="4-开启组件扫描细节配置"><a href="#4-开启组件扫描细节配置" class="headerlink" title="4. 开启组件扫描细节配置"></a>4. 开启组件扫描细节配置</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 1.</span></span><br><span class="line"><span class="comment">	use-default-filters=&quot;false&quot; 表示现在不使用默认 filter，自己配置 filter</span></span><br><span class="line"><span class="comment">	context:include-filter ，设置扫描哪些内容</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;com.atguigu&quot;</span> <span class="attr">use-defaultfilters</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--代表只扫描Controller注解的类--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:include-filter</span> <span class="attr">type</span>=<span class="string">&quot;annotation&quot;</span> <span class="attr">expression</span>=<span class="string">&quot;org.springframework.stereotype.Controller&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 2.</span></span><br><span class="line"><span class="comment">    下面配置扫描包所有内容</span></span><br><span class="line"><span class="comment">    context:exclude-filter： 设置哪些内容不进行扫描</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;com.atguigu&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--表示Controller注解的类之外一切都进行扫描--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:exclude-filter</span> <span class="attr">type</span>=<span class="string">&quot;annotation&quot;</span> <span class="attr">expression</span>=<span class="string">&quot;org.springframework.stereotype.Controller&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="5-基于注解方式实现属性注入"><a href="#5-基于注解方式实现属性注入" class="headerlink" title="5. 基于注解方式实现属性注入"></a>5. 基于注解方式实现属性注入</h3><ol>
-<li><p>@Autowired：根据属性类型进行自动装配</p>
-<ol>
-<li>第一步，把service和dao对象创建，在service和dao类添加创建对象注解</li>
-<li>第二步，在service注入dao对象，在service类添加dao类型属性，在属性上面使用注解</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//定义 dao 类型属性</span></span><br><span class="line">    <span class="comment">//不需要添加 set 方法</span></span><br><span class="line">    <span class="comment">//添加注入属性注解</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;service add.......&quot;</span>);</span><br><span class="line">        userDao.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Dao实现类</span></span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="comment">//@Repository(value = &quot;userDaoImpl1&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoImpl</span> <span class="keyword">implements</span> <span class="title">UserDao</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;dao add.....&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>@Qualifier：根据名称进行注入</p>
-<ul>
-<li>这个@qualifier注解的使用，和上面的@Autowired一起使用</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 定义 dao 类型属性</span></span><br><span class="line"><span class="comment">// 不需要添加 set 方法</span></span><br><span class="line"><span class="comment">// 添加注入属性注解</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 根据类型进行注入</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="comment">//根据名称进行注入（目的在于区别同一接口下有多个实现类，根据类型就无法选择，从而出错！）</span></span><br><span class="line"><span class="meta">@Qualifier(value = &quot;userDaoImpl1&quot;)</span> </span><br><span class="line"><span class="keyword">private</span> UserDao userDao;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>@Resource：可以根据类型注入，也可以根据名称注入<strong>(但是这个注解属于javax包的，不推荐使用！)</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// @Resource 根据类型进行注入</span></span><br><span class="line"><span class="meta">@Resource(name = &quot;userDaoImpl1&quot;)</span> <span class="comment">// 根据名称进行注入</span></span><br><span class="line"><span class="keyword">private</span> UserDao userDao;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>@Value：注入普通类型属性</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Value(value = &quot;abc&quot;)</span></span><br><span class="line"><span class="keyword">private</span> String name;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="6-完全注解开发"><a href="#6-完全注解开发" class="headerlink" title="6. 完全注解开发"></a>6. 完全注解开发</h3><ol>
-<li><p>创建配置类，替代XML配置文件</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 作为配置类，替代XML配置文件</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan(basePackages = &#123;&quot;com.atguigu&quot;&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringConfig</span> </span>&#123;</span><br><span class="line">    xxx</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编写测试类</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testService2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//加载配置类</span></span><br><span class="line">    ApplicationContext context = <span class="keyword">new</span> AnnotationConfigApplicationContext(SpringConfig.class);</span><br><span class="line">    </span><br><span class="line">    UserService userService = context.getBean(<span class="string">&quot;userService&quot;</span>, UserService.class);</span><br><span class="line">    System.out.println(userService);</span><br><span class="line">    userService.add();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>框架学习</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Spring笔记（三）</title>
     <url>/2021/03/25/spring-note-3/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="一、AOP（概念）"><a href="#一、AOP（概念）" class="headerlink" title="一、AOP（概念）"></a>一、AOP（概念）</h2><h3 id="1-什么是AOP"><a href="#1-什么是AOP" class="headerlink" title="1. 什么是AOP"></a>1. 什么是AOP</h3><ul>
@@ -2178,6 +1987,122 @@
       </tags>
   </entry>
   <entry>
+    <title>MyBatis笔记（七）</title>
+    <url>/2021/04/17/mybatis-note-7/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h3><ol>
+<li>什么是缓存？<ul>
+<li>存在内存中的临时数据</li>
+<li>将用户经常查询的数据存放在缓存（内存）中，用户取查询就不用从磁盘上（关系型数据库数据文件）查询，从缓存中查询，从而提高查询效率，解决了高并发系统的性能问题</li>
+</ul>
+</li>
+<li>为什么使用缓存？<ul>
+<li>减少和数据库交互的次数</li>
+</ul>
+</li>
+<li>什么样的数据能使用缓存？<ul>
+<li>经常查询并且不经常改变的数据</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-MyBatis缓存"><a href="#2-MyBatis缓存" class="headerlink" title="2. MyBatis缓存"></a>2. MyBatis缓存</h3><ul>
+<li>MyBatis包含一个非常强大的查询缓存特性，它可以非常方便地定制和配置缓存，缓存可以极大地提升查询效率</li>
+<li>MyBatis系统中默认定义了两级缓存：<strong>一级缓存</strong>和<strong>二级缓存</strong><ul>
+<li>默认情况下，只有一级缓存开启（SqlSession级别地缓存，也称为本地缓存）</li>
+<li>二级缓存需要手动开启和配置，它是基于namespace级别的缓存</li>
+<li>为了提高扩展性，MyBatis定义了缓存接口Cache，我们可以通过实现Cache接口来自定义二级缓存</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-一级缓存"><a href="#3-一级缓存" class="headerlink" title="3. 一级缓存"></a>3. 一级缓存</h3><ul>
+<li><p><strong>一级缓存是默认开启的</strong></p>
+</li>
+<li><p>一级缓存也叫本地缓存：</p>
+<ul>
+<li>与数据库同一次会话期间查到的数据会放在本地缓存中</li>
+<li>以后如果要获取相同的数据，直接从缓存中拿，不用再去查询数据库了</li>
+</ul>
+</li>
+<li><p>一级缓存是SqlSession级别的缓存，是一直开启的，我们关闭不了它</p>
+</li>
+<li><p>一级缓存失效结果：查询相同的数据仍需再次发起一次查询请求</p>
+</li>
+<li><p><strong>一级缓存失效的四种情况：</strong></p>
+<ol>
+<li><p>sqlSession不同：每个sqlSession中的缓存相互独立</p>
+</li>
+<li><p>sqlSession相同，查询条件不同</p>
+</li>
+<li><p>sqlSession相同，两次查询之间执行了增删改操作</p>
+</li>
+<li><p>sqlSession相同，手动清楚一级缓存（使用谢列语句可以清除缓存）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">session.clearCache();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>一级缓存就是一个map</p>
+</li>
+</ul>
+<h3 id="4-二级缓存"><a href="#4-二级缓存" class="headerlink" title="4. 二级缓存"></a>4. 二级缓存</h3><ul>
+<li><p>二级缓存也叫全局缓存，一级缓存作用域太低了，所以产生了二级缓存</p>
+</li>
+<li><p>基于<code>namespace</code>级别的缓存，一个名称空间对应一个二级缓存</p>
+</li>
+<li><p>工作机制：</p>
+<ul>
+<li>一个会话查询一个数据，这个数据就会被放在当前会话的一级缓存中。如果当前会话关闭了，这个会话对应的一级缓存就没了。但是我们想要的是会话关闭了，一级缓存中的数据被保存到二级缓存中，新的会话查询信息，就可以从二级缓存中获取内容，不同mapper查出的数据会藏在自己对应的缓存（map）中</li>
+</ul>
+</li>
+<li><p>开启二级缓存步骤：</p>
+<ol>
+<li><p>开启全局缓存<code>mybatis-config.xml</code></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">&quot;cacheEnabled&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>去每个mapper.xml中配置使用二级缓存</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache</span>/&gt;</span></span><br><span class="line"> </span><br><span class="line">官方示例=====&gt;查看官方文档</span><br><span class="line"><span class="tag">&lt;<span class="name">cache</span></span></span><br><span class="line"><span class="tag">  <span class="attr">eviction</span>=<span class="string">&quot;FIFO&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">flushInterval</span>=<span class="string">&quot;60000&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">size</span>=<span class="string">&quot;512&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">readOnly</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 这个更高级的配置创建了一个 FIFO 缓存，每隔 60 秒刷新，最多可以存储结果对象或列表的 512 个引用，而且返回的对象被认为是只读的，因此对它们进行修改可能会在不同线程中的调用者产生冲突。 --&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>总结：</p>
+<ul>
+<li>只要开启了二级缓存，我们在同一个mapper中的查询，可以在二级缓存中拿到数据</li>
+<li>查出的数据都会默认先放在一级缓存中</li>
+<li>只有会话提交或者关闭以后，一级缓存中的数据才会转到二级缓存中</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-缓存原理"><a href="#5-缓存原理" class="headerlink" title="5. 缓存原理"></a>5. 缓存原理</h3><ul>
+<li><p>缓存原理图</p>
+<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210417000738269.png" alt="image-20210417000738269"></p>
+</li>
+</ul>
+<h3 id="6-EhCache"><a href="#6-EhCache" class="headerlink" title="6. EhCache"></a>6. EhCache</h3><ul>
+<li><p>第三方缓存的实现 —— EhCache</p>
+</li>
+<li><p>EhCache是一种广泛使用的Java分故事缓存，用于通用缓存</p>
+</li>
+<li><p>在应用程序中使用EhCache</p>
+<ul>
+<li><p>引入依赖jar包</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.mybatis.caches/mybatis-ehcache --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.caches<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-ehcache<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在mapper配置文件中使用对应的缓存即可</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span> = <span class="string">“org.acme.FooMapper”</span> &gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">cache</span> <span class="attr">type</span> = <span class="string">“org.mybatis.caches.ehcache.EhcacheCache”</span> /&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写ehcache.xml文件，如果在加载时未找到<code>/ehcache.xml</code>资源或者出现问题，则将使用默认配置</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ehcache</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:noNamespaceSchemaLocation</span>=<span class="string">&quot;http://ehcache.org/ehcache.xsd&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">updateCheck</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">       diskStore：为缓存路径，ehcache分为内存和磁盘两级，此属性定义磁盘的缓存位置。参数解释如下：</span></span><br><span class="line"><span class="comment">       user.home – 用户主目录</span></span><br><span class="line"><span class="comment">       user.dir  – 用户当前工作目录</span></span><br><span class="line"><span class="comment">       java.io.tmpdir – 默认临时文件路径</span></span><br><span class="line"><span class="comment">     --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">diskStore</span> <span class="attr">path</span>=<span class="string">&quot;./tmpdir/Tmp_EhCache&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">defaultCache</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">eternal</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">maxElementsInMemory</span>=<span class="string">&quot;10000&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">overflowToDisk</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">diskPersistent</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">timeToIdleSeconds</span>=<span class="string">&quot;1800&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">timeToLiveSeconds</span>=<span class="string">&quot;259200&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">memoryStoreEvictionPolicy</span>=<span class="string">&quot;LRU&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">cache</span></span></span><br><span class="line"><span class="tag">           <span class="attr">name</span>=<span class="string">&quot;cloud_user&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">eternal</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">maxElementsInMemory</span>=<span class="string">&quot;5000&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">overflowToDisk</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">diskPersistent</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">timeToIdleSeconds</span>=<span class="string">&quot;1800&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">timeToLiveSeconds</span>=<span class="string">&quot;1800&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">memoryStoreEvictionPolicy</span>=<span class="string">&quot;LRU&quot;</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">       defaultCache：默认缓存策略，当ehcache找不到定义的缓存时，则使用这个缓存策略。只能定义一个。</span></span><br><span class="line"><span class="comment">     --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">      name:缓存名称。</span></span><br><span class="line"><span class="comment">      maxElementsInMemory:缓存最大数目</span></span><br><span class="line"><span class="comment">      maxElementsOnDisk：硬盘最大缓存个数。</span></span><br><span class="line"><span class="comment">      eternal:对象是否永久有效，一但设置了，timeout将不起作用。</span></span><br><span class="line"><span class="comment">      overflowToDisk:是否保存到磁盘，当系统当机时</span></span><br><span class="line"><span class="comment">      timeToIdleSeconds:设置对象在失效前的允许闲置时间（单位：秒）。仅当eternal=false对象不是永久有效时使用，可选属性，默认值是0，也就是可闲置时间无穷大。</span></span><br><span class="line"><span class="comment">      timeToLiveSeconds:设置对象在失效前允许存活时间（单位：秒）。最大时间介于创建时间和失效时间之间。仅当eternal=false对象不是永久有效时使用，默认是0.，也就是对象存活时间无穷大。</span></span><br><span class="line"><span class="comment">      diskPersistent：是否缓存虚拟机重启期数据 Whether the disk store persists between restarts of the Virtual Machine. The default value is false.</span></span><br><span class="line"><span class="comment">      diskSpoolBufferSizeMB：这个参数设置DiskStore（磁盘缓存）的缓存区大小。默认是30MB。每个Cache都应该有自己的一个缓冲区。</span></span><br><span class="line"><span class="comment">      diskExpiryThreadIntervalSeconds：磁盘失效线程运行时间间隔，默认是120秒。</span></span><br><span class="line"><span class="comment">      memoryStoreEvictionPolicy：当达到maxElementsInMemory限制时，Ehcache将会根据指定的策略去清理内存。默认策略是LRU（最近最少使用）。你可以设置为FIFO（先进先出）或是LFU（较少使用）。</span></span><br><span class="line"><span class="comment">      clearOnFlush：内存数量最大时是否清除。</span></span><br><span class="line"><span class="comment">      memoryStoreEvictionPolicy:可选策略有：LRU（最近最少使用，默认策略）、FIFO（先进先出）、LFU（最少访问次数）。</span></span><br><span class="line"><span class="comment">      FIFO，first in first out，这个是大家最熟的，先进先出。</span></span><br><span class="line"><span class="comment">      LFU， Less Frequently Used，就是上面例子中使用的策略，直白一点就是讲一直以来最少被使用的。如上面所讲，缓存的元素有一个hit属性，hit值最小的将会被清出缓存。</span></span><br><span class="line"><span class="comment">      LRU，Least Recently Used，最近最少使用的，缓存的元素有一个时间戳，当缓存容量满了，而又需要腾出地方来缓存新的元素的时候，那么现有缓存元素中时间戳离当前时间最远的元素将被清出缓存。</span></span><br><span class="line"><span class="comment">   --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">ehcache</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>框架学习</category>
+      </categories>
+      <tags>
+        <tag>MyBatis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Srping笔记（四）</title>
     <url>/2021/03/26/spring-note-4/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="一、JdbcTemplate概念及使用"><a href="#一、JdbcTemplate概念及使用" class="headerlink" title="一、JdbcTemplate概念及使用"></a>一、JdbcTemplate概念及使用</h2><h3 id="1-什么是JdbcTemplate："><a href="#1-什么是JdbcTemplate：" class="headerlink" title="1. 什么是JdbcTemplate："></a>1. 什么是JdbcTemplate：</h3><ul>
@@ -2250,6 +2175,81 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//批量修改(同批量添加一样，调用同一个方法)</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchUpdateBook</span><span class="params">(List&lt;Object[]&gt; batchArgs)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;update t_book set username=?,ustatus=? where user_id=?&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span>[] ints = jdbcTemplate.batchUpdate(sql, batchArgs);</span><br><span class="line">    System.out.println(Arrays.toString(ints));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+]]></content>
+      <categories>
+        <category>框架学习</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Srping笔记（二）</title>
+    <url>/2021/03/24/spring-note-2/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="三、-IoC容器-Bean管理（基于注解方式）"><a href="#三、-IoC容器-Bean管理（基于注解方式）" class="headerlink" title="三、 IoC容器 - Bean管理（基于注解方式）"></a>三、 IoC容器 - Bean管理（基于注解方式）</h2><h3 id="1-什么是注解"><a href="#1-什么是注解" class="headerlink" title="1. 什么是注解"></a>1. 什么是注解</h3><ul>
+<li>注解是代码的特殊标记，格式：@注解名称(属性名称=属性值, 属性名称=属性值)</li>
+<li>使用注解，注解作用在类的上面、方法上面、属性上面</li>
+<li>使用注解的目的：简化XMl配置</li>
+</ul>
+<h3 id="2-Spring针对Bean管理中创建对象提供注解"><a href="#2-Spring针对Bean管理中创建对象提供注解" class="headerlink" title="2. Spring针对Bean管理中创建对象提供注解"></a>2. Spring针对Bean管理中创建对象提供注解</h3><ul>
+<li><p>@Component</p>
+</li>
+<li><p>@Service</p>
+</li>
+<li><p>@Controller</p>
+</li>
+<li><p>@Repository</p>
+<p>这些注解都是一样的，都可以用来创建bean实例的</p>
+</li>
+</ul>
+<h3 id="3-基于注解方式实现对象创建"><a href="#3-基于注解方式实现对象创建" class="headerlink" title="3. 基于注解方式实现对象创建"></a>3. 基于注解方式实现对象创建</h3><ol>
+<li><p>引入依赖：spring-aop的jar包</p>
+</li>
+<li><p>开启组件扫描：</p>
+<ol>
+<li>如果扫描多个包，那么多个包用逗号隔开</li>
+<li>扫描包上层目录</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;com.atguigu&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建类，在类的上面添加创建对象注解</p>
+<ul>
+<li>在注解里面，value属性值可以省略不写，则就是默认</li>
+<li>默认值是类名称，且首字母小写</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 注解等同于XML配置文件：&lt;bean id=&quot;userService&quot; class=&quot;..&quot;/&gt;</span></span><br><span class="line"><span class="comment">// UserService -- userService</span></span><br><span class="line"><span class="meta">@Component(value = &quot;userService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;service add......&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="4-开启组件扫描细节配置"><a href="#4-开启组件扫描细节配置" class="headerlink" title="4. 开启组件扫描细节配置"></a>4. 开启组件扫描细节配置</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 1.</span></span><br><span class="line"><span class="comment">	use-default-filters=&quot;false&quot; 表示现在不使用默认 filter，自己配置 filter</span></span><br><span class="line"><span class="comment">	context:include-filter ，设置扫描哪些内容</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;com.atguigu&quot;</span> <span class="attr">use-defaultfilters</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--代表只扫描Controller注解的类--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:include-filter</span> <span class="attr">type</span>=<span class="string">&quot;annotation&quot;</span> <span class="attr">expression</span>=<span class="string">&quot;org.springframework.stereotype.Controller&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 2.</span></span><br><span class="line"><span class="comment">    下面配置扫描包所有内容</span></span><br><span class="line"><span class="comment">    context:exclude-filter： 设置哪些内容不进行扫描</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;com.atguigu&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--表示Controller注解的类之外一切都进行扫描--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:exclude-filter</span> <span class="attr">type</span>=<span class="string">&quot;annotation&quot;</span> <span class="attr">expression</span>=<span class="string">&quot;org.springframework.stereotype.Controller&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-基于注解方式实现属性注入"><a href="#5-基于注解方式实现属性注入" class="headerlink" title="5. 基于注解方式实现属性注入"></a>5. 基于注解方式实现属性注入</h3><ol>
+<li><p>@Autowired：根据属性类型进行自动装配</p>
+<ol>
+<li>第一步，把service和dao对象创建，在service和dao类添加创建对象注解</li>
+<li>第二步，在service注入dao对象，在service类添加dao类型属性，在属性上面使用注解</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//定义 dao 类型属性</span></span><br><span class="line">    <span class="comment">//不需要添加 set 方法</span></span><br><span class="line">    <span class="comment">//添加注入属性注解</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;service add.......&quot;</span>);</span><br><span class="line">        userDao.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Dao实现类</span></span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="comment">//@Repository(value = &quot;userDaoImpl1&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoImpl</span> <span class="keyword">implements</span> <span class="title">UserDao</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;dao add.....&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>@Qualifier：根据名称进行注入</p>
+<ul>
+<li>这个@qualifier注解的使用，和上面的@Autowired一起使用</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 定义 dao 类型属性</span></span><br><span class="line"><span class="comment">// 不需要添加 set 方法</span></span><br><span class="line"><span class="comment">// 添加注入属性注解</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 根据类型进行注入</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="comment">//根据名称进行注入（目的在于区别同一接口下有多个实现类，根据类型就无法选择，从而出错！）</span></span><br><span class="line"><span class="meta">@Qualifier(value = &quot;userDaoImpl1&quot;)</span> </span><br><span class="line"><span class="keyword">private</span> UserDao userDao;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>@Resource：可以根据类型注入，也可以根据名称注入<strong>(但是这个注解属于javax包的，不推荐使用！)</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// @Resource 根据类型进行注入</span></span><br><span class="line"><span class="meta">@Resource(name = &quot;userDaoImpl1&quot;)</span> <span class="comment">// 根据名称进行注入</span></span><br><span class="line"><span class="keyword">private</span> UserDao userDao;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>@Value：注入普通类型属性</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Value(value = &quot;abc&quot;)</span></span><br><span class="line"><span class="keyword">private</span> String name;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="6-完全注解开发"><a href="#6-完全注解开发" class="headerlink" title="6. 完全注解开发"></a>6. 完全注解开发</h3><ol>
+<li><p>创建配置类，替代XML配置文件</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 作为配置类，替代XML配置文件</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan(basePackages = &#123;&quot;com.atguigu&quot;&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringConfig</span> </span>&#123;</span><br><span class="line">    xxx</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写测试类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testService2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//加载配置类</span></span><br><span class="line">    ApplicationContext context = <span class="keyword">new</span> AnnotationConfigApplicationContext(SpringConfig.class);</span><br><span class="line">    </span><br><span class="line">    UserService userService = context.getBean(<span class="string">&quot;userService&quot;</span>, UserService.class);</span><br><span class="line">    System.out.println(userService);</span><br><span class="line">    userService.add();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>框架学习</category>
@@ -2498,149 +2498,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringMVC笔记（三）</title>
-    <url>/2021/04/28/springmvc-note-3/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-Controller"><a href="#1-Controller" class="headerlink" title="1. Controller"></a>1. Controller</h2><ul>
-<li>控制器复制提供访问应用程序的行为，通常通过接口定义或注解定义两种方法实现</li>
-<li>控制器负责解析用户的请求并将其转换为一个模型</li>
-<li>在SpringMVC中一个控制器可以包含多个方法</li>
-<li>在SpringMVC中，对于Controller的配置方式有很多种</li>
-</ul>
-<h2 id="2-RequestMapping"><a href="#2-RequestMapping" class="headerlink" title="2. RequestMapping"></a>2. RequestMapping</h2><p>@RequestMapping注解：用于映射url到控制器类或一个特定的处理程序的方法</p>
-<ol>
-<li><p>只加在方法上面，访问路径：<strong>localhost/项目名/t1</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/t1&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在类上也加，则需要先指定类的路径再指定方法的路径，访问路径：<strong>localhost/项目名/test/t1</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/test&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/t1&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="3-RESTful风格"><a href="#3-RESTful风格" class="headerlink" title="3. RESTful风格"></a>3. RESTful风格</h2><h3 id="3-1-概念"><a href="#3-1-概念" class="headerlink" title="3.1 概念"></a>3.1 概念</h3><p>RestFul就是一个资源定位及资源操作的风格，基于这个风格设计的软件可以更加简介，更有层次，更易于实现缓存等机制</p>
-<h3 id="3-2-功能"><a href="#3-2-功能" class="headerlink" title="3.2 功能"></a>3.2 功能</h3><ul>
-<li><strong>资源：</strong>互联网所有的事务都可以被称为资源</li>
-<li><strong>资源操作：</strong>使用POST、GET、DELETE、PUT，即使用不同方法对资源进行操作</li>
-</ul>
-<h3 id="3-3-传统方式资源操作"><a href="#3-3-传统方式资源操作" class="headerlink" title="3.3 传统方式资源操作"></a>3.3 传统方式资源操作</h3><ul>
-<li>通过不同的参数来实现不同的效果，方法单一，即POST和GET<ul>
-<li><a href="http://127.0.0.1/item/queryItem.action?id=1">http://127.0.0.1/item/queryItem.action?id=1</a> 查询,GET</li>
-<li><a href="http://127.0.0.1/item/saveItem.action">http://127.0.0.1/item/saveItem.action</a> 新增,POST</li>
-<li><a href="http://127.0.0.1/item/updateItem.action">http://127.0.0.1/item/updateItem.action</a> 更新,POST</li>
-<li><a href="http://127.0.0.1/item/deleteItem.action?id=1">http://127.0.0.1/item/deleteItem.action?id=1</a> 删除,GET或POST</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-4-RESTful操作资源"><a href="#3-4-RESTful操作资源" class="headerlink" title="3.4 RESTful操作资源"></a>3.4 RESTful操作资源</h3><ul>
-<li>可以通过不同的请求方式来实现不同的效果，地址一样，但是功能可以不同<ul>
-<li><a href="http://127.0.0.1/item/1">http://127.0.0.1/item/1</a> 查询,GET</li>
-<li><a href="http://127.0.0.1/item">http://127.0.0.1/item</a> 新增,POST</li>
-<li><a href="http://127.0.0.1/item">http://127.0.0.1/item</a> 更新,PUT</li>
-<li><a href="http://127.0.0.1/item/1">http://127.0.0.1/item/1</a> 删除,DELETE</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-5-使用RESTful"><a href="#3-5-使用RESTful" class="headerlink" title="3.5 使用RESTful"></a>3.5 使用RESTful</h3><ol>
-<li><p>新建一个Controller</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestFulController</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>再SpringMVC中，可以使用<code>@PathVariable</code>注解，让方法参数的值对应绑定到一个URI模板变量上</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestFulController</span> </span>&#123;</span><br><span class="line">    <span class="comment">//映射访问路径</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/commit/&#123;p1&#125;/&#123;p2&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">(<span class="meta">@PathVariable</span> <span class="keyword">int</span> p1, <span class="meta">@PathVariable</span> <span class="keyword">int</span> p2, Model model)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> result = p1+p2;</span><br><span class="line">        <span class="comment">//Spring MVC会自动实例化一个Model对象用于向视图中传值</span></span><br><span class="line">        model.addAttribute(<span class="string">&quot;msg&quot;</span>, <span class="string">&quot;结果：&quot;</span>+result);</span><br><span class="line">        <span class="comment">//返回视图位置</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>进行测试</p>
-</li>
-</ol>
-<h3 id="3-6-使用路径变量的好处"><a href="#3-6-使用路径变量的好处" class="headerlink" title="3.6 使用路径变量的好处"></a>3.6 使用路径变量的好处</h3><ul>
-<li>使路径变得更加简洁</li>
-<li>获取参数更方便，框架会自动进行类型转换</li>
-<li>通过路径变量的类型可以约束访问参数，如果类型不一样，则访问不到对应的请求方法</li>
-</ul>
-<h2 id="4-使用method属性指定请求类型"><a href="#4-使用method属性指定请求类型" class="headerlink" title="4. 使用method属性指定请求类型"></a>4. 使用method属性指定请求类型</h2><p>用于约束请求的类型，可以收窄请求范围。指定请求谓词的类型。如：GET、POST、HEAD、OPTIONS、PUT、PATCH、DELETE、TRACE等</p>
-<p><strong>测试：</strong></p>
-<ol>
-<li><p>增加一个方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//映射访问路径,必须是POST请求</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/hello&quot;, method = &#123;RequestMethod.POST&#125;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">index2</span><span class="params">(Model model)</span></span>&#123;</span><br><span class="line">    model.addAttribute(<span class="string">&quot;msg&quot;</span>, <span class="string">&quot;hello!&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用浏览器通过GET方式访问，会报405错误</p>
-</li>
-<li><p>将POST修改为GET则正常访问</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//映射访问路径,必须是POST请求</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/hello&quot;, method = &#123;RequestMethod.GET&#125;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">index2</span><span class="params">(Model model)</span></span>&#123;</span><br><span class="line">    model.addAttribute(<span class="string">&quot;msg&quot;</span>, <span class="string">&quot;hello!&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ul>
-<li><strong>总结：</strong><ul>
-<li>所有的地址栏请求默认都会是GET请求类型</li>
-<li>方法级别的注解有如下几个：组合注解<ul>
-<li>@GetMapping</li>
-<li>@PostMapping</li>
-<li>@PutMapping</li>
-<li>@DeleteMapping</li>
-<li>@PatchMapping</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>框架学习</category>
-      </categories>
-      <tags>
-        <tag>SpringMVC</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringMVC笔记（四）</title>
-    <url>/2021/04/28/springmvc-note-4/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-结果跳转方式"><a href="#1-结果跳转方式" class="headerlink" title="1. 结果跳转方式"></a>1. 结果跳转方式</h2><h3 id="1-1-ModelAndView"><a href="#1-1-ModelAndView" class="headerlink" title="1.1 ModelAndView"></a>1.1 ModelAndView</h3><p>设置ModelAndView对象，根据view的名称和视图解析器跳转到指定的页面（视图解析器前缀 + viewName + 视图解析器后缀）</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 视图解析器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">id</span>=<span class="string">&quot;internalResourceViewResolver&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 前缀 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;prefix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;/WEB-INF/jsp/&quot;</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 后缀 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;suffix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;.jsp&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>对应的Controller控制器</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ControllerTest1</span> <span class="keyword">implements</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handleRequest</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//返回一个模型视图对象</span></span><br><span class="line">        ModelAndView mv = <span class="keyword">new</span> ModelAndView();</span><br><span class="line">        mv.addObject(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;ControllerTest1&quot;</span>);</span><br><span class="line">        mv.setViewName(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> mv;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1-2-ServletAPI"><a href="#1-2-ServletAPI" class="headerlink" title="1.2 ServletAPI"></a>1.2 ServletAPI</h3><p>通过设置ServletAPI，不需要视图解析器</p>
-<ol>
-<li><p>通过HttpServletResponse进行输出</p>
-</li>
-<li><p>通过HttpServletResponse进行重定向</p>
-</li>
-<li><p>通过HttpServletResponse实现转发</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResultGo</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/result/t1&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">(HttpServletRequest req, HttpServletResponse rsp)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        rsp.getWriter().println(<span class="string">&quot;Hello&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/result/t2&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">(HttpServletRequest req, HttpServletResponse rsp)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        rsp.sendRedirect(<span class="string">&quot;/index.jsp&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/result/t3&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">(HttpServletRequest req, HttpServletResponse rsp)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//转发</span></span><br><span class="line">        req.setAttribute(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;/result/t3&quot;</span>);</span><br><span class="line">        req.getRequestDispatcher(<span class="string">&quot;/WEB-INF/jsp/test.jsp&quot;</span>).forward(req,rsp);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="1-3-SpringMVC"><a href="#1-3-SpringMVC" class="headerlink" title="1.3 SpringMVC"></a>1.3 SpringMVC</h3><p>通过SpringMVC来实现转发和重定向，视图解析器可以使用也可以不使用</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResultSpringMVC2</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/rsm2/t1&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//转发</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/rsm2/t2&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//重定向</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;redirect:/index.jsp&quot;</span>;</span><br><span class="line">        <span class="comment">//hello.do为另一个请求/</span></span><br><span class="line">        <span class="comment">//return &quot;redirect:hello.do&quot;;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="2-数据处理"><a href="#2-数据处理" class="headerlink" title="2. 数据处理"></a>2. 数据处理</h2><h3 id="2-1-处理提交数据"><a href="#2-1-处理提交数据" class="headerlink" title="2.1 处理提交数据"></a>2.1 处理提交数据</h3><ol>
-<li><p>提交时候的参数名和处理方法的参数名一致，则会自动匹配</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">    System.out.println(name);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>提交时候的参数名和处理方法的参数名不一致，需要在方法的参数列表中使用<code>@RequestParam</code>注解进行手动绑定</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//@RequestParam(&quot;username&quot;) : username 提交的域的名称 .</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">(<span class="meta">@RequestParam(&quot;username&quot;)</span> String name)</span></span>&#123;</span><br><span class="line">    System.out.println(name);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>提交的是一个对象</p>
-<ul>
-<li>如果提交的是一个对象，则参数直接使用对象即可</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/user&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">user</span><span class="params">(User user)</span></span>&#123;</span><br><span class="line">    System.out.println(user);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="3-数据显示到前端"><a href="#3-数据显示到前端" class="headerlink" title="3. 数据显示到前端"></a>3. 数据显示到前端</h2><h3 id="3-1-通过ModelAndView"><a href="#3-1-通过ModelAndView" class="headerlink" title="3.1 通过ModelAndView"></a>3.1 通过ModelAndView</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ControllerTest1</span> <span class="keyword">implements</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handleRequest</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 返回一个模型视图对象</span></span><br><span class="line">        ModelAndView mv = <span class="keyword">new</span> ModelAndView();</span><br><span class="line">        mv.addObject(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;ControllerTest1&quot;</span>);</span><br><span class="line">        mv.setViewName(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> mv;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-2-通过ModelMap"><a href="#3-2-通过ModelMap" class="headerlink" title="3.2 通过ModelMap"></a>3.2 通过ModelMap</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">(<span class="meta">@RequestParam(&quot;username&quot;)</span> String name, ModelMap model)</span></span>&#123;</span><br><span class="line">    <span class="comment">//封装要显示到视图中的数据</span></span><br><span class="line">    <span class="comment">//相当于req.setAttribute(&quot;name&quot;,name);</span></span><br><span class="line">    model.addAttribute(<span class="string">&quot;name&quot;</span>,name);</span><br><span class="line">    System.out.println(name);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-3-通过Model"><a href="#3-3-通过Model" class="headerlink" title="3.3 通过Model"></a>3.3 通过Model</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/ct2/hello&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">(<span class="meta">@RequestParam(&quot;username&quot;)</span> String name, Model model)</span></span>&#123;</span><br><span class="line">    <span class="comment">//封装要显示到视图中的数据</span></span><br><span class="line">    <span class="comment">//相当于req.setAttribute(&quot;name&quot;,name);</span></span><br><span class="line">    model.addAttribute(<span class="string">&quot;msg&quot;</span>,name);</span><br><span class="line">    System.out.println(name);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-4-三种方式对比"><a href="#3-4-三种方式对比" class="headerlink" title="3.4 三种方式对比"></a>3.4 三种方式对比</h3><ul>
-<li>Model 只有寥寥几个方法只适合用于储存数据，简化了Model对象的操作和理解</li>
-<li>ModelMap 继承了 LinkedMap ，除了实现了自身的一些方法，同样的继承 LinkedMap 的方法和特性</li>
-<li>ModelAndView 可以在储存数据的同时，可以进行设置返回的逻辑视图，进行控制展示层的跳转</li>
-</ul>
-<h2 id="4-乱码问题"><a href="#4-乱码问题" class="headerlink" title="4. 乱码问题"></a>4. 乱码问题</h2><p>我们可以通过修改配置文件web.xml中的过滤器，spring自带<code>CharacterEncodingFilter</code>过滤器</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>encoding<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>encoding<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>utf-8<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>encoding<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>也可以使用<strong>自定义的过滤器</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.linzeliang.filter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.*;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequestWrapper;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.UnsupportedEncodingException;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 解决get和post请求 全部乱码的过滤器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericEncodingFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">        <span class="comment">//处理response的字符编码</span></span><br><span class="line">        HttpServletResponse myResponse=(HttpServletResponse) response;</span><br><span class="line">        myResponse.setContentType(<span class="string">&quot;text/html;charset=UTF-8&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 转型为与协议相关对象</span></span><br><span class="line">        HttpServletRequest httpServletRequest = (HttpServletRequest) request;</span><br><span class="line">        <span class="comment">// 对request包装增强</span></span><br><span class="line">        HttpServletRequest myrequest = <span class="keyword">new</span> MyRequest(httpServletRequest);</span><br><span class="line">        chain.doFilter(myrequest, response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig filterConfig)</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//自定义request对象，HttpServletRequest的包装类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyRequest</span> <span class="keyword">extends</span> <span class="title">HttpServletRequestWrapper</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> HttpServletRequest request;</span><br><span class="line">    <span class="comment">//是否编码的标记</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> hasEncode;</span><br><span class="line">    <span class="comment">//定义一个可以传入HttpServletRequest对象的构造函数，以便对其进行装饰</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyRequest</span><span class="params">(HttpServletRequest request)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(request);<span class="comment">// super必须写</span></span><br><span class="line">        <span class="keyword">this</span>.request = request;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对需要增强方法 进行覆盖</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map <span class="title">getParameterMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 先获得请求方式</span></span><br><span class="line">        String method = request.getMethod();</span><br><span class="line">        <span class="keyword">if</span> (method.equalsIgnoreCase(<span class="string">&quot;post&quot;</span>)) &#123;</span><br><span class="line">            <span class="comment">// post请求</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 处理post乱码</span></span><br><span class="line">                request.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> request.getParameterMap();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.equalsIgnoreCase(<span class="string">&quot;get&quot;</span>)) &#123;</span><br><span class="line">            <span class="comment">// get请求</span></span><br><span class="line">            Map&lt;String, String[]&gt; parameterMap = request.getParameterMap();</span><br><span class="line">            <span class="keyword">if</span> (!hasEncode) &#123; <span class="comment">// 确保get手动编码逻辑只运行一次</span></span><br><span class="line">                <span class="keyword">for</span> (String parameterName : parameterMap.keySet()) &#123;</span><br><span class="line">                    String[] values = parameterMap.get(parameterName);</span><br><span class="line">                    <span class="keyword">if</span> (values != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; values.length; i++) &#123;</span><br><span class="line">                            <span class="keyword">try</span> &#123;</span><br><span class="line">                                <span class="comment">// 处理get乱码</span></span><br><span class="line">                                values[i] = <span class="keyword">new</span> String(values[i]</span><br><span class="line">                                                       .getBytes(<span class="string">&quot;ISO-8859-1&quot;</span>), <span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">                            &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">                                e.printStackTrace();</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                hasEncode = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> parameterMap;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.getParameterMap();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//取一个值</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getParameter</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, String[]&gt; parameterMap = getParameterMap();</span><br><span class="line">        String[] values = parameterMap.get(name);</span><br><span class="line">        <span class="keyword">if</span> (values == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> values[<span class="number">0</span>]; <span class="comment">// 取回参数的第一个值</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//取所有值</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String[] getParameterValues(String name) &#123;</span><br><span class="line">        Map&lt;String, String[]&gt; parameterMap = getParameterMap();</span><br><span class="line">        String[] values = parameterMap.get(name);</span><br><span class="line">        <span class="keyword">return</span> values;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>框架学习</category>
-      </categories>
-      <tags>
-        <tag>SpringMVC</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringMVC笔记（二）</title>
     <url>/2021/04/27/springmvc-note-2/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-创建SpringMVC程序"><a href="#1-创建SpringMVC程序" class="headerlink" title="1. 创建SpringMVC程序"></a>1. 创建SpringMVC程序</h2><h3 id="1-1-配置文件方式"><a href="#1-1-配置文件方式" class="headerlink" title="1.1 配置文件方式"></a>1.1 配置文件方式</h3><ol>
@@ -2730,6 +2587,59 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringMVC笔记（四）</title>
+    <url>/2021/04/28/springmvc-note-4/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-结果跳转方式"><a href="#1-结果跳转方式" class="headerlink" title="1. 结果跳转方式"></a>1. 结果跳转方式</h2><h3 id="1-1-ModelAndView"><a href="#1-1-ModelAndView" class="headerlink" title="1.1 ModelAndView"></a>1.1 ModelAndView</h3><p>设置ModelAndView对象，根据view的名称和视图解析器跳转到指定的页面（视图解析器前缀 + viewName + 视图解析器后缀）</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 视图解析器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">id</span>=<span class="string">&quot;internalResourceViewResolver&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 前缀 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;prefix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;/WEB-INF/jsp/&quot;</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 后缀 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;suffix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;.jsp&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>对应的Controller控制器</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ControllerTest1</span> <span class="keyword">implements</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handleRequest</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//返回一个模型视图对象</span></span><br><span class="line">        ModelAndView mv = <span class="keyword">new</span> ModelAndView();</span><br><span class="line">        mv.addObject(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;ControllerTest1&quot;</span>);</span><br><span class="line">        mv.setViewName(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> mv;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-ServletAPI"><a href="#1-2-ServletAPI" class="headerlink" title="1.2 ServletAPI"></a>1.2 ServletAPI</h3><p>通过设置ServletAPI，不需要视图解析器</p>
+<ol>
+<li><p>通过HttpServletResponse进行输出</p>
+</li>
+<li><p>通过HttpServletResponse进行重定向</p>
+</li>
+<li><p>通过HttpServletResponse实现转发</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResultGo</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/result/t1&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">(HttpServletRequest req, HttpServletResponse rsp)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        rsp.getWriter().println(<span class="string">&quot;Hello&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/result/t2&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">(HttpServletRequest req, HttpServletResponse rsp)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        rsp.sendRedirect(<span class="string">&quot;/index.jsp&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/result/t3&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">(HttpServletRequest req, HttpServletResponse rsp)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//转发</span></span><br><span class="line">        req.setAttribute(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;/result/t3&quot;</span>);</span><br><span class="line">        req.getRequestDispatcher(<span class="string">&quot;/WEB-INF/jsp/test.jsp&quot;</span>).forward(req,rsp);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="1-3-SpringMVC"><a href="#1-3-SpringMVC" class="headerlink" title="1.3 SpringMVC"></a>1.3 SpringMVC</h3><p>通过SpringMVC来实现转发和重定向，视图解析器可以使用也可以不使用</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResultSpringMVC2</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/rsm2/t1&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//转发</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/rsm2/t2&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//重定向</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;redirect:/index.jsp&quot;</span>;</span><br><span class="line">        <span class="comment">//hello.do为另一个请求/</span></span><br><span class="line">        <span class="comment">//return &quot;redirect:hello.do&quot;;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-数据处理"><a href="#2-数据处理" class="headerlink" title="2. 数据处理"></a>2. 数据处理</h2><h3 id="2-1-处理提交数据"><a href="#2-1-处理提交数据" class="headerlink" title="2.1 处理提交数据"></a>2.1 处理提交数据</h3><ol>
+<li><p>提交时候的参数名和处理方法的参数名一致，则会自动匹配</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">    System.out.println(name);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>提交时候的参数名和处理方法的参数名不一致，需要在方法的参数列表中使用<code>@RequestParam</code>注解进行手动绑定</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//@RequestParam(&quot;username&quot;) : username 提交的域的名称 .</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">(<span class="meta">@RequestParam(&quot;username&quot;)</span> String name)</span></span>&#123;</span><br><span class="line">    System.out.println(name);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>提交的是一个对象</p>
+<ul>
+<li>如果提交的是一个对象，则参数直接使用对象即可</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/user&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">user</span><span class="params">(User user)</span></span>&#123;</span><br><span class="line">    System.out.println(user);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="3-数据显示到前端"><a href="#3-数据显示到前端" class="headerlink" title="3. 数据显示到前端"></a>3. 数据显示到前端</h2><h3 id="3-1-通过ModelAndView"><a href="#3-1-通过ModelAndView" class="headerlink" title="3.1 通过ModelAndView"></a>3.1 通过ModelAndView</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ControllerTest1</span> <span class="keyword">implements</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handleRequest</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 返回一个模型视图对象</span></span><br><span class="line">        ModelAndView mv = <span class="keyword">new</span> ModelAndView();</span><br><span class="line">        mv.addObject(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;ControllerTest1&quot;</span>);</span><br><span class="line">        mv.setViewName(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> mv;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-2-通过ModelMap"><a href="#3-2-通过ModelMap" class="headerlink" title="3.2 通过ModelMap"></a>3.2 通过ModelMap</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">(<span class="meta">@RequestParam(&quot;username&quot;)</span> String name, ModelMap model)</span></span>&#123;</span><br><span class="line">    <span class="comment">//封装要显示到视图中的数据</span></span><br><span class="line">    <span class="comment">//相当于req.setAttribute(&quot;name&quot;,name);</span></span><br><span class="line">    model.addAttribute(<span class="string">&quot;name&quot;</span>,name);</span><br><span class="line">    System.out.println(name);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-通过Model"><a href="#3-3-通过Model" class="headerlink" title="3.3 通过Model"></a>3.3 通过Model</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/ct2/hello&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">(<span class="meta">@RequestParam(&quot;username&quot;)</span> String name, Model model)</span></span>&#123;</span><br><span class="line">    <span class="comment">//封装要显示到视图中的数据</span></span><br><span class="line">    <span class="comment">//相当于req.setAttribute(&quot;name&quot;,name);</span></span><br><span class="line">    model.addAttribute(<span class="string">&quot;msg&quot;</span>,name);</span><br><span class="line">    System.out.println(name);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-4-三种方式对比"><a href="#3-4-三种方式对比" class="headerlink" title="3.4 三种方式对比"></a>3.4 三种方式对比</h3><ul>
+<li>Model 只有寥寥几个方法只适合用于储存数据，简化了Model对象的操作和理解</li>
+<li>ModelMap 继承了 LinkedMap ，除了实现了自身的一些方法，同样的继承 LinkedMap 的方法和特性</li>
+<li>ModelAndView 可以在储存数据的同时，可以进行设置返回的逻辑视图，进行控制展示层的跳转</li>
+</ul>
+<h2 id="4-乱码问题"><a href="#4-乱码问题" class="headerlink" title="4. 乱码问题"></a>4. 乱码问题</h2><p>我们可以通过修改配置文件web.xml中的过滤器，spring自带<code>CharacterEncodingFilter</code>过滤器</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>encoding<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>encoding<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>utf-8<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>encoding<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>也可以使用<strong>自定义的过滤器</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.linzeliang.filter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.*;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequestWrapper;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.UnsupportedEncodingException;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 解决get和post请求 全部乱码的过滤器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericEncodingFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">        <span class="comment">//处理response的字符编码</span></span><br><span class="line">        HttpServletResponse myResponse=(HttpServletResponse) response;</span><br><span class="line">        myResponse.setContentType(<span class="string">&quot;text/html;charset=UTF-8&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 转型为与协议相关对象</span></span><br><span class="line">        HttpServletRequest httpServletRequest = (HttpServletRequest) request;</span><br><span class="line">        <span class="comment">// 对request包装增强</span></span><br><span class="line">        HttpServletRequest myrequest = <span class="keyword">new</span> MyRequest(httpServletRequest);</span><br><span class="line">        chain.doFilter(myrequest, response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig filterConfig)</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//自定义request对象，HttpServletRequest的包装类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyRequest</span> <span class="keyword">extends</span> <span class="title">HttpServletRequestWrapper</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> HttpServletRequest request;</span><br><span class="line">    <span class="comment">//是否编码的标记</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> hasEncode;</span><br><span class="line">    <span class="comment">//定义一个可以传入HttpServletRequest对象的构造函数，以便对其进行装饰</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyRequest</span><span class="params">(HttpServletRequest request)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(request);<span class="comment">// super必须写</span></span><br><span class="line">        <span class="keyword">this</span>.request = request;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对需要增强方法 进行覆盖</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map <span class="title">getParameterMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 先获得请求方式</span></span><br><span class="line">        String method = request.getMethod();</span><br><span class="line">        <span class="keyword">if</span> (method.equalsIgnoreCase(<span class="string">&quot;post&quot;</span>)) &#123;</span><br><span class="line">            <span class="comment">// post请求</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 处理post乱码</span></span><br><span class="line">                request.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> request.getParameterMap();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.equalsIgnoreCase(<span class="string">&quot;get&quot;</span>)) &#123;</span><br><span class="line">            <span class="comment">// get请求</span></span><br><span class="line">            Map&lt;String, String[]&gt; parameterMap = request.getParameterMap();</span><br><span class="line">            <span class="keyword">if</span> (!hasEncode) &#123; <span class="comment">// 确保get手动编码逻辑只运行一次</span></span><br><span class="line">                <span class="keyword">for</span> (String parameterName : parameterMap.keySet()) &#123;</span><br><span class="line">                    String[] values = parameterMap.get(parameterName);</span><br><span class="line">                    <span class="keyword">if</span> (values != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; values.length; i++) &#123;</span><br><span class="line">                            <span class="keyword">try</span> &#123;</span><br><span class="line">                                <span class="comment">// 处理get乱码</span></span><br><span class="line">                                values[i] = <span class="keyword">new</span> String(values[i]</span><br><span class="line">                                                       .getBytes(<span class="string">&quot;ISO-8859-1&quot;</span>), <span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">                            &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">                                e.printStackTrace();</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                hasEncode = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> parameterMap;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.getParameterMap();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//取一个值</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getParameter</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, String[]&gt; parameterMap = getParameterMap();</span><br><span class="line">        String[] values = parameterMap.get(name);</span><br><span class="line">        <span class="keyword">if</span> (values == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> values[<span class="number">0</span>]; <span class="comment">// 取回参数的第一个值</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//取所有值</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String[] getParameterValues(String name) &#123;</span><br><span class="line">        Map&lt;String, String[]&gt; parameterMap = getParameterMap();</span><br><span class="line">        String[] values = parameterMap.get(name);</span><br><span class="line">        <span class="keyword">return</span> values;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>框架学习</category>
+      </categories>
+      <tags>
+        <tag>SpringMVC</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringMVC笔记（五）</title>
     <url>/2021/04/30/springmvc-note-5/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-拦截器"><a href="#1-拦截器" class="headerlink" title="1. 拦截器"></a>1. 拦截器</h2><h3 id="1-1-拦截器和过滤器"><a href="#1-1-拦截器和过滤器" class="headerlink" title="1.1 拦截器和过滤器"></a>1.1 拦截器和过滤器</h3><p>SpringMVC的处理器拦截器类似于Servlet开发过程中的过滤器Filter，用于对处理器进行预处理和后处理。我们可以自定义一些拦截器来实现特定的功能</p>
@@ -2788,6 +2698,96 @@
 </ol>
 <p>代码实现：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(value=&quot;/download&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">downloads</span><span class="params">(HttpServletResponse response ,HttpServletRequest request)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    <span class="comment">//要下载的图片地址</span></span><br><span class="line">    String  path = request.getServletContext().getRealPath(<span class="string">&quot;/upload&quot;</span>);</span><br><span class="line">    String  fileName = <span class="string">&quot;基础语法.jpg&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//1、设置response 响应头</span></span><br><span class="line">    response.reset(); <span class="comment">//设置页面不缓存,清空buffer</span></span><br><span class="line">    response.setCharacterEncoding(<span class="string">&quot;UTF-8&quot;</span>); <span class="comment">//字符编码</span></span><br><span class="line">    response.setContentType(<span class="string">&quot;multipart/form-data&quot;</span>); <span class="comment">//二进制传输数据</span></span><br><span class="line">    <span class="comment">//设置响应头</span></span><br><span class="line">    response.setHeader(<span class="string">&quot;Content-Disposition&quot;</span>,</span><br><span class="line">                       <span class="string">&quot;attachment;fileName=&quot;</span>+URLEncoder.encode(fileName, <span class="string">&quot;UTF-8&quot;</span>));</span><br><span class="line"></span><br><span class="line">    File file = <span class="keyword">new</span> File(path,fileName);</span><br><span class="line">    <span class="comment">//2、 读取文件--输入流</span></span><br><span class="line">    InputStream input=<span class="keyword">new</span> FileInputStream(file);</span><br><span class="line">    <span class="comment">//3、 写出文件--输出流</span></span><br><span class="line">    OutputStream out = response.getOutputStream();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">byte</span>[] buff =<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">    <span class="keyword">int</span> index=<span class="number">0</span>;</span><br><span class="line">    <span class="comment">//4、执行 写出操作</span></span><br><span class="line">    <span class="keyword">while</span>((index= input.read(buff))!= -<span class="number">1</span>)&#123;</span><br><span class="line">        out.write(buff, <span class="number">0</span>, index);</span><br><span class="line">        out.flush();</span><br><span class="line">    &#125;</span><br><span class="line">    out.close();</span><br><span class="line">    input.close();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>框架学习</category>
+      </categories>
+      <tags>
+        <tag>SpringMVC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringMVC笔记（三）</title>
+    <url>/2021/04/28/springmvc-note-3/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-Controller"><a href="#1-Controller" class="headerlink" title="1. Controller"></a>1. Controller</h2><ul>
+<li>控制器复制提供访问应用程序的行为，通常通过接口定义或注解定义两种方法实现</li>
+<li>控制器负责解析用户的请求并将其转换为一个模型</li>
+<li>在SpringMVC中一个控制器可以包含多个方法</li>
+<li>在SpringMVC中，对于Controller的配置方式有很多种</li>
+</ul>
+<h2 id="2-RequestMapping"><a href="#2-RequestMapping" class="headerlink" title="2. RequestMapping"></a>2. RequestMapping</h2><p>@RequestMapping注解：用于映射url到控制器类或一个特定的处理程序的方法</p>
+<ol>
+<li><p>只加在方法上面，访问路径：<strong>localhost/项目名/t1</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/t1&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在类上也加，则需要先指定类的路径再指定方法的路径，访问路径：<strong>localhost/项目名/test/t1</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/test&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/t1&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="3-RESTful风格"><a href="#3-RESTful风格" class="headerlink" title="3. RESTful风格"></a>3. RESTful风格</h2><h3 id="3-1-概念"><a href="#3-1-概念" class="headerlink" title="3.1 概念"></a>3.1 概念</h3><p>RestFul就是一个资源定位及资源操作的风格，基于这个风格设计的软件可以更加简介，更有层次，更易于实现缓存等机制</p>
+<h3 id="3-2-功能"><a href="#3-2-功能" class="headerlink" title="3.2 功能"></a>3.2 功能</h3><ul>
+<li><strong>资源：</strong>互联网所有的事务都可以被称为资源</li>
+<li><strong>资源操作：</strong>使用POST、GET、DELETE、PUT，即使用不同方法对资源进行操作</li>
+</ul>
+<h3 id="3-3-传统方式资源操作"><a href="#3-3-传统方式资源操作" class="headerlink" title="3.3 传统方式资源操作"></a>3.3 传统方式资源操作</h3><ul>
+<li>通过不同的参数来实现不同的效果，方法单一，即POST和GET<ul>
+<li><a href="http://127.0.0.1/item/queryItem.action?id=1">http://127.0.0.1/item/queryItem.action?id=1</a> 查询,GET</li>
+<li><a href="http://127.0.0.1/item/saveItem.action">http://127.0.0.1/item/saveItem.action</a> 新增,POST</li>
+<li><a href="http://127.0.0.1/item/updateItem.action">http://127.0.0.1/item/updateItem.action</a> 更新,POST</li>
+<li><a href="http://127.0.0.1/item/deleteItem.action?id=1">http://127.0.0.1/item/deleteItem.action?id=1</a> 删除,GET或POST</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-4-RESTful操作资源"><a href="#3-4-RESTful操作资源" class="headerlink" title="3.4 RESTful操作资源"></a>3.4 RESTful操作资源</h3><ul>
+<li>可以通过不同的请求方式来实现不同的效果，地址一样，但是功能可以不同<ul>
+<li><a href="http://127.0.0.1/item/1">http://127.0.0.1/item/1</a> 查询,GET</li>
+<li><a href="http://127.0.0.1/item">http://127.0.0.1/item</a> 新增,POST</li>
+<li><a href="http://127.0.0.1/item">http://127.0.0.1/item</a> 更新,PUT</li>
+<li><a href="http://127.0.0.1/item/1">http://127.0.0.1/item/1</a> 删除,DELETE</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-5-使用RESTful"><a href="#3-5-使用RESTful" class="headerlink" title="3.5 使用RESTful"></a>3.5 使用RESTful</h3><ol>
+<li><p>新建一个Controller</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestFulController</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>再SpringMVC中，可以使用<code>@PathVariable</code>注解，让方法参数的值对应绑定到一个URI模板变量上</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestFulController</span> </span>&#123;</span><br><span class="line">    <span class="comment">//映射访问路径</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/commit/&#123;p1&#125;/&#123;p2&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">(<span class="meta">@PathVariable</span> <span class="keyword">int</span> p1, <span class="meta">@PathVariable</span> <span class="keyword">int</span> p2, Model model)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> result = p1+p2;</span><br><span class="line">        <span class="comment">//Spring MVC会自动实例化一个Model对象用于向视图中传值</span></span><br><span class="line">        model.addAttribute(<span class="string">&quot;msg&quot;</span>, <span class="string">&quot;结果：&quot;</span>+result);</span><br><span class="line">        <span class="comment">//返回视图位置</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进行测试</p>
+</li>
+</ol>
+<h3 id="3-6-使用路径变量的好处"><a href="#3-6-使用路径变量的好处" class="headerlink" title="3.6 使用路径变量的好处"></a>3.6 使用路径变量的好处</h3><ul>
+<li>使路径变得更加简洁</li>
+<li>获取参数更方便，框架会自动进行类型转换</li>
+<li>通过路径变量的类型可以约束访问参数，如果类型不一样，则访问不到对应的请求方法</li>
+</ul>
+<h2 id="4-使用method属性指定请求类型"><a href="#4-使用method属性指定请求类型" class="headerlink" title="4. 使用method属性指定请求类型"></a>4. 使用method属性指定请求类型</h2><p>用于约束请求的类型，可以收窄请求范围。指定请求谓词的类型。如：GET、POST、HEAD、OPTIONS、PUT、PATCH、DELETE、TRACE等</p>
+<p><strong>测试：</strong></p>
+<ol>
+<li><p>增加一个方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//映射访问路径,必须是POST请求</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/hello&quot;, method = &#123;RequestMethod.POST&#125;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">index2</span><span class="params">(Model model)</span></span>&#123;</span><br><span class="line">    model.addAttribute(<span class="string">&quot;msg&quot;</span>, <span class="string">&quot;hello!&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用浏览器通过GET方式访问，会报405错误</p>
+</li>
+<li><p>将POST修改为GET则正常访问</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//映射访问路径,必须是POST请求</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/hello&quot;, method = &#123;RequestMethod.GET&#125;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">index2</span><span class="params">(Model model)</span></span>&#123;</span><br><span class="line">    model.addAttribute(<span class="string">&quot;msg&quot;</span>, <span class="string">&quot;hello!&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li><strong>总结：</strong><ul>
+<li>所有的地址栏请求默认都会是GET请求类型</li>
+<li>方法级别的注解有如下几个：组合注解<ul>
+<li>@GetMapping</li>
+<li>@PostMapping</li>
+<li>@PutMapping</li>
+<li>@DeleteMapping</li>
+<li>@PatchMapping</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
       <categories>
         <category>框架学习</category>
       </categories>
