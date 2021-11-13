@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>HashMap源码剖析</title>
-    <url>/2021/09/24/hashmap-source-code-analysis/</url>
+    <url>/post/41456.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="1-HashMap继承结构"><a href="#1-HashMap继承结构" class="headerlink" title="1. HashMap继承结构"></a>1. HashMap继承结构</h3><p><img src="https://gitee.com/linzeliang1222/picture/raw/master/1632487670.png" alt="image-20210924204750139"></p>
 <h3 id="2-HashMap底层数据结构"><a href="#2-HashMap底层数据结构" class="headerlink" title="2. HashMap底层数据结构"></a>2. HashMap底层数据结构</h3><p>在1.7及其之前，<code>HashMap</code>底层是使用 数组 + 链表实现的，在1.8及其之后，使用了 数组 + 链表/红黑树 实现。</p>
 <p>来看下1.7的储存结构图：</p>
@@ -111,7 +111,7 @@
   </entry>
   <entry>
     <title>力扣 - 989. 数组形式的整数加法</title>
-    <url>/2021/05/10/leetcode-add-to-array-form-of-integer/</url>
+    <url>/post/7278.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/add-to-array-form-of-integer/">989. 数组形式的整数加法</a></p>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
 <li>从最低位开始加，满10用carry进1，最后还要判断最终有没有进1位</li>
@@ -130,8 +130,215 @@
       </tags>
   </entry>
   <entry>
+    <title>力扣 - 739. 每日温度</title>
+    <url>/post/60463.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/daily-temperatures/">739. 每日温度</a></p>
+<h2 id="思路1（暴力破解）"><a href="#思路1（暴力破解）" class="headerlink" title="思路1（暴力破解）"></a>思路1（暴力破解）</h2><ul>
+<li>遍历每一个元素，从他的后一个元素开始寻找比他大的元素，如果遇到的是比他小于等于的，那就跳过，继续往后找</li>
+<li>如果找到最后一个都还没找到比他大的，那么就直接赋值为0</li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] dailyTemperatures(<span class="keyword">int</span>[] T) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[T.length];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; T.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span> (j &lt; T.length &amp;&amp; T[i] &gt;= T[j]) &#123;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (j != T.length) &#123;</span><br><span class="line">                res[i] = j - i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
+<li>时间复杂度：$O(N^2)$，其中 N 为数组的长度</li>
+<li>空间复杂度：$O(N)$，其中 N 为数组的长度</li>
+</ul>
+<hr>
+
+<h2 id="思路2（单调栈）"><a href="#思路2（单调栈）" class="headerlink" title="思路2（单调栈）"></a>思路2（单调栈）</h2><ul>
+<li>由于是找到最近的比当前温度高的距离，所以可以使用<strong>单调递增栈</strong></li>
+<li>只有当前温度大于栈顶温度，那么才将栈元素出栈，直到小于栈元素才停止，否则的话，直接入栈</li>
+<li>我们的单调栈中寸的是索引<code>index</code>，而不是元素的值，这样计算距离时直接用index相减即可得到结果</li>
+<li>比较当前元素值和栈顶元素值大小，只要栈顶元素值小于当前元素值，那么<code>当前元素的索引</code> - <code>栈顶元素的索引</code>就是比栈顶元素值大的下一个元素的距离</li>
+</ul>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] dailyTemperatures(<span class="keyword">int</span>[] temperatures) &#123;</span><br><span class="line">         Deque&lt;Integer&gt; stack = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">         <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[temperatures.length];</span><br><span class="line"></span><br><span class="line">         <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; temperatures.length; i++) &#123;</span><br><span class="line">             <span class="comment">// 新的元素值只要比栈顶元素大，就要将栈顶元素出栈</span></span><br><span class="line">             <span class="keyword">while</span> (!stack.isEmpty() &amp;&amp; temperatures[i] &gt; temperatures[stack.peek()]) &#123;</span><br><span class="line">                 <span class="keyword">int</span> peek = stack.pop();</span><br><span class="line">                 res[peek] = i - peek;</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="comment">// 然后将此元素的索引存入stack中</span></span><br><span class="line">             stack.push(i);</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">         <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
+<li>时间复杂度：$O(N)$</li>
+<li>空间复杂度：$O(N)$</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>力扣 - 109. 有序链表转换二叉搜索树</title>
+    <url>/post/60772.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/convert-sorted-list-to-binary-search-tree/">109. 有序链表转换二叉搜索树</a></p>
+<h2 id="思路1（分治-前序）"><a href="#思路1（分治-前序）" class="headerlink" title="思路1（分治+前序）"></a>思路1（分治+前序）</h2><ul>
+<li>二叉搜索树就是左孩子比根节点小，右孩子比根节点大，而且左右两个子树的高度差不大于1称为二叉搜索树</li>
+<li>通过观察这个链表转换成的搜索树可以发现，根节点其实就是链表的中间的结点，左孩子就是左边一半链表的中间的结点，右孩子就是右边一半链表的中间的结点</li>
+<li>所以可以利用递归（自顶向下）方法来解题，递归的截止条件就是遍历到本段链表末尾</li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">sortedListToBST</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (head.next == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> TreeNode(head.val);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ListNode fast = head;</span><br><span class="line">        ListNode slow = head;</span><br><span class="line">        ListNode pre = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">while</span> (fast != <span class="keyword">null</span> &amp;&amp; fast.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">            pre = slow;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">            fast = fast.next.next;</span><br><span class="line">        &#125;</span><br><span class="line">        pre.next = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        TreeNode root = <span class="keyword">new</span> TreeNode(slow.val);</span><br><span class="line">        root.left = sortedListToBST(head);</span><br><span class="line">        root.right = sortedListToBST(slow.next);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
+<li>时间复杂度：$O(NlogN)$，其中 N 为链表的长度。</li>
+<li>空间复杂度：$O(logN)$，其中logN为树的深度，递归时所创建的空间</li>
+</ul>
+<h2 id="思路2（分治-中序）"><a href="#思路2（分治-中序）" class="headerlink" title="思路2（分治+中序）"></a>思路2（分治+中序）</h2><ul>
+<li>我们只需要在分治的过程中不断进行分治，直到<code>left&gt;right</code>，且在这过程中不需要找出链表的中位结点，而是先用一个空值的节点栈为构建一颗二叉树雏形</li>
+<li>等到中序遍历遍历到该结点时，再进行值的填充</li>
+<li>因为链表的结果是升序的，而二叉搜索树的中序遍历也是升序的，所以<code>globalHead = globalHead.next</code>就可以有序地填充树的节点的值</li>
+</ul>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    ListNode globalHead;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">sortedListToBST</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        globalHead = head;</span><br><span class="line">        <span class="comment">// 获取链表长度</span></span><br><span class="line">        <span class="keyword">int</span> length = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (head != <span class="keyword">null</span>) &#123;</span><br><span class="line">            length++;</span><br><span class="line">            head = head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 进行递归中序遍历构建树</span></span><br><span class="line">        <span class="keyword">return</span> inorderBuild(<span class="number">0</span>, length-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">inorderBuild</span><span class="params">(<span class="keyword">int</span> left, <span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (left &gt; right) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取中位数</span></span><br><span class="line">        <span class="keyword">int</span> mid = (left + right + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="comment">// 先构建空值的节点占位</span></span><br><span class="line">        TreeNode root = <span class="keyword">new</span> TreeNode();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 左子树遍历</span></span><br><span class="line">        root.left = inorderBuild(left, mid - <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 进行节点的填充</span></span><br><span class="line">        root.val = globalHead.val;</span><br><span class="line">        globalHead = globalHead.next;</span><br><span class="line">        <span class="comment">// 右子树遍历</span></span><br><span class="line">        root.right = inorderBuild(mid + <span class="number">1</span>, right);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
+<li>时间复杂度：$O(N)$，其中 N 是链表长度</li>
+<li>空间复杂度：$O(logN)$</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>力扣 - 1381. 设计一个支持增量操作的栈</title>
+    <url>/post/44883.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/design-a-stack-with-increment-operation/">1381. 设计一个支持增量操作的栈</a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
+<li>利用数组来存储栈的元素</li>
+<li>通过一个point指针的移动完成栈的操作</li>
+<li>进行增量操作时，需要判断操作的元素个数k是否大于当前栈中的元素容量</li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomStack</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> size;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] stack;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> point;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CustomStack</span><span class="params">(<span class="keyword">int</span> maxSize)</span> </span>&#123;</span><br><span class="line">        size = maxSize;</span><br><span class="line">        stack = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">        point = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (point &lt; size) &#123;</span><br><span class="line">            stack[point++] = x;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (point &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> stack[--point];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">increment</span><span class="params">(<span class="keyword">int</span> k, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k &amp;&amp; i &lt; point; i++) &#123;</span><br><span class="line">            stack[i] += val;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
+<li>时间复杂度：O(1)</li>
+<li>空间复杂度：O(N)，N为栈的大小。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>力扣 - 232. 用栈实现队列</title>
+    <url>/post/59996.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/implement-queue-using-stacks/">232. 用栈实现队列</a></p>
+<h2 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h2><ul>
+<li>即然是使用两个栈，那么一个栈就用来做辅助栈，一个栈用来存元素</li>
+<li>我们将栈顶作为队头，将栈底作为队尾，所以如果要push数据的话，先将stack1栈的数据暂时存到stack2辅助栈中，然后将要插入的数据push进入stack1，最后再将stack2的暂存的数据填回到stack1中<strong>（注意，回填元素时顺序不能乱）</strong></li>
+<li>pop时，就是将栈的元素最后一个pop出去，由于我们将队头做为栈顶，所以stack1的pop其实就是出队操作</li>
+<li>empty：要判断队列是否为空，直接判断stack1是否为空即可</li>
+<li>由于栈是基于LinkedList实现的，peek时即查看的是栈顶的元素，所以直接peek就是查看队头的元素</li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyQueue</span> </span>&#123;</span><br><span class="line">    Deque&lt;Integer&gt; mainStack;</span><br><span class="line">    Deque&lt;Integer&gt; helpStack;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mainStack = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        helpStack = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (!mainStack.isEmpty()) &#123;</span><br><span class="line">            helpStack.push(mainStack.pop());</span><br><span class="line">        &#125;</span><br><span class="line">        mainStack.push(x);</span><br><span class="line">        <span class="keyword">while</span> (!helpStack.isEmpty()) &#123;</span><br><span class="line">            mainStack.push(helpStack.pop());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mainStack.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">peek</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mainStack.peek();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">empty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mainStack.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
+<li>时间复杂度：<ul>
+<li>push: $O(N)$</li>
+<li>pop: $O(1)$</li>
+<li>peek: $O(1)$</li>
+<li>empty: $O(1)$</li>
+</ul>
+</li>
+<li>空间复杂度：$O(N)$</li>
+</ul>
+<h2 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h2><ul>
+<li>我们将一个栈用作进栈<code>inStack</code>，另一个栈用作<code>outStack</code></li>
+<li>因为是将<code>inStack</code>的中的所有元素<code>pop</code>出来，<code>push</code>到<code>outStack</code>中去，则发生位置反转，所以<code>outStack</code>的栈顶元素就是我们队列的队头</li>
+<li>出队元素的话只需要从<code>outStack</code>中将栈顶元素<code>pop</code>即可</li>
+<li>如果<code>outStack</code>是 空的，就需要将<code>inStack</code>中的所有元素移动到<code>outStack</code>中去</li>
+<li><strong>注意：如果<code>outStack</code>中如果不是空的，不能将<code>inStack</code>中的元素移过去，否则顺序被打乱</strong></li>
+</ul>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyQueue</span> </span>&#123;</span><br><span class="line">    Deque&lt;Integer&gt; inStack;</span><br><span class="line">    Deque&lt;Integer&gt; outStack;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        inStack = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">        outStack = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 因为inStack作用就是用于进栈，所以无需其他判断条件</span></span><br><span class="line">        inStack.push(x);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 如果outStack是空的，那么就需要将inStack中的元素移动到outStack中去，然后再pop</span></span><br><span class="line">        <span class="keyword">if</span> (outStack.isEmpty()) &#123;</span><br><span class="line">            move();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> outStack.pop();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">peek</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (outStack.isEmpty()) &#123;</span><br><span class="line">            move();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> outStack.peek();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 只有两个栈都是空的，就说明队列是空的</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">empty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> inStack.isEmpty() &amp;&amp; outStack.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将inStack中的元素移动到outStack中</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (!inStack.isEmpty()) &#123;</span><br><span class="line">            outStack.push(inStack.pop());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
+<li>时间复杂度：<ul>
+<li>push: $O(1)$</li>
+<li>pop: $O(N)$</li>
+<li>peek: $O(N)$</li>
+<li>empty: $O(1)$</li>
+</ul>
+</li>
+<li>空间复杂度：$O(N)$</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>力扣 - 394. 字符串解码</title>
+    <url>/post/60772.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/decode-string/">394. 字符串解码</a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
+<li>创建两个栈进行解题，一个用来存放数字，另一个用来临时存放子字符串</li>
+<li>由于可能会在<code>[]</code>中还包含其他的<code>[]</code>，所以我们只要遇到<code>[</code>就先将其前面的字符串暂时入栈，稍后再进行计算</li>
+<li>如果遇到<code>]</code> ，则将存放数字的栈和存放子字符串的栈分别出栈一个，然后进行字符串的拼接，然后再将该字符串作为答案的一部分进行下一轮迭代计算</li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">decodeString</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        Deque&lt;Integer&gt; times = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">        Deque&lt;String&gt; stringStack = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">        StringBuilder res = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Character c : s.toCharArray()) &#123;</span><br><span class="line">            <span class="comment">// 如果为数字，则记录数字，数字有可能有十位或者百位</span></span><br><span class="line">            <span class="keyword">if</span> (isNum(c)) &#123;</span><br><span class="line">                count = count * <span class="number">10</span> + Integer.parseInt(<span class="string">&quot;&quot;</span> + c);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c == <span class="string">&#x27;[&#x27;</span>) &#123; <span class="comment">// 如果为左中括号，则将数字和当前的res进栈</span></span><br><span class="line">                times.push(count);</span><br><span class="line">                stringStack.push(res.toString());</span><br><span class="line">                <span class="comment">// 注意还要将res置空，因为要开始下一轮的字符串统计，上一轮的字符串已经先暂存到栈中去了</span></span><br><span class="line">                res = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">                <span class="comment">// 次数也要置为0</span></span><br><span class="line">                count = <span class="number">0</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c == <span class="string">&#x27;]&#x27;</span>) &#123; <span class="comment">// 如果为右中括号，则要开始计算本次统计的res，添加到上一个字符串的末尾</span></span><br><span class="line">                <span class="comment">// 获取次数</span></span><br><span class="line">                count = times.pop();</span><br><span class="line">                StringBuilder curString = <span class="keyword">new</span> StringBuilder(stringStack.pop());</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">                    curString.append(res);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 将拼接好后的字符串作为结果进行下一轮迭代</span></span><br><span class="line">                res = curString;</span><br><span class="line">                count = <span class="number">0</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 如果都是字母的话仅进行平解字符串即可</span></span><br><span class="line">                res.append(c);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isNum</span><span class="params">(<span class="keyword">char</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 判断字符是否为数字</span></span><br><span class="line">        <span class="keyword">if</span> (c &lt;= <span class="string">&#x27;9&#x27;</span> &amp;&amp; c &gt;= <span class="string">&#x27;0&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
+<li>时间复杂度：$O(N)$，N为字符串的长度</li>
+<li>空间复杂度：$O(N)$，N为字符串的长度</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>力扣 - 160. 相交链表</title>
+    <url>/post/21905.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/intersection-of-two-linked-lists/">160. 相交链表</a></p>
+<h2 id="思路1（暴力）"><a href="#思路1（暴力）" class="headerlink" title="思路1（暴力）"></a>思路1（暴力）</h2><ul>
+<li>暴力遍历</li>
+<li>当遍历其中一个链表每一个元素时，都将该元素和另一个链表的每一个元素进行比较，如果相等就相交。时间复杂度比较大。。。</li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (headA == <span class="keyword">null</span> || headB == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (headA != <span class="keyword">null</span>) &#123;</span><br><span class="line">            ListNode p = headB;</span><br><span class="line">            <span class="keyword">while</span> (p != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (p == headA) &#123;</span><br><span class="line">                    <span class="keyword">return</span> headA;</span><br><span class="line">                &#125;</span><br><span class="line">                p = p.next;</span><br><span class="line">            &#125;</span><br><span class="line">            headA = headA.next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
+<li>时间复杂度：$O(MN)$，其中 M、N 为链表的长度</li>
+<li>空间复杂度：$O(1)$</li>
+</ul>
+<h2 id="思路2（哈希表）"><a href="#思路2（哈希表）" class="headerlink" title="思路2（哈希表）"></a>思路2（哈希表）</h2><ul>
+<li>使用哈希表，其中一个链表存到哈希表中，然后遍历另一个链表，将其添加到原来的哈希表中，如果存在，就是找到相交的结点了</li>
+</ul>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (headA == <span class="keyword">null</span> || headB == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        HashSet&lt;ListNode&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">while</span> (headA != <span class="keyword">null</span>) &#123;</span><br><span class="line">            set.add(headA);</span><br><span class="line">            headA = headA.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (headB != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!set.add(headB)) &#123;</span><br><span class="line">                <span class="keyword">return</span> headB;</span><br><span class="line">            &#125;</span><br><span class="line">            headB = headB.next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
+<li>时间复杂度：$O(M+N)$，其中 M、N 为链表的长度</li>
+<li>空间复杂度：$O(N)或O(M)$，其中 M、N 为链表的长度</li>
+</ul>
+<h2 id="思路3（双指针）"><a href="#思路3（双指针）" class="headerlink" title="思路3（双指针）"></a>思路3（双指针）</h2><ul>
+<li>我们可以将另一端链表虚拟拼接（如果实际改变指针的话会导致死循环）到本段链表后面（null不要省略），两个链表此时时灯等长的。然后两个链表同时从头开始遍历，如果存在相交的结点，那么<code>p1 != p2</code>就不会成立，因此找到答案，退出循环；如果没有找到答案，最后都会为null，同样跳出循环，得到结果</li>
+<li>例1（相交）：<ul>
+<li>headA={4, 2, 8, 4, 5}，headB={5, 0, 1, 8, 4, 5}，虚拟拼接后为：</li>
+<li>headA={4, 2, 8, 4, 5, null, 5, 0, 1, 8, 4, 5, null}，headB={5, 0, 1, 8, 4, 5, null, 4, 2, 8, 4, 5, null}</li>
+<li>当索引为9时，结点都是8，此时退出循环，找到答案</li>
+</ul>
+</li>
+<li>例2（不相交）：<ul>
+<li>headA={1, 2, 3}，headB={4, 3, 2, 1}，虚拟拼接后为：</li>
+<li>headA={1, 2, 3, null, 4, 3, 2, 1, null}，headB={4, 3, 2, 1, null, 1, 2, 3, null}</li>
+<li>当索引为8时，两个指针都指向null，此时也退出循环，不过返回的时null，即没有找到答案</li>
+</ul>
+</li>
+</ul>
+<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 如果其中一个存在空链表，直接返回null</span></span><br><span class="line">        <span class="keyword">if</span> (headA == <span class="keyword">null</span> || headB == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ListNode p1 = headA;</span><br><span class="line">        ListNode p2 = headB;</span><br><span class="line">        <span class="comment">// 当还没相遇时，一直遍历下取，如果两个都没有相遇，最终都为null，那么也会退出循环</span></span><br><span class="line">        <span class="keyword">while</span> (p1 != p2) &#123;</span><br><span class="line">            <span class="keyword">if</span> (p1 == <span class="keyword">null</span>) &#123;</span><br><span class="line">                p1 = headB;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                p1 = p1.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (p2 == <span class="keyword">null</span>) &#123;</span><br><span class="line">                p2 = headA;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                p2 = p2.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> p1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析-2"><a href="#复杂度分析-2" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
+<li>时间复杂度：$O(M+N)$，其中 M、N 为链表长度</li>
+<li>空间复杂度：$O(1)$</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>力扣 - 144. 二叉树的前序遍历</title>
-    <url>/2021/05/31/leetcode-binary-tree-preorder-traversal/</url>
+    <url>/post/49364.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/binary-tree-preorder-traversal/">144. 二叉树的前序遍历</a></p>
 <h2 id="思路1（递归）"><a href="#思路1（递归）" class="headerlink" title="思路1（递归）"></a>思路1（递归）</h2><ul>
 <li>前序先遍历根节点，然后左孩子，然后右孩子</li>
@@ -180,245 +387,8 @@
       </tags>
   </entry>
   <entry>
-    <title>力扣 - 109. 有序链表转换二叉搜索树</title>
-    <url>/2021/05/18/leetcode-convert-sorted-list-to-binary-search-tree/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/convert-sorted-list-to-binary-search-tree/">109. 有序链表转换二叉搜索树</a></p>
-<h2 id="思路1（分治-前序）"><a href="#思路1（分治-前序）" class="headerlink" title="思路1（分治+前序）"></a>思路1（分治+前序）</h2><ul>
-<li>二叉搜索树就是左孩子比根节点小，右孩子比根节点大，而且左右两个子树的高度差不大于1称为二叉搜索树</li>
-<li>通过观察这个链表转换成的搜索树可以发现，根节点其实就是链表的中间的结点，左孩子就是左边一半链表的中间的结点，右孩子就是右边一半链表的中间的结点</li>
-<li>所以可以利用递归（自顶向下）方法来解题，递归的截止条件就是遍历到本段链表末尾</li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">sortedListToBST</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (head.next == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> TreeNode(head.val);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ListNode fast = head;</span><br><span class="line">        ListNode slow = head;</span><br><span class="line">        ListNode pre = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">while</span> (fast != <span class="keyword">null</span> &amp;&amp; fast.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">            pre = slow;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">            fast = fast.next.next;</span><br><span class="line">        &#125;</span><br><span class="line">        pre.next = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        TreeNode root = <span class="keyword">new</span> TreeNode(slow.val);</span><br><span class="line">        root.left = sortedListToBST(head);</span><br><span class="line">        root.right = sortedListToBST(slow.next);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
-<li>时间复杂度：$O(NlogN)$，其中 N 为链表的长度。</li>
-<li>空间复杂度：$O(logN)$，其中logN为树的深度，递归时所创建的空间</li>
-</ul>
-<h2 id="思路2（分治-中序）"><a href="#思路2（分治-中序）" class="headerlink" title="思路2（分治+中序）"></a>思路2（分治+中序）</h2><ul>
-<li>我们只需要在分治的过程中不断进行分治，直到<code>left&gt;right</code>，且在这过程中不需要找出链表的中位结点，而是先用一个空值的节点栈为构建一颗二叉树雏形</li>
-<li>等到中序遍历遍历到该结点时，再进行值的填充</li>
-<li>因为链表的结果是升序的，而二叉搜索树的中序遍历也是升序的，所以<code>globalHead = globalHead.next</code>就可以有序地填充树的节点的值</li>
-</ul>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    ListNode globalHead;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">sortedListToBST</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        globalHead = head;</span><br><span class="line">        <span class="comment">// 获取链表长度</span></span><br><span class="line">        <span class="keyword">int</span> length = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (head != <span class="keyword">null</span>) &#123;</span><br><span class="line">            length++;</span><br><span class="line">            head = head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 进行递归中序遍历构建树</span></span><br><span class="line">        <span class="keyword">return</span> inorderBuild(<span class="number">0</span>, length-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">inorderBuild</span><span class="params">(<span class="keyword">int</span> left, <span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (left &gt; right) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取中位数</span></span><br><span class="line">        <span class="keyword">int</span> mid = (left + right + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="comment">// 先构建空值的节点占位</span></span><br><span class="line">        TreeNode root = <span class="keyword">new</span> TreeNode();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 左子树遍历</span></span><br><span class="line">        root.left = inorderBuild(left, mid - <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 进行节点的填充</span></span><br><span class="line">        root.val = globalHead.val;</span><br><span class="line">        globalHead = globalHead.next;</span><br><span class="line">        <span class="comment">// 右子树遍历</span></span><br><span class="line">        root.right = inorderBuild(mid + <span class="number">1</span>, right);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
-<li>时间复杂度：$O(N)$，其中 N 是链表长度</li>
-<li>空间复杂度：$O(logN)$</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>力扣 - 739. 每日温度</title>
-    <url>/2021/05/17/leetcode-daily-temperatures/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/daily-temperatures/">739. 每日温度</a></p>
-<h2 id="思路1（暴力破解）"><a href="#思路1（暴力破解）" class="headerlink" title="思路1（暴力破解）"></a>思路1（暴力破解）</h2><ul>
-<li>遍历每一个元素，从他的后一个元素开始寻找比他大的元素，如果遇到的是比他小于等于的，那就跳过，继续往后找</li>
-<li>如果找到最后一个都还没找到比他大的，那么就直接赋值为0</li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] dailyTemperatures(<span class="keyword">int</span>[] T) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[T.length];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; T.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span> (j &lt; T.length &amp;&amp; T[i] &gt;= T[j]) &#123;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (j != T.length) &#123;</span><br><span class="line">                res[i] = j - i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
-<li>时间复杂度：$O(N^2)$，其中 N 为数组的长度</li>
-<li>空间复杂度：$O(N)$，其中 N 为数组的长度</li>
-</ul>
-<hr>
-
-<h2 id="思路2（单调栈）"><a href="#思路2（单调栈）" class="headerlink" title="思路2（单调栈）"></a>思路2（单调栈）</h2><ul>
-<li>由于是找到最近的比当前温度高的距离，所以可以使用<strong>单调递增栈</strong></li>
-<li>只有当前温度大于栈顶温度，那么才将栈元素出栈，直到小于栈元素才停止，否则的话，直接入栈</li>
-<li>我们的单调栈中寸的是索引<code>index</code>，而不是元素的值，这样计算距离时直接用index相减即可得到结果</li>
-<li>比较当前元素值和栈顶元素值大小，只要栈顶元素值小于当前元素值，那么<code>当前元素的索引</code> - <code>栈顶元素的索引</code>就是比栈顶元素值大的下一个元素的距离</li>
-</ul>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] dailyTemperatures(<span class="keyword">int</span>[] temperatures) &#123;</span><br><span class="line">         Deque&lt;Integer&gt; stack = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">         <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[temperatures.length];</span><br><span class="line"></span><br><span class="line">         <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; temperatures.length; i++) &#123;</span><br><span class="line">             <span class="comment">// 新的元素值只要比栈顶元素大，就要将栈顶元素出栈</span></span><br><span class="line">             <span class="keyword">while</span> (!stack.isEmpty() &amp;&amp; temperatures[i] &gt; temperatures[stack.peek()]) &#123;</span><br><span class="line">                 <span class="keyword">int</span> peek = stack.pop();</span><br><span class="line">                 res[peek] = i - peek;</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="comment">// 然后将此元素的索引存入stack中</span></span><br><span class="line">             stack.push(i);</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">         <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
-<li>时间复杂度：$O(N)$</li>
-<li>空间复杂度：$O(N)$</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>力扣 - 394. 字符串解码</title>
-    <url>/2021/05/13/leetcode-decode-string/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/decode-string/">394. 字符串解码</a></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
-<li>创建两个栈进行解题，一个用来存放数字，另一个用来临时存放子字符串</li>
-<li>由于可能会在<code>[]</code>中还包含其他的<code>[]</code>，所以我们只要遇到<code>[</code>就先将其前面的字符串暂时入栈，稍后再进行计算</li>
-<li>如果遇到<code>]</code> ，则将存放数字的栈和存放子字符串的栈分别出栈一个，然后进行字符串的拼接，然后再将该字符串作为答案的一部分进行下一轮迭代计算</li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">decodeString</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        Deque&lt;Integer&gt; times = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">        Deque&lt;String&gt; stringStack = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">        StringBuilder res = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Character c : s.toCharArray()) &#123;</span><br><span class="line">            <span class="comment">// 如果为数字，则记录数字，数字有可能有十位或者百位</span></span><br><span class="line">            <span class="keyword">if</span> (isNum(c)) &#123;</span><br><span class="line">                count = count * <span class="number">10</span> + Integer.parseInt(<span class="string">&quot;&quot;</span> + c);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c == <span class="string">&#x27;[&#x27;</span>) &#123; <span class="comment">// 如果为左中括号，则将数字和当前的res进栈</span></span><br><span class="line">                times.push(count);</span><br><span class="line">                stringStack.push(res.toString());</span><br><span class="line">                <span class="comment">// 注意还要将res置空，因为要开始下一轮的字符串统计，上一轮的字符串已经先暂存到栈中去了</span></span><br><span class="line">                res = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">                <span class="comment">// 次数也要置为0</span></span><br><span class="line">                count = <span class="number">0</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c == <span class="string">&#x27;]&#x27;</span>) &#123; <span class="comment">// 如果为右中括号，则要开始计算本次统计的res，添加到上一个字符串的末尾</span></span><br><span class="line">                <span class="comment">// 获取次数</span></span><br><span class="line">                count = times.pop();</span><br><span class="line">                StringBuilder curString = <span class="keyword">new</span> StringBuilder(stringStack.pop());</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">                    curString.append(res);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 将拼接好后的字符串作为结果进行下一轮迭代</span></span><br><span class="line">                res = curString;</span><br><span class="line">                count = <span class="number">0</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 如果都是字母的话仅进行平解字符串即可</span></span><br><span class="line">                res.append(c);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isNum</span><span class="params">(<span class="keyword">char</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 判断字符是否为数字</span></span><br><span class="line">        <span class="keyword">if</span> (c &lt;= <span class="string">&#x27;9&#x27;</span> &amp;&amp; c &gt;= <span class="string">&#x27;0&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
-<li>时间复杂度：$O(N)$，N为字符串的长度</li>
-<li>空间复杂度：$O(N)$，N为字符串的长度</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>力扣 - 1381. 设计一个支持增量操作的栈</title>
-    <url>/2021/05/12/leetcode-design-a-stack-with-increment-operation/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/design-a-stack-with-increment-operation/">1381. 设计一个支持增量操作的栈</a></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
-<li>利用数组来存储栈的元素</li>
-<li>通过一个point指针的移动完成栈的操作</li>
-<li>进行增量操作时，需要判断操作的元素个数k是否大于当前栈中的元素容量</li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomStack</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> size;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] stack;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> point;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CustomStack</span><span class="params">(<span class="keyword">int</span> maxSize)</span> </span>&#123;</span><br><span class="line">        size = maxSize;</span><br><span class="line">        stack = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">        point = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (point &lt; size) &#123;</span><br><span class="line">            stack[point++] = x;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (point &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> stack[--point];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">increment</span><span class="params">(<span class="keyword">int</span> k, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k &amp;&amp; i &lt; point; i++) &#123;</span><br><span class="line">            stack[i] += val;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
-<li>时间复杂度：O(1)</li>
-<li>空间复杂度：O(N)，N为栈的大小。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>力扣 - 232. 用栈实现队列</title>
-    <url>/2021/05/14/leetcode-implement-queue-using-stacks/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/implement-queue-using-stacks/">232. 用栈实现队列</a></p>
-<h2 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h2><ul>
-<li>即然是使用两个栈，那么一个栈就用来做辅助栈，一个栈用来存元素</li>
-<li>我们将栈顶作为队头，将栈底作为队尾，所以如果要push数据的话，先将stack1栈的数据暂时存到stack2辅助栈中，然后将要插入的数据push进入stack1，最后再将stack2的暂存的数据填回到stack1中<strong>（注意，回填元素时顺序不能乱）</strong></li>
-<li>pop时，就是将栈的元素最后一个pop出去，由于我们将队头做为栈顶，所以stack1的pop其实就是出队操作</li>
-<li>empty：要判断队列是否为空，直接判断stack1是否为空即可</li>
-<li>由于栈是基于LinkedList实现的，peek时即查看的是栈顶的元素，所以直接peek就是查看队头的元素</li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyQueue</span> </span>&#123;</span><br><span class="line">    Deque&lt;Integer&gt; mainStack;</span><br><span class="line">    Deque&lt;Integer&gt; helpStack;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mainStack = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        helpStack = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (!mainStack.isEmpty()) &#123;</span><br><span class="line">            helpStack.push(mainStack.pop());</span><br><span class="line">        &#125;</span><br><span class="line">        mainStack.push(x);</span><br><span class="line">        <span class="keyword">while</span> (!helpStack.isEmpty()) &#123;</span><br><span class="line">            mainStack.push(helpStack.pop());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mainStack.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">peek</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mainStack.peek();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">empty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mainStack.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
-<li>时间复杂度：<ul>
-<li>push: $O(N)$</li>
-<li>pop: $O(1)$</li>
-<li>peek: $O(1)$</li>
-<li>empty: $O(1)$</li>
-</ul>
-</li>
-<li>空间复杂度：$O(N)$</li>
-</ul>
-<h2 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h2><ul>
-<li>我们将一个栈用作进栈<code>inStack</code>，另一个栈用作<code>outStack</code></li>
-<li>因为是将<code>inStack</code>的中的所有元素<code>pop</code>出来，<code>push</code>到<code>outStack</code>中去，则发生位置反转，所以<code>outStack</code>的栈顶元素就是我们队列的队头</li>
-<li>出队元素的话只需要从<code>outStack</code>中将栈顶元素<code>pop</code>即可</li>
-<li>如果<code>outStack</code>是 空的，就需要将<code>inStack</code>中的所有元素移动到<code>outStack</code>中去</li>
-<li><strong>注意：如果<code>outStack</code>中如果不是空的，不能将<code>inStack</code>中的元素移过去，否则顺序被打乱</strong></li>
-</ul>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyQueue</span> </span>&#123;</span><br><span class="line">    Deque&lt;Integer&gt; inStack;</span><br><span class="line">    Deque&lt;Integer&gt; outStack;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        inStack = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">        outStack = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 因为inStack作用就是用于进栈，所以无需其他判断条件</span></span><br><span class="line">        inStack.push(x);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 如果outStack是空的，那么就需要将inStack中的元素移动到outStack中去，然后再pop</span></span><br><span class="line">        <span class="keyword">if</span> (outStack.isEmpty()) &#123;</span><br><span class="line">            move();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> outStack.pop();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">peek</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (outStack.isEmpty()) &#123;</span><br><span class="line">            move();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> outStack.peek();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 只有两个栈都是空的，就说明队列是空的</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">empty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> inStack.isEmpty() &amp;&amp; outStack.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将inStack中的元素移动到outStack中</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (!inStack.isEmpty()) &#123;</span><br><span class="line">            outStack.push(inStack.pop());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
-<li>时间复杂度：<ul>
-<li>push: $O(1)$</li>
-<li>pop: $O(N)$</li>
-<li>peek: $O(N)$</li>
-<li>empty: $O(1)$</li>
-</ul>
-</li>
-<li>空间复杂度：$O(N)$</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>力扣 - 160. 相交链表</title>
-    <url>/2021/05/19/leetcode-intersection-of-two-linked-lists/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/intersection-of-two-linked-lists/">160. 相交链表</a></p>
-<h2 id="思路1（暴力）"><a href="#思路1（暴力）" class="headerlink" title="思路1（暴力）"></a>思路1（暴力）</h2><ul>
-<li>暴力遍历</li>
-<li>当遍历其中一个链表每一个元素时，都将该元素和另一个链表的每一个元素进行比较，如果相等就相交。时间复杂度比较大。。。</li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (headA == <span class="keyword">null</span> || headB == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (headA != <span class="keyword">null</span>) &#123;</span><br><span class="line">            ListNode p = headB;</span><br><span class="line">            <span class="keyword">while</span> (p != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (p == headA) &#123;</span><br><span class="line">                    <span class="keyword">return</span> headA;</span><br><span class="line">                &#125;</span><br><span class="line">                p = p.next;</span><br><span class="line">            &#125;</span><br><span class="line">            headA = headA.next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
-<li>时间复杂度：$O(MN)$，其中 M、N 为链表的长度</li>
-<li>空间复杂度：$O(1)$</li>
-</ul>
-<h2 id="思路2（哈希表）"><a href="#思路2（哈希表）" class="headerlink" title="思路2（哈希表）"></a>思路2（哈希表）</h2><ul>
-<li>使用哈希表，其中一个链表存到哈希表中，然后遍历另一个链表，将其添加到原来的哈希表中，如果存在，就是找到相交的结点了</li>
-</ul>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (headA == <span class="keyword">null</span> || headB == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        HashSet&lt;ListNode&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">while</span> (headA != <span class="keyword">null</span>) &#123;</span><br><span class="line">            set.add(headA);</span><br><span class="line">            headA = headA.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (headB != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!set.add(headB)) &#123;</span><br><span class="line">                <span class="keyword">return</span> headB;</span><br><span class="line">            &#125;</span><br><span class="line">            headB = headB.next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
-<li>时间复杂度：$O(M+N)$，其中 M、N 为链表的长度</li>
-<li>空间复杂度：$O(N)或O(M)$，其中 M、N 为链表的长度</li>
-</ul>
-<h2 id="思路3（双指针）"><a href="#思路3（双指针）" class="headerlink" title="思路3（双指针）"></a>思路3（双指针）</h2><ul>
-<li>我们可以将另一端链表虚拟拼接（如果实际改变指针的话会导致死循环）到本段链表后面（null不要省略），两个链表此时时灯等长的。然后两个链表同时从头开始遍历，如果存在相交的结点，那么<code>p1 != p2</code>就不会成立，因此找到答案，退出循环；如果没有找到答案，最后都会为null，同样跳出循环，得到结果</li>
-<li>例1（相交）：<ul>
-<li>headA={4, 2, 8, 4, 5}，headB={5, 0, 1, 8, 4, 5}，虚拟拼接后为：</li>
-<li>headA={4, 2, 8, 4, 5, null, 5, 0, 1, 8, 4, 5, null}，headB={5, 0, 1, 8, 4, 5, null, 4, 2, 8, 4, 5, null}</li>
-<li>当索引为9时，结点都是8，此时退出循环，找到答案</li>
-</ul>
-</li>
-<li>例2（不相交）：<ul>
-<li>headA={1, 2, 3}，headB={4, 3, 2, 1}，虚拟拼接后为：</li>
-<li>headA={1, 2, 3, null, 4, 3, 2, 1, null}，headB={4, 3, 2, 1, null, 1, 2, 3, null}</li>
-<li>当索引为8时，两个指针都指向null，此时也退出循环，不过返回的时null，即没有找到答案</li>
-</ul>
-</li>
-</ul>
-<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 如果其中一个存在空链表，直接返回null</span></span><br><span class="line">        <span class="keyword">if</span> (headA == <span class="keyword">null</span> || headB == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ListNode p1 = headA;</span><br><span class="line">        ListNode p2 = headB;</span><br><span class="line">        <span class="comment">// 当还没相遇时，一直遍历下取，如果两个都没有相遇，最终都为null，那么也会退出循环</span></span><br><span class="line">        <span class="keyword">while</span> (p1 != p2) &#123;</span><br><span class="line">            <span class="keyword">if</span> (p1 == <span class="keyword">null</span>) &#123;</span><br><span class="line">                p1 = headB;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                p1 = p1.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (p2 == <span class="keyword">null</span>) &#123;</span><br><span class="line">                p2 = headA;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                p2 = p2.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> p1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析-2"><a href="#复杂度分析-2" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
-<li>时间复杂度：$O(M+N)$，其中 M、N 为链表长度</li>
-<li>空间复杂度：$O(1)$</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>768. 最多能完成排序的块 II</title>
-    <url>/2021/05/15/leetcode-max-chunks-to-make-sorted-ii/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/max-chunks-to-make-sorted-ii/">768. 最多能完成排序的块 II</a></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
-<li>利用<strong>单调递减栈</strong>来解题<ul>
-<li>遍历数组，将元素存入栈中，再利用max记录当前栈顶的最大值</li>
-<li>如果遇到比当前栈元素大的值，那么可以<strong>直接入栈</strong>，因为可以单独分一块；但是如果遇到比当前栈顶元素小的值，那么应该将之前的元素<strong>依次出栈</strong>，直到遇到<strong>小于等于</strong>该值的元素停止出栈，然后将max再push入栈（push的这个max就代表了这一个块）<ul>
-<li>例如：有该数组 {1, 1, 3, 4, 5, 2, 6, 7}，此时栈为{1, 1, 3, 4, 5}</li>
-<li>接下来遍历到2了，2比max即5小，所以开始出栈，顺序是：5、4、3，由于1小于2，所以停止出栈，接下来将max(5)入栈，此时栈为：{1, 1, 5}</li>
-</ul>
-</li>
-<li>不断遍历，直到数组遍历结束，此时栈中有多少个元素就代表有多少个块了</li>
-</ul>
-</li>
-<li>分块规则：<strong>后一块元素的最小值大于等于前一块元素的最大值</strong></li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxChunksToSorted</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        Deque&lt;Integer&gt; stack = <span class="keyword">new</span>  LinkedList&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">int</span> max = -<span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (!stack.isEmpty() &amp;&amp; arr[i] &lt; arr[max]) &#123;</span><br><span class="line">                <span class="keyword">while</span> (!stack.isEmpty() &amp;&amp; arr[i] &lt; arr[stack.peek()]) &#123;</span><br><span class="line">                    stack.pop() ;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 此处不能stack.push(i)，push的必须是这一组的最大值</span></span><br><span class="line">                stack.push(max);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                stack.push(i);</span><br><span class="line">                max = stack.peek();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> stack.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
-<li>时间复杂度：$O(N)$， N 为数组长度</li>
-<li>空间复杂度：$O(N)$，N为栈的大小</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>力扣 - 142. 环形链表 II</title>
-    <url>/2021/05/20/leetcode-linked-list-cycle-ii/</url>
+    <url>/post/47975.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/linked-list-cycle-ii/">142. 环形链表 II</a></p>
 <h2 id="思路1（哈希表）"><a href="#思路1（哈希表）" class="headerlink" title="思路1（哈希表）"></a>思路1（哈希表）</h2><ul>
 <li>利用哈希表HashSet，保存访问过的路径，如果未访问过，就add添加且返回true，如果已存在再添加的话就会返回该结点，而且该结点就是他们重合的结点，否则返回null</li>
@@ -457,8 +427,71 @@
       </tags>
   </entry>
   <entry>
+    <title>768. 最多能完成排序的块 II</title>
+    <url>/post/36314.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/max-chunks-to-make-sorted-ii/">768. 最多能完成排序的块 II</a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
+<li>利用<strong>单调递减栈</strong>来解题<ul>
+<li>遍历数组，将元素存入栈中，再利用max记录当前栈顶的最大值</li>
+<li>如果遇到比当前栈元素大的值，那么可以<strong>直接入栈</strong>，因为可以单独分一块；但是如果遇到比当前栈顶元素小的值，那么应该将之前的元素<strong>依次出栈</strong>，直到遇到<strong>小于等于</strong>该值的元素停止出栈，然后将max再push入栈（push的这个max就代表了这一个块）<ul>
+<li>例如：有该数组 {1, 1, 3, 4, 5, 2, 6, 7}，此时栈为{1, 1, 3, 4, 5}</li>
+<li>接下来遍历到2了，2比max即5小，所以开始出栈，顺序是：5、4、3，由于1小于2，所以停止出栈，接下来将max(5)入栈，此时栈为：{1, 1, 5}</li>
+</ul>
+</li>
+<li>不断遍历，直到数组遍历结束，此时栈中有多少个元素就代表有多少个块了</li>
+</ul>
+</li>
+<li>分块规则：<strong>后一块元素的最小值大于等于前一块元素的最大值</strong></li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxChunksToSorted</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        Deque&lt;Integer&gt; stack = <span class="keyword">new</span>  LinkedList&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">int</span> max = -<span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (!stack.isEmpty() &amp;&amp; arr[i] &lt; arr[max]) &#123;</span><br><span class="line">                <span class="keyword">while</span> (!stack.isEmpty() &amp;&amp; arr[i] &lt; arr[stack.peek()]) &#123;</span><br><span class="line">                    stack.pop() ;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 此处不能stack.push(i)，push的必须是这一组的最大值</span></span><br><span class="line">                stack.push(max);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                stack.push(i);</span><br><span class="line">                max = stack.peek();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> stack.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
+<li>时间复杂度：$O(N)$， N 为数组长度</li>
+<li>空间复杂度：$O(N)$，N为栈的大小</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>力扣 - 104. 二叉树的最大深度</title>
+    <url>/post/33781.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/">104. 二叉树的最大深度</a></p>
+<h2 id="思路1（递归）"><a href="#思路1（递归）" class="headerlink" title="思路1（递归）"></a>思路1（递归）</h2><ul>
+<li>自顶向下，利用递归</li>
+<li>从子结构中择优，选择最大的那个</li>
+<li>其实就是树的后序遍历</li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 到底就开始返回</span></span><br><span class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取左右子树的高度</span></span><br><span class="line">        <span class="keyword">int</span> leftHeight = maxDepth(root.left);</span><br><span class="line">        <span class="keyword">int</span> rightHeight = maxDepth(root.right);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 择优</span></span><br><span class="line">        <span class="keyword">return</span> Math.max(leftHeight, rightHeight) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
+<li>时间复杂度：$O(N)$，其中 N 为树的结点数量</li>
+<li>空间复杂度：$O(N)$，其中 N 为树的最大高度</li>
+</ul>
+<h2 id="思路2（迭代）"><a href="#思路2（迭代）" class="headerlink" title="思路2（迭代）"></a>思路2（迭代）</h2><ul>
+<li>使用迭代方法来做，利用队列实现</li>
+<li>队列存储的是每一层的所有的结点数</li>
+<li>同时还需要用一个res来存储层数</li>
+<li>刚开始就要res初始化为0，同时将root根节点入队</li>
+</ul>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        Queue&lt;TreeNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        queue.offer(root);</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="comment">// 获取上一层的元素个数</span></span><br><span class="line">            <span class="keyword">int</span> size = queue.size();</span><br><span class="line">            <span class="comment">// 将上一层元素出队同时将下一层元素入队</span></span><br><span class="line">            <span class="keyword">while</span> (size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                TreeNode n = queue.poll();</span><br><span class="line">                <span class="keyword">if</span> (n.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    queue.offer(n.left);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (n.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    queue.offer(n.right);</span><br><span class="line">                &#125;</span><br><span class="line">                size--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 高度+1</span></span><br><span class="line">            res++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
+<li>时间复杂度：$O(N)$，其中 N 为树的结点个数</li>
+<li>空间复杂度：$O(N)$，其中 N 为树的结点个数</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>力扣 - 61. 旋转链表</title>
-    <url>/2021/05/16/leetcode-rotate-list/</url>
+    <url>/post/17743.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/rotate-list/">61. 旋转链表</a></p>
 <h2 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h2><ul>
 <li>可以将链表首位相连接，变成一个循环链表</li>
@@ -487,7 +520,7 @@
   </entry>
   <entry>
     <title>力扣 - 821. 字符的最短距离</title>
-    <url>/2021/05/11/leetcode-shortest-distance-to-a-character/</url>
+    <url>/post/8733.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/shortest-distance-to-a-character/">821. 字符的最短距离</a></p>
 <h2 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h2><ul>
 <li><p>使用一个res数组，而且要初始化为Integer.MAX_VALUE</p>
@@ -524,41 +557,8 @@
       </tags>
   </entry>
   <entry>
-    <title>力扣 - 104. 二叉树的最大深度</title>
-    <url>/2021/05/13/leetcode-maximum-depth-of-binary-tree/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/">104. 二叉树的最大深度</a></p>
-<h2 id="思路1（递归）"><a href="#思路1（递归）" class="headerlink" title="思路1（递归）"></a>思路1（递归）</h2><ul>
-<li>自顶向下，利用递归</li>
-<li>从子结构中择优，选择最大的那个</li>
-<li>其实就是树的后序遍历</li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 到底就开始返回</span></span><br><span class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取左右子树的高度</span></span><br><span class="line">        <span class="keyword">int</span> leftHeight = maxDepth(root.left);</span><br><span class="line">        <span class="keyword">int</span> rightHeight = maxDepth(root.right);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 择优</span></span><br><span class="line">        <span class="keyword">return</span> Math.max(leftHeight, rightHeight) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
-<li>时间复杂度：$O(N)$，其中 N 为树的结点数量</li>
-<li>空间复杂度：$O(N)$，其中 N 为树的最大高度</li>
-</ul>
-<h2 id="思路2（迭代）"><a href="#思路2（迭代）" class="headerlink" title="思路2（迭代）"></a>思路2（迭代）</h2><ul>
-<li>使用迭代方法来做，利用队列实现</li>
-<li>队列存储的是每一层的所有的结点数</li>
-<li>同时还需要用一个res来存储层数</li>
-<li>刚开始就要res初始化为0，同时将root根节点入队</li>
-</ul>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        Queue&lt;TreeNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        queue.offer(root);</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="comment">// 获取上一层的元素个数</span></span><br><span class="line">            <span class="keyword">int</span> size = queue.size();</span><br><span class="line">            <span class="comment">// 将上一层元素出队同时将下一层元素入队</span></span><br><span class="line">            <span class="keyword">while</span> (size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                TreeNode n = queue.poll();</span><br><span class="line">                <span class="keyword">if</span> (n.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    queue.offer(n.left);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (n.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    queue.offer(n.right);</span><br><span class="line">                &#125;</span><br><span class="line">                size--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 高度+1</span></span><br><span class="line">            res++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a><strong>复杂度分析</strong></h3><ul>
-<li>时间复杂度：$O(N)$，其中 N 为树的结点个数</li>
-<li>空间复杂度：$O(N)$，其中 N 为树的结点个数</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>力扣刷题目录</title>
-    <url>/2021/05/10/leetcode-summary/</url>
+    <url>/post/344.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="第一周（16）"><a href="#第一周（16）" class="headerlink" title="第一周（16）"></a>第一周（16）</h2><h3 id="easy-12"><a href="#easy-12" class="headerlink" title="easy - 12"></a>easy - 12</h3><ol>
 <li><a href="https://linzeliang.top/2021/05/13/leetcode-maximum-depth-of-binary-tree/">104. 二叉树的最大深度</a>（题解）</li>
 <li><a href="https://linzeliang.top/2021/05/14/leetcode-implement-queue-using-stacks/">232. 用栈实现队列</a>（题解）</li>
@@ -625,7 +625,7 @@
   </entry>
   <entry>
     <title>力扣 - 24. 两两交换链表中的节点</title>
-    <url>/2021/05/17/leetcode-swap-nodes-in-pairs/</url>
+    <url>/post/7578.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode-cn.com/problems/swap-nodes-in-pairs/">24. 两两交换链表中的节点</a></p>
 <h2 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h2><ul>
 <li>链表可以创建一个头结点来辅助解题，再创建一个指针指向头结点（该指针是把链表连起来用的），然后按照1指向3、2指向1完成交换，指针也下移两位，一直循环，直到刚好交换完或者剩下一个结点时候结束循环，完成交换</li>
@@ -645,7 +645,7 @@
   </entry>
   <entry>
     <title>MyBatis笔记（一）</title>
-    <url>/2021/04/10/mybatis-note-1/</url>
+    <url>/post/14253.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h2><h3 id="1-1-什么是MyBatis"><a href="#1-1-什么是MyBatis" class="headerlink" title="1.1 什么是MyBatis"></a>1.1 什么是MyBatis</h3><ul>
 <li><p>MyBatis 是一款优秀的持久层框架</p>
 </li>
@@ -754,7 +754,7 @@
   </entry>
   <entry>
     <title>MyBatis笔记（二）</title>
-    <url>/2021/04/11/mybatis-note-2/</url>
+    <url>/post/39997.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-CRUD操作"><a href="#1-CRUD操作" class="headerlink" title="1. CRUD操作"></a>1. CRUD操作</h2><h3 id="1-1-select"><a href="#1-1-select" class="headerlink" title="1.1 select"></a>1.1 select</h3><ul>
 <li><p>select标签是mybatis中最常用的标签之一</p>
 </li>
@@ -1022,7 +1022,7 @@
   </entry>
   <entry>
     <title>MyBatis笔记（三）</title>
-    <url>/2021/04/11/mybatis-note-3/</url>
+    <url>/post/43950.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-ResultMap"><a href="#1-ResultMap" class="headerlink" title="1. ResultMap"></a>1. ResultMap</h2><p><strong>查询结果为null：要解决属性和字段名不一致的问题</strong></p>
 <p><strong>我们先来看下步骤：</strong></p>
 <ol>
@@ -1160,7 +1160,7 @@
   </entry>
   <entry>
     <title>MyBatis笔记（四）</title>
-    <url>/2021/04/12/mybatis-note-4/</url>
+    <url>/post/40637.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="1-面向接口编程"><a href="#1-面向接口编程" class="headerlink" title="1. 面向接口编程"></a>1. 面向接口编程</h3><ul>
 <li>在真正的开发中，很多时候我们会选择面向接口编程</li>
 <li><strong>根本原因 :  解耦 , 可拓展 , 提高复用 , 分层开发中 , 上层不用管具体的实现 , 大家都遵守共同的标准 , 使得开发变得容易 , 规范性更好</strong></li>
@@ -1281,7 +1281,7 @@
   </entry>
   <entry>
     <title>MyBatis笔记（五）</title>
-    <url>/2021/04/12/mybatis-note-5/</url>
+    <url>/post/24188.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-多对一"><a href="#1-多对一" class="headerlink" title="1. 多对一"></a>1. 多对一</h2><p><strong>什么是多对一呢？</strong></p>
 <ul>
 <li>多个学生对应一个老师</li>
@@ -1374,7 +1374,7 @@
   </entry>
   <entry>
     <title>MyBatis笔记（六）</title>
-    <url>/2021/04/13/mybatis-note-6/</url>
+    <url>/post/20424.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-动态SQL"><a href="#1-动态SQL" class="headerlink" title="1. 动态SQL"></a>1. 动态SQL</h2><h3 id="1-1-介绍"><a href="#1-1-介绍" class="headerlink" title="1.1 介绍"></a>1.1 介绍</h3><ul>
 <li><p>概念：<strong>动态SQL指的是根据不同的查询条件 , 生成不同的Sql语句.</strong></p>
 <blockquote>
@@ -1482,7 +1482,7 @@
   </entry>
   <entry>
     <title>MyBatis笔记（七）</title>
-    <url>/2021/04/17/mybatis-note-7/</url>
+    <url>/post/40637.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h3><ol>
 <li>什么是缓存？<ul>
 <li>存在内存中的临时数据</li>
@@ -1598,7 +1598,7 @@
   </entry>
   <entry>
     <title>Win10安装MySQL5和MySQL8</title>
-    <url>/2021/05/12/mysql-57-80-install/</url>
+    <url>/post/34202.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-下载数据库，配置环境变量"><a href="#1-下载数据库，配置环境变量" class="headerlink" title="1. 下载数据库，配置环境变量"></a>1. 下载数据库，配置环境变量</h2><p><strong>因为是安装两个MySQL数据库，端口号要不一样，MySQL默认端口号是3306，建议先配置非默认端口号，以免出现问题</strong></p>
 <h3 id="1-1-官网下载5-7和8-0的压缩包"><a href="#1-1-官网下载5-7和8-0的压缩包" class="headerlink" title="1.1 官网下载5.7和8.0的压缩包"></a>1.1 <a href="https://downloads.mysql.com/archives/community/">官网</a>下载5.7和8.0的压缩包</h3><ul>
 <li>我下载的是<code>5.7.23</code> 和<code>8.0.23</code></li>
@@ -1661,7 +1661,7 @@
   </entry>
   <entry>
     <title>浅谈单调栈</title>
-    <url>/2021/05/16/qian-tan-dan-diao-zhan/</url>
+    <url>/post/39310.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="什么是单调栈？"><a href="#什么是单调栈？" class="headerlink" title="什么是单调栈？"></a>什么是单调栈？</h2><ul>
 <li>单调栈实际上就是栈，只是限制要比普通的栈更严格而已了。要求是每次入栈的元素必须要有序（如果新元素入栈不符合要求，则将之前的元素出栈，直到符合要求再入栈），使之形成<strong>单调递增/单调递</strong>减的一个栈。</li>
 </ul>
@@ -1719,7 +1719,7 @@
   </entry>
   <entry>
     <title>Spring笔记（一）</title>
-    <url>/2021/03/18/spring-note-1/</url>
+    <url>/post/38895.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="一、IoC容器（概念）"><a href="#一、IoC容器（概念）" class="headerlink" title="一、IoC容器（概念）"></a>一、IoC容器（概念）</h2><h3 id="1-什么是IoC？"><a href="#1-什么是IoC？" class="headerlink" title="1. 什么是IoC？"></a>1. 什么是IoC？</h3><ul>
 <li><strong>控制反转</strong>，把对象创建和对象之间得调用过程，交给了Spring来管理</li>
 <li>使用IoC得目的：为了降低耦合度</li>
@@ -1955,7 +1955,7 @@
   </entry>
   <entry>
     <title>Srping笔记（二）</title>
-    <url>/2021/03/24/spring-note-2/</url>
+    <url>/post/23957.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="三、-IoC容器-Bean管理（基于注解方式）"><a href="#三、-IoC容器-Bean管理（基于注解方式）" class="headerlink" title="三、 IoC容器 - Bean管理（基于注解方式）"></a>三、 IoC容器 - Bean管理（基于注解方式）</h2><h3 id="1-什么是注解"><a href="#1-什么是注解" class="headerlink" title="1. 什么是注解"></a>1. 什么是注解</h3><ul>
 <li>注解是代码的特殊标记，格式：@注解名称(属性名称=属性值, 属性名称=属性值)</li>
 <li>使用注解，注解作用在类的上面、方法上面、属性上面</li>
@@ -2030,7 +2030,7 @@
   </entry>
   <entry>
     <title>Spring笔记（三）</title>
-    <url>/2021/03/25/spring-note-3/</url>
+    <url>/post/3052.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="一、AOP（概念）"><a href="#一、AOP（概念）" class="headerlink" title="一、AOP（概念）"></a>一、AOP（概念）</h2><h3 id="1-什么是AOP"><a href="#1-什么是AOP" class="headerlink" title="1. 什么是AOP"></a>1. 什么是AOP</h3><ul>
 <li><p>面向切面编程（方面），利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻辑各个部分之间的耦合度降低，提高程序的可重用性，同时提高了开发的效率</p>
 </li>
@@ -2178,8 +2178,89 @@
       </tags>
   </entry>
   <entry>
+    <title>Srping笔记（四）</title>
+    <url>/post/16173.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="一、JdbcTemplate概念及使用"><a href="#一、JdbcTemplate概念及使用" class="headerlink" title="一、JdbcTemplate概念及使用"></a>一、JdbcTemplate概念及使用</h2><h3 id="1-什么是JdbcTemplate："><a href="#1-什么是JdbcTemplate：" class="headerlink" title="1. 什么是JdbcTemplate："></a>1. 什么是JdbcTemplate：</h3><ul>
+<li>Spring框架对JDBC进行封装，使用JdbcTemplate方便实现对数据库的操作</li>
+</ul>
+<h3 id="2-使用步骤："><a href="#2-使用步骤：" class="headerlink" title="2. 使用步骤："></a>2. 使用步骤：</h3><ol>
+<li><p>引入相关jar包</p>
+</li>
+<li><p>在spring配置文件中配置数据库连接池</p>
+<p><strong>jdbc.properties</strong></p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">jdbc.driverClass</span>=<span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="meta">jdbc.url</span>=<span class="string">jdbc:mysql://localhost:3306/spring</span></span><br><span class="line"><span class="meta">jdbc.username</span>=<span class="string">root</span></span><br><span class="line"><span class="meta">jdbc.password</span>=<span class="string">root</span></span><br></pre></td></tr></table></figure>
+<p><strong>bean1.xml</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 数据库连接池 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.alibaba.druid.pool.DruidDataSource&quot;</span> <span class="attr">destroy-method</span>=<span class="string">&quot;close&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driverClassName&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.driverClass&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.url&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.username&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.password&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置JdbcTemplate对象，注入DataSource</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 创建JdbcTemplate对象 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;jdbcTemplate&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.jdbc.core.JdbcTemplate&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 注入DataSource --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;dataSource&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建service类、dao类，在dao中注入JdbcTemplate、在service中注入dao</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 组件扫描 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;com.atguigu&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//注入 dao</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> BookDao bookDao;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookDaoImpl</span> <span class="keyword">implements</span> <span class="title">BookDao</span> </span>&#123;</span><br><span class="line">    <span class="comment">//注入 JdbcTemplate</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JdbcTemplate jdbcTemplate;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="二、JdbcTemplate操作数据库"><a href="#二、JdbcTemplate操作数据库" class="headerlink" title="二、JdbcTemplate操作数据库"></a>二、JdbcTemplate操作数据库</h2><h3 id="1-添加"><a href="#1-添加" class="headerlink" title="1. 添加"></a>1. 添加</h3><ol>
+<li><p>对应数据库创建实体类</p>
+</li>
+<li><p>编写service和dao</p>
+<ol>
+<li><p>在dao中进行数据库的添加操作</p>
+</li>
+<li><p>调用JdbcTemplate对象里面的update方法实现添加操作</p>
+<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326114648349.png" alt=""></p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookDaoImpl</span> <span class="keyword">implements</span> <span class="title">BookDao</span> </span>&#123;</span><br><span class="line">    <span class="comment">//注入 JdbcTemplate</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JdbcTemplate jdbcTemplate;</span><br><span class="line">    <span class="comment">//添加的方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Book book)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//1 创建 sql 语句</span></span><br><span class="line">        String sql = <span class="string">&quot;insert into t_book values(?, ?, ?)&quot;</span>;</span><br><span class="line">        <span class="comment">//2 调用方法实现</span></span><br><span class="line">        Object[] args = &#123;book.getUserId(), book.getUsername(),book.getUstatus()&#125;;</span><br><span class="line">        <span class="keyword">int</span> update = jdbcTemplate.update(sql,args);</span><br><span class="line">        System.out.println(update);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="2-修改和删除"><a href="#2-修改和删除" class="headerlink" title="2. 修改和删除"></a>2. 修改和删除</h3><ul>
+<li><p>使用JdbcTemplate 模板所实现的<code>增删改</code>都是调用了同一个 <code>update</code>方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1、修改</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateBook</span><span class="params">(Book book)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;update t_book set username=?, ustatus=? where user_id=?&quot;</span>;</span><br><span class="line">    Object[] args = &#123;book.getUsername(), book.getUstatus(),book.getUserId()&#125;;</span><br><span class="line">    <span class="keyword">int</span> update = jdbcTemplate.update(sql, args);</span><br><span class="line">    System.out.println(update);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、删除</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;delete from t_book where user_id=?&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span> update = jdbcTemplate.update(sql, id);</span><br><span class="line">    System.out.println(update);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="3-查询返回某个值"><a href="#3-查询返回某个值" class="headerlink" title="3. 查询返回某个值"></a>3. 查询返回某个值</h3><ul>
+<li><p>查询表里又多少条记录，返回的是一个值</p>
+</li>
+<li><p>使用JdbcTemplate实现查询返回某个值</p>
+<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326115344780.png" alt=""></p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//查询表记录数</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">selectCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;select count(*) from t_book&quot;</span>;</span><br><span class="line">    <span class="comment">//queryForObject方法中：第一个参数代表--sql语句；第二个参数代表--返回类型class  </span></span><br><span class="line">    Integer count = jdbcTemplate.queryForObject(sql, Integer.class);</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-查询返回对象"><a href="#4-查询返回对象" class="headerlink" title="4. 查询返回对象"></a>4. 查询返回对象</h3><ul>
+<li><p>使用JdbcTemplate实现查询返回对象</p>
+<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326115622624.png" alt=""></p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//查询返回对象</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Book <span class="title">findBookInfo</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;select * from t_book where user_id=?&quot;</span>;</span><br><span class="line">    <span class="comment">//调用方法</span></span><br><span class="line">    Book book = jdbcTemplate.queryForObject(sql, <span class="keyword">new</span> BeanPropertyRowMapper&lt;Book&gt;(Book.class), id);</span><br><span class="line">    <span class="keyword">return</span> book;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="5-查询返回集合"><a href="#5-查询返回集合" class="headerlink" title="5. 查询返回集合"></a>5. 查询返回集合</h3><ul>
+<li><p>使用JdbcTemplate实现查询返回集合</p>
+<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326115831077.png" alt=""></p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//所用场景：查询图书列表分页、、</span></span><br><span class="line"><span class="comment">//查询返回集合</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Book&gt; <span class="title">findAllBook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;select * from t_book&quot;</span>;</span><br><span class="line">    <span class="comment">//调用方法</span></span><br><span class="line">    List&lt;Book&gt; bookList = jdbcTemplate.query(sql, <span class="keyword">new</span> BeanPropertyRowMapper&lt;Book&gt;(Book.class));</span><br><span class="line">    <span class="keyword">return</span> bookList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="6-批量操作"><a href="#6-批量操作" class="headerlink" title="6. 批量操作"></a>6. 批量操作</h3><ul>
+<li>概念：操作表里多条记录</li>
+<li>JdbcTemplate实现批量操作</li>
+</ul>
+<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326120053965.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//批量添加</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchAddBook</span><span class="params">(List&lt;Object[]&gt; batchArgs)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;insert into t_book values(?,?,?)&quot;</span>;</span><br><span class="line">    <span class="comment">//batchUpdate方法 第一个参数：sql语句		第二个参数：List集合，添加多条记录数据</span></span><br><span class="line">    <span class="keyword">int</span>[] ints = jdbcTemplate.batchUpdate(sql, batchArgs);</span><br><span class="line">    System.out.println(Arrays.toString(ints));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//批量添加测试</span></span><br><span class="line">List&lt;Object[]&gt; batchArgs = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">Object[] o1 = &#123;<span class="string">&quot;3&quot;</span>,<span class="string">&quot;java&quot;</span>,<span class="string">&quot;a&quot;</span>&#125;;</span><br><span class="line">Object[] o2 = &#123;<span class="string">&quot;4&quot;</span>,<span class="string">&quot;c++&quot;</span>,<span class="string">&quot;b&quot;</span>&#125;;</span><br><span class="line">Object[] o3 = &#123;<span class="string">&quot;5&quot;</span>,<span class="string">&quot;MySQL&quot;</span>,<span class="string">&quot;c&quot;</span>&#125;;</span><br><span class="line">batchArgs.add(o1);</span><br><span class="line">batchArgs.add(o2);</span><br><span class="line">batchArgs.add(o3);</span><br><span class="line"><span class="comment">//调用批量添加</span></span><br><span class="line">bookService.batchAdd(batchArgs);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>批量修改操作</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//批量修改(同批量添加一样，调用同一个方法)</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchUpdateBook</span><span class="params">(List&lt;Object[]&gt; batchArgs)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;update t_book set username=?,ustatus=? where user_id=?&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span>[] ints = jdbcTemplate.batchUpdate(sql, batchArgs);</span><br><span class="line">    System.out.println(Arrays.toString(ints));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>框架学习</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Srping笔记（五）</title>
-    <url>/2021/03/27/spring-note-5/</url>
+    <url>/post/64915.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="一、事务（概念）"><a href="#一、事务（概念）" class="headerlink" title="一、事务（概念）"></a>一、事务（概念）</h2><h3 id="1-什么是事务"><a href="#1-什么是事务" class="headerlink" title="1. 什么是事务"></a>1. 什么是事务</h3><ol>
 <li>事务是数据库的最基本单元，逻辑上的一组操作，要么都成功，如果有一个失败，那么所有的操作都失败</li>
 <li>典型场景：<ul>
@@ -2351,89 +2432,8 @@
       </tags>
   </entry>
   <entry>
-    <title>Srping笔记（四）</title>
-    <url>/2021/03/26/spring-note-4/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="一、JdbcTemplate概念及使用"><a href="#一、JdbcTemplate概念及使用" class="headerlink" title="一、JdbcTemplate概念及使用"></a>一、JdbcTemplate概念及使用</h2><h3 id="1-什么是JdbcTemplate："><a href="#1-什么是JdbcTemplate：" class="headerlink" title="1. 什么是JdbcTemplate："></a>1. 什么是JdbcTemplate：</h3><ul>
-<li>Spring框架对JDBC进行封装，使用JdbcTemplate方便实现对数据库的操作</li>
-</ul>
-<h3 id="2-使用步骤："><a href="#2-使用步骤：" class="headerlink" title="2. 使用步骤："></a>2. 使用步骤：</h3><ol>
-<li><p>引入相关jar包</p>
-</li>
-<li><p>在spring配置文件中配置数据库连接池</p>
-<p><strong>jdbc.properties</strong></p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">jdbc.driverClass</span>=<span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="meta">jdbc.url</span>=<span class="string">jdbc:mysql://localhost:3306/spring</span></span><br><span class="line"><span class="meta">jdbc.username</span>=<span class="string">root</span></span><br><span class="line"><span class="meta">jdbc.password</span>=<span class="string">root</span></span><br></pre></td></tr></table></figure>
-<p><strong>bean1.xml</strong></p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 数据库连接池 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.alibaba.druid.pool.DruidDataSource&quot;</span> <span class="attr">destroy-method</span>=<span class="string">&quot;close&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driverClassName&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.driverClass&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.url&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.username&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.password&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置JdbcTemplate对象，注入DataSource</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 创建JdbcTemplate对象 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;jdbcTemplate&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.jdbc.core.JdbcTemplate&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 注入DataSource --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;dataSource&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建service类、dao类，在dao中注入JdbcTemplate、在service中注入dao</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 组件扫描 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;com.atguigu&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//注入 dao</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> BookDao bookDao;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookDaoImpl</span> <span class="keyword">implements</span> <span class="title">BookDao</span> </span>&#123;</span><br><span class="line">    <span class="comment">//注入 JdbcTemplate</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JdbcTemplate jdbcTemplate;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="二、JdbcTemplate操作数据库"><a href="#二、JdbcTemplate操作数据库" class="headerlink" title="二、JdbcTemplate操作数据库"></a>二、JdbcTemplate操作数据库</h2><h3 id="1-添加"><a href="#1-添加" class="headerlink" title="1. 添加"></a>1. 添加</h3><ol>
-<li><p>对应数据库创建实体类</p>
-</li>
-<li><p>编写service和dao</p>
-<ol>
-<li><p>在dao中进行数据库的添加操作</p>
-</li>
-<li><p>调用JdbcTemplate对象里面的update方法实现添加操作</p>
-<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326114648349.png" alt=""></p>
-</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookDaoImpl</span> <span class="keyword">implements</span> <span class="title">BookDao</span> </span>&#123;</span><br><span class="line">    <span class="comment">//注入 JdbcTemplate</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JdbcTemplate jdbcTemplate;</span><br><span class="line">    <span class="comment">//添加的方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Book book)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//1 创建 sql 语句</span></span><br><span class="line">        String sql = <span class="string">&quot;insert into t_book values(?, ?, ?)&quot;</span>;</span><br><span class="line">        <span class="comment">//2 调用方法实现</span></span><br><span class="line">        Object[] args = &#123;book.getUserId(), book.getUsername(),book.getUstatus()&#125;;</span><br><span class="line">        <span class="keyword">int</span> update = jdbcTemplate.update(sql,args);</span><br><span class="line">        System.out.println(update);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="2-修改和删除"><a href="#2-修改和删除" class="headerlink" title="2. 修改和删除"></a>2. 修改和删除</h3><ul>
-<li><p>使用JdbcTemplate 模板所实现的<code>增删改</code>都是调用了同一个 <code>update</code>方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1、修改</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateBook</span><span class="params">(Book book)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;update t_book set username=?, ustatus=? where user_id=?&quot;</span>;</span><br><span class="line">    Object[] args = &#123;book.getUsername(), book.getUstatus(),book.getUserId()&#125;;</span><br><span class="line">    <span class="keyword">int</span> update = jdbcTemplate.update(sql, args);</span><br><span class="line">    System.out.println(update);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、删除</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;delete from t_book where user_id=?&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span> update = jdbcTemplate.update(sql, id);</span><br><span class="line">    System.out.println(update);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="3-查询返回某个值"><a href="#3-查询返回某个值" class="headerlink" title="3. 查询返回某个值"></a>3. 查询返回某个值</h3><ul>
-<li><p>查询表里又多少条记录，返回的是一个值</p>
-</li>
-<li><p>使用JdbcTemplate实现查询返回某个值</p>
-<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326115344780.png" alt=""></p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//查询表记录数</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">selectCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;select count(*) from t_book&quot;</span>;</span><br><span class="line">    <span class="comment">//queryForObject方法中：第一个参数代表--sql语句；第二个参数代表--返回类型class  </span></span><br><span class="line">    Integer count = jdbcTemplate.queryForObject(sql, Integer.class);</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-查询返回对象"><a href="#4-查询返回对象" class="headerlink" title="4. 查询返回对象"></a>4. 查询返回对象</h3><ul>
-<li><p>使用JdbcTemplate实现查询返回对象</p>
-<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326115622624.png" alt=""></p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//查询返回对象</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Book <span class="title">findBookInfo</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;select * from t_book where user_id=?&quot;</span>;</span><br><span class="line">    <span class="comment">//调用方法</span></span><br><span class="line">    Book book = jdbcTemplate.queryForObject(sql, <span class="keyword">new</span> BeanPropertyRowMapper&lt;Book&gt;(Book.class), id);</span><br><span class="line">    <span class="keyword">return</span> book;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="5-查询返回集合"><a href="#5-查询返回集合" class="headerlink" title="5. 查询返回集合"></a>5. 查询返回集合</h3><ul>
-<li><p>使用JdbcTemplate实现查询返回集合</p>
-<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326115831077.png" alt=""></p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//所用场景：查询图书列表分页、、</span></span><br><span class="line"><span class="comment">//查询返回集合</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Book&gt; <span class="title">findAllBook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;select * from t_book&quot;</span>;</span><br><span class="line">    <span class="comment">//调用方法</span></span><br><span class="line">    List&lt;Book&gt; bookList = jdbcTemplate.query(sql, <span class="keyword">new</span> BeanPropertyRowMapper&lt;Book&gt;(Book.class));</span><br><span class="line">    <span class="keyword">return</span> bookList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="6-批量操作"><a href="#6-批量操作" class="headerlink" title="6. 批量操作"></a>6. 批量操作</h3><ul>
-<li>概念：操作表里多条记录</li>
-<li>JdbcTemplate实现批量操作</li>
-</ul>
-<p><img src="https://gitee.com/linzeliang1222/picture/raw/master/image-20210326120053965.png" alt=""></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//批量添加</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchAddBook</span><span class="params">(List&lt;Object[]&gt; batchArgs)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;insert into t_book values(?,?,?)&quot;</span>;</span><br><span class="line">    <span class="comment">//batchUpdate方法 第一个参数：sql语句		第二个参数：List集合，添加多条记录数据</span></span><br><span class="line">    <span class="keyword">int</span>[] ints = jdbcTemplate.batchUpdate(sql, batchArgs);</span><br><span class="line">    System.out.println(Arrays.toString(ints));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//批量添加测试</span></span><br><span class="line">List&lt;Object[]&gt; batchArgs = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">Object[] o1 = &#123;<span class="string">&quot;3&quot;</span>,<span class="string">&quot;java&quot;</span>,<span class="string">&quot;a&quot;</span>&#125;;</span><br><span class="line">Object[] o2 = &#123;<span class="string">&quot;4&quot;</span>,<span class="string">&quot;c++&quot;</span>,<span class="string">&quot;b&quot;</span>&#125;;</span><br><span class="line">Object[] o3 = &#123;<span class="string">&quot;5&quot;</span>,<span class="string">&quot;MySQL&quot;</span>,<span class="string">&quot;c&quot;</span>&#125;;</span><br><span class="line">batchArgs.add(o1);</span><br><span class="line">batchArgs.add(o2);</span><br><span class="line">batchArgs.add(o3);</span><br><span class="line"><span class="comment">//调用批量添加</span></span><br><span class="line">bookService.batchAdd(batchArgs);</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>批量修改操作</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//批量修改(同批量添加一样，调用同一个方法)</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchUpdateBook</span><span class="params">(List&lt;Object[]&gt; batchArgs)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;update t_book set username=?,ustatus=? where user_id=?&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span>[] ints = jdbcTemplate.batchUpdate(sql, batchArgs);</span><br><span class="line">    System.out.println(Arrays.toString(ints));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>框架学习</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringMVC笔记（一）</title>
-    <url>/2021/04/25/springmvc-note-1/</url>
+    <url>/post/12733.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-MVC回顾"><a href="#1-MVC回顾" class="headerlink" title="1. MVC回顾"></a>1. MVC回顾</h2><h3 id="1-1-什么是MVC？"><a href="#1-1-什么是MVC？" class="headerlink" title="1.1 什么是MVC？"></a>1.1 什么是MVC？</h3><ul>
 <li>MVC是模型（Model）、视图（View）、控制器（Controller）的简写，是一种软件设计规范</li>
 <li>是将业务逻辑、数据、显示分离的方法来组织代码</li>
@@ -2498,8 +2498,97 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringMVC笔记（二）</title>
+    <url>/post/41415.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-创建SpringMVC程序"><a href="#1-创建SpringMVC程序" class="headerlink" title="1. 创建SpringMVC程序"></a>1. 创建SpringMVC程序</h2><h3 id="1-1-配置文件方式"><a href="#1-1-配置文件方式" class="headerlink" title="1.1 配置文件方式"></a>1.1 配置文件方式</h3><ol>
+<li><p>创建web项目</p>
+</li>
+<li><p>配置pom.xml，导入依赖</p>
+</li>
+<li><p>配置web.xml，注册DispatcherServlet</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">version</span>=<span class="string">&quot;4.0&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--1.注册DispatcherServlet--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springmvc<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--关联一个springmvc的配置文件:【servlet-name】-servlet.xml--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:springmvc-servlet.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--启动级别-1--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--/ 匹配所有的请求；（不包括.jsp）--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--/* 匹配所有的请求；（包括.jsp）--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springmvc<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写SpringMVC的配置文件，springmvc-servlet.xml</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加处理映射器</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加处理适配器</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加视图解析器</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;</span> <span class="attr">id</span>=<span class="string">&quot;internalResourceViewResolver&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--前缀--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;prefix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;/WEB-INF/jsp/&quot;</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--后缀--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;suffix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;.jsp&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写Controller，要么实现Controller接口，要么使用注解，需要返回一个ModelAndView，装数据，封视图</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.linzeliang.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.ModelAndView;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.mvc.Controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 先导入Controller接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> <span class="keyword">implements</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handleRequest</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// ModelAndView 模型和视图</span></span><br><span class="line">        ModelAndView mv = <span class="keyword">new</span> ModelAndView();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 封装对象，放在ModelAndView中。Model</span></span><br><span class="line">        mv.addObject(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;HelloSpringMVC!&quot;</span>);</span><br><span class="line">        <span class="comment">// 封装要跳转的视图，放在ModelAndView中</span></span><br><span class="line">        <span class="comment">// /WEB-INF/jsp/hello.jsp</span></span><br><span class="line">        mv.setViewName(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> mv;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将类交给SpringIOC，注册Bean</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Handler --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- id中要加斜杠 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;/hello&quot;</span> <span class="attr">class</span>=<span class="string">&quot;top.linzeliang.controller.HelloController&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写对应jsp页面</p>
+<figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;%@ page contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="string">&quot;java&quot;</span> %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;title&gt;Kuangshen&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        $&#123;msg&#125;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动Tomcat服务器，进行测试</p>
+<ul>
+<li><strong>如果出现404错误，则检查lib包是否导入成功了</strong></li>
+</ul>
+</li>
+</ol>
+<h3 id="1-2-注解方式"><a href="#1-2-注解方式" class="headerlink" title="1.2 注解方式"></a>1.2 注解方式</h3><ol>
+<li><p>创建web项目</p>
+</li>
+<li><p>配置pom.xml，导入依赖</p>
+<ul>
+<li><p>Spring框架核心库</p>
+</li>
+<li><p>SpringMVC</p>
+</li>
+<li><p>Servlet</p>
+</li>
+<li><p>JSTL</p>
+</li>
+<li><p>由于Maven可能存在资源过滤，所以要配置一下如下信息以防万一</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span>   <span class="tag">&lt;<span class="name">resources</span>&gt;</span>       <span class="tag">&lt;<span class="name">resource</span>&gt;</span>           <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/java<span class="tag">&lt;/<span class="name">directory</span>&gt;</span>           <span class="tag">&lt;<span class="name">includes</span>&gt;</span>               <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.properties<span class="tag">&lt;/<span class="name">include</span>&gt;</span>               <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span>           <span class="tag">&lt;/<span class="name">includes</span>&gt;</span>           <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>false<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span>       <span class="tag">&lt;/<span class="name">resource</span>&gt;</span>       <span class="tag">&lt;<span class="name">resource</span>&gt;</span>           <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span>           <span class="tag">&lt;<span class="name">includes</span>&gt;</span>               <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.properties<span class="tag">&lt;/<span class="name">include</span>&gt;</span>               <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span>           <span class="tag">&lt;/<span class="name">includes</span>&gt;</span>           <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>false<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span>       <span class="tag">&lt;/<span class="name">resource</span>&gt;</span>   <span class="tag">&lt;/<span class="name">resources</span>&gt;</span><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>配置web.xml，注册DispatcherServlet</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span>         <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;</span>         <span class="attr">version</span>=<span class="string">&quot;4.0&quot;</span>&gt;</span>    <span class="comment">&lt;!--1.注册DispatcherServlet--&gt;</span>    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span>        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springmvc<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span>        <span class="comment">&lt;!--关联一个springmvc的配置文件:【servlet-name】-servlet.xml--&gt;</span>        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span>            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span>            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:springmvc-servlet.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span>        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span>        <span class="comment">&lt;!--启动级别-1--&gt;</span>        <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span>    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span>    <span class="comment">&lt;!--/ 匹配所有的请求；（不包括.jsp）--&gt;</span>    <span class="comment">&lt;!--/* 匹配所有的请求；（包括.jsp）--&gt;</span>    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span>        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springmvc<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span>    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加SpringMVC配置文件，springmvc-servlet.xml</p>
+<ul>
+<li><p>再resource目录下添加springmvc-servlet.xml配置文件，配置文件的形式与Spring容器配置基本类似，为了支持基于注解的IOC，设置了自动扫描包的功能</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span>       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>       <span class="attr">xmlns:context</span>=<span class="string">&quot;http://www.springframework.org/schema/context&quot;</span>       <span class="attr">xmlns:mvc</span>=<span class="string">&quot;http://www.springframework.org/schema/mvc&quot;</span>       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans                           http://www.springframework.org/schema/beans/spring-beans.xsd                           http://www.springframework.org/schema/context                           https://www.springframework.org/schema/context/spring-context.xsd                           http://www.springframework.org/schema/mvc                           https://www.springframework.org/schema/mvc/spring-mvc.xsd&quot;</span>&gt;</span>    <span class="comment">&lt;!-- 自动扫描包，让指定包下的注解生效,由IOC容器统一管理 --&gt;</span>    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;top.linzeliang.controller&quot;</span>/&gt;</span>    <span class="comment">&lt;!-- 让Spring MVC不处理静态资源 --&gt;</span>    <span class="tag">&lt;<span class="name">mvc:default-servlet-handler</span> /&gt;</span>    <span class="comment">&lt;!--       启用注解驱动       在spring中一般采用@RequestMapping注解来完成映射关系       要想使@RequestMapping注解生效       必须向上下文中注册DefaultAnnotationHandlerMapping       和一个AnnotationMethodHandlerAdapter实例       这两个实例分别在类级别和方法级别处理。       而annotation-driven配置帮助我们自动完成上述两个实例的注入。    --&gt;</span>    <span class="tag">&lt;<span class="name">mvc:annotation-driven</span> /&gt;</span>    <span class="comment">&lt;!-- 视图解析器 --&gt;</span>    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;</span>          <span class="attr">id</span>=<span class="string">&quot;internalResourceViewResolver&quot;</span>&gt;</span>        <span class="comment">&lt;!-- 前缀 --&gt;</span>        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;prefix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;/WEB-INF/jsp/&quot;</span> /&gt;</span>        <span class="comment">&lt;!-- 后缀 --&gt;</span>        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;suffix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;.jsp&quot;</span> /&gt;</span>    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>创建Controller类</p>
+<ul>
+<li>@Controller是为了让SpringIOC容器初始化时自动扫描到</li>
+<li>@RequestMapping是为了映射请求路径</li>
+<li>方法中的Model类型的参数是为了把Action中的数据带到视图中</li>
+<li>方法返回的结果是视图的名称，加上配置文件中的前后缀变成/WEB-INF/jsp/hello.jsp</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.linzeliang.controller;<span class="keyword">import</span> org.springframework.stereotype.Controller;<span class="keyword">import</span> org.springframework.ui.Model;<span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;<span class="meta">@Controller</span><span class="meta">@RequestMapping(&quot;/HelloController&quot;)</span><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;    <span class="comment">//真实访问地址 : 项目名/HelloController/hello    @RequestMapping(&quot;/hello&quot;)    public String sayHello(Model model)&#123;        //向模型中添加属性msg与值，可以在JSP页面中取出并渲染        model.addAttribute(&quot;msg&quot;,&quot;hello,SpringMVC&quot;);        //web-inf/jsp/hello.jsp        return &quot;hello&quot;;    &#125;&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建视图层（页面）</p>
+<figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;%@ page contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="string">&quot;java&quot;</span> %&gt;&lt;html&gt;    &lt;head&gt;        &lt;title&gt;SpringMVC&lt;/title&gt;    &lt;/head&gt;    &lt;body&gt;        $&#123;msg&#125;    &lt;/body&gt;&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进行测试</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>框架学习</category>
+      </categories>
+      <tags>
+        <tag>SpringMVC</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringMVC笔记（三）</title>
-    <url>/2021/04/28/springmvc-note-3/</url>
+    <url>/post/43951.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-Controller"><a href="#1-Controller" class="headerlink" title="1. Controller"></a>1. Controller</h2><ul>
 <li>控制器复制提供访问应用程序的行为，通常通过接口定义或注解定义两种方法实现</li>
 <li>控制器负责解析用户的请求并将其转换为一个模型</li>
@@ -2589,7 +2678,7 @@
   </entry>
   <entry>
     <title>SpringMVC笔记（四）</title>
-    <url>/2021/04/28/springmvc-note-4/</url>
+    <url>/post/50047.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-结果跳转方式"><a href="#1-结果跳转方式" class="headerlink" title="1. 结果跳转方式"></a>1. 结果跳转方式</h2><h3 id="1-1-ModelAndView"><a href="#1-1-ModelAndView" class="headerlink" title="1.1 ModelAndView"></a>1.1 ModelAndView</h3><p>设置ModelAndView对象，根据view的名称和视图解析器跳转到指定的页面（视图解析器前缀 + viewName + 视图解析器后缀）</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 视图解析器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">id</span>=<span class="string">&quot;internalResourceViewResolver&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 前缀 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;prefix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;/WEB-INF/jsp/&quot;</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 后缀 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;suffix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;.jsp&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>对应的Controller控制器</p>
@@ -2641,97 +2730,8 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringMVC笔记（二）</title>
-    <url>/2021/04/27/springmvc-note-2/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-创建SpringMVC程序"><a href="#1-创建SpringMVC程序" class="headerlink" title="1. 创建SpringMVC程序"></a>1. 创建SpringMVC程序</h2><h3 id="1-1-配置文件方式"><a href="#1-1-配置文件方式" class="headerlink" title="1.1 配置文件方式"></a>1.1 配置文件方式</h3><ol>
-<li><p>创建web项目</p>
-</li>
-<li><p>配置pom.xml，导入依赖</p>
-</li>
-<li><p>配置web.xml，注册DispatcherServlet</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">version</span>=<span class="string">&quot;4.0&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--1.注册DispatcherServlet--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springmvc<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--关联一个springmvc的配置文件:【servlet-name】-servlet.xml--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:springmvc-servlet.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--启动级别-1--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--/ 匹配所有的请求；（不包括.jsp）--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--/* 匹配所有的请求；（包括.jsp）--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springmvc<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编写SpringMVC的配置文件，springmvc-servlet.xml</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>添加处理映射器</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>添加处理适配器</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>添加视图解析器</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;</span> <span class="attr">id</span>=<span class="string">&quot;internalResourceViewResolver&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--前缀--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;prefix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;/WEB-INF/jsp/&quot;</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--后缀--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;suffix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;.jsp&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编写Controller，要么实现Controller接口，要么使用注解，需要返回一个ModelAndView，装数据，封视图</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.linzeliang.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.ModelAndView;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.mvc.Controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 先导入Controller接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> <span class="keyword">implements</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handleRequest</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// ModelAndView 模型和视图</span></span><br><span class="line">        ModelAndView mv = <span class="keyword">new</span> ModelAndView();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 封装对象，放在ModelAndView中。Model</span></span><br><span class="line">        mv.addObject(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;HelloSpringMVC!&quot;</span>);</span><br><span class="line">        <span class="comment">// 封装要跳转的视图，放在ModelAndView中</span></span><br><span class="line">        <span class="comment">// /WEB-INF/jsp/hello.jsp</span></span><br><span class="line">        mv.setViewName(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> mv;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>将类交给SpringIOC，注册Bean</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Handler --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- id中要加斜杠 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;/hello&quot;</span> <span class="attr">class</span>=<span class="string">&quot;top.linzeliang.controller.HelloController&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编写对应jsp页面</p>
-<figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;%@ page contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="string">&quot;java&quot;</span> %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;title&gt;Kuangshen&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        $&#123;msg&#125;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动Tomcat服务器，进行测试</p>
-<ul>
-<li><strong>如果出现404错误，则检查lib包是否导入成功了</strong></li>
-</ul>
-</li>
-</ol>
-<h3 id="1-2-注解方式"><a href="#1-2-注解方式" class="headerlink" title="1.2 注解方式"></a>1.2 注解方式</h3><ol>
-<li><p>创建web项目</p>
-</li>
-<li><p>配置pom.xml，导入依赖</p>
-<ul>
-<li><p>Spring框架核心库</p>
-</li>
-<li><p>SpringMVC</p>
-</li>
-<li><p>Servlet</p>
-</li>
-<li><p>JSTL</p>
-</li>
-<li><p>由于Maven可能存在资源过滤，所以要配置一下如下信息以防万一</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span>   <span class="tag">&lt;<span class="name">resources</span>&gt;</span>       <span class="tag">&lt;<span class="name">resource</span>&gt;</span>           <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/java<span class="tag">&lt;/<span class="name">directory</span>&gt;</span>           <span class="tag">&lt;<span class="name">includes</span>&gt;</span>               <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.properties<span class="tag">&lt;/<span class="name">include</span>&gt;</span>               <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span>           <span class="tag">&lt;/<span class="name">includes</span>&gt;</span>           <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>false<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span>       <span class="tag">&lt;/<span class="name">resource</span>&gt;</span>       <span class="tag">&lt;<span class="name">resource</span>&gt;</span>           <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span>           <span class="tag">&lt;<span class="name">includes</span>&gt;</span>               <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.properties<span class="tag">&lt;/<span class="name">include</span>&gt;</span>               <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span>           <span class="tag">&lt;/<span class="name">includes</span>&gt;</span>           <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>false<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span>       <span class="tag">&lt;/<span class="name">resource</span>&gt;</span>   <span class="tag">&lt;/<span class="name">resources</span>&gt;</span><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>配置web.xml，注册DispatcherServlet</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span>         <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;</span>         <span class="attr">version</span>=<span class="string">&quot;4.0&quot;</span>&gt;</span>    <span class="comment">&lt;!--1.注册DispatcherServlet--&gt;</span>    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span>        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springmvc<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span>        <span class="comment">&lt;!--关联一个springmvc的配置文件:【servlet-name】-servlet.xml--&gt;</span>        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span>            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span>            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:springmvc-servlet.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span>        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span>        <span class="comment">&lt;!--启动级别-1--&gt;</span>        <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span>    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span>    <span class="comment">&lt;!--/ 匹配所有的请求；（不包括.jsp）--&gt;</span>    <span class="comment">&lt;!--/* 匹配所有的请求；（包括.jsp）--&gt;</span>    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span>        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springmvc<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span>    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>添加SpringMVC配置文件，springmvc-servlet.xml</p>
-<ul>
-<li><p>再resource目录下添加springmvc-servlet.xml配置文件，配置文件的形式与Spring容器配置基本类似，为了支持基于注解的IOC，设置了自动扫描包的功能</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span>       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>       <span class="attr">xmlns:context</span>=<span class="string">&quot;http://www.springframework.org/schema/context&quot;</span>       <span class="attr">xmlns:mvc</span>=<span class="string">&quot;http://www.springframework.org/schema/mvc&quot;</span>       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans                           http://www.springframework.org/schema/beans/spring-beans.xsd                           http://www.springframework.org/schema/context                           https://www.springframework.org/schema/context/spring-context.xsd                           http://www.springframework.org/schema/mvc                           https://www.springframework.org/schema/mvc/spring-mvc.xsd&quot;</span>&gt;</span>    <span class="comment">&lt;!-- 自动扫描包，让指定包下的注解生效,由IOC容器统一管理 --&gt;</span>    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;top.linzeliang.controller&quot;</span>/&gt;</span>    <span class="comment">&lt;!-- 让Spring MVC不处理静态资源 --&gt;</span>    <span class="tag">&lt;<span class="name">mvc:default-servlet-handler</span> /&gt;</span>    <span class="comment">&lt;!--       启用注解驱动       在spring中一般采用@RequestMapping注解来完成映射关系       要想使@RequestMapping注解生效       必须向上下文中注册DefaultAnnotationHandlerMapping       和一个AnnotationMethodHandlerAdapter实例       这两个实例分别在类级别和方法级别处理。       而annotation-driven配置帮助我们自动完成上述两个实例的注入。    --&gt;</span>    <span class="tag">&lt;<span class="name">mvc:annotation-driven</span> /&gt;</span>    <span class="comment">&lt;!-- 视图解析器 --&gt;</span>    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;</span>          <span class="attr">id</span>=<span class="string">&quot;internalResourceViewResolver&quot;</span>&gt;</span>        <span class="comment">&lt;!-- 前缀 --&gt;</span>        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;prefix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;/WEB-INF/jsp/&quot;</span> /&gt;</span>        <span class="comment">&lt;!-- 后缀 --&gt;</span>        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;suffix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;.jsp&quot;</span> /&gt;</span>    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>创建Controller类</p>
-<ul>
-<li>@Controller是为了让SpringIOC容器初始化时自动扫描到</li>
-<li>@RequestMapping是为了映射请求路径</li>
-<li>方法中的Model类型的参数是为了把Action中的数据带到视图中</li>
-<li>方法返回的结果是视图的名称，加上配置文件中的前后缀变成/WEB-INF/jsp/hello.jsp</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.linzeliang.controller;<span class="keyword">import</span> org.springframework.stereotype.Controller;<span class="keyword">import</span> org.springframework.ui.Model;<span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;<span class="meta">@Controller</span><span class="meta">@RequestMapping(&quot;/HelloController&quot;)</span><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;    <span class="comment">//真实访问地址 : 项目名/HelloController/hello    @RequestMapping(&quot;/hello&quot;)    public String sayHello(Model model)&#123;        //向模型中添加属性msg与值，可以在JSP页面中取出并渲染        model.addAttribute(&quot;msg&quot;,&quot;hello,SpringMVC&quot;);        //web-inf/jsp/hello.jsp        return &quot;hello&quot;;    &#125;&#125;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建视图层（页面）</p>
-<figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;%@ page contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="string">&quot;java&quot;</span> %&gt;&lt;html&gt;    &lt;head&gt;        &lt;title&gt;SpringMVC&lt;/title&gt;    &lt;/head&gt;    &lt;body&gt;        $&#123;msg&#125;    &lt;/body&gt;&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>进行测试</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>框架学习</category>
-      </categories>
-      <tags>
-        <tag>SpringMVC</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringMVC笔记（五）</title>
-    <url>/2021/04/30/springmvc-note-5/</url>
+    <url>/post/449.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-拦截器"><a href="#1-拦截器" class="headerlink" title="1. 拦截器"></a>1. 拦截器</h2><h3 id="1-1-拦截器和过滤器"><a href="#1-1-拦截器和过滤器" class="headerlink" title="1.1 拦截器和过滤器"></a>1.1 拦截器和过滤器</h3><p>SpringMVC的处理器拦截器类似于Servlet开发过程中的过滤器Filter，用于对处理器进行预处理和后处理。我们可以自定义一些拦截器来实现特定的功能</p>
 <p>过滤器和拦截器的区别：<strong>拦截器是AOP思想的具体应用</strong></p>
 <p>过滤器：</p>
